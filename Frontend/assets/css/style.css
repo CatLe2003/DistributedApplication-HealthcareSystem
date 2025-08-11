@@ -341,7 +341,7 @@ footer {
 .intro-left {
     flex: 1 1 55%;
     text-align: left;
-    padding: 0 10px;
+    padding: 20px 10px;
 }
 
 .intro-left h2 {
@@ -602,7 +602,7 @@ footer {
     background: var(--primary-color);
     color: white;
     min-height: 40px;
-    max-width: 182px;
+    max-width: 220px;
     font-size: 16px;
     padding: 10px 20px;
     border: none;
