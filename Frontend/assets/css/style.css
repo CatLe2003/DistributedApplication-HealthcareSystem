@@ -11,6 +11,10 @@
     --primary-hover: #4427a3;
     --text-color: #181945;
 }
+h1 {
+    font-family: 'Merienda', cursive;
+    color: var(--primary-color);
+}
 html {
     scroll-behavior: smooth;
     font-size: 16px;
@@ -290,7 +294,7 @@ footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    max-width: 1120px;
+    max-width: 90%;
     margin: 0 auto;
     gap: 32px;
     text-align: left;
@@ -315,7 +319,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     gap: 32px;
-    margin: 100px 160px 0 160px;
+    margin: 120px 160px 0 160px;
 }
 
 .social-icon {
@@ -332,9 +336,10 @@ footer {
     justify-content: space-between;
     align-items: center;
     gap: 32px;
-    padding: 20px 20px;
-    max-width: 1120px;
+    padding: 20px 30px;
+    max-width: 100%;
     /* margin-inline: auto; */
+    margin: 0 16px;
     flex-wrap: wrap;
 }
 
@@ -568,7 +573,7 @@ footer {
 
 .logo-box h1 {
     font-size: 32px;
-    color: var(--text-color);
+    /* color: var(--text-color); */
 }
 
 .login-field {
