@@ -161,7 +161,7 @@ a {
     top: 70%;
     background: white;
     border: 1px solid #ddd;
-    width: 100%;
+    min-width: 120%;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     margin-top: 16px;
@@ -171,7 +171,8 @@ a {
 }
 
 .dropdown-user a:hover {
-    background-color: #f3f3f3
+    background-color: #f3f3f3;
+    color: var(--primary-hover)
 }
 
 .dropdown-user a {
@@ -180,7 +181,10 @@ a {
     display: block;
     text-decoration: none;
     transition: background 0.2s;
+}
 
+.dropdown-user i {
+    margin-right: 10px;
 }
 
 .user-dropdown:hover .dropdown-user {

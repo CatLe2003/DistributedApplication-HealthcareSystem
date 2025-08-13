@@ -42,6 +42,9 @@
     font-style: normal;
     text-decoration: none;
     justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    align-items: center;
 }
 
 .navbar-header__logo {
@@ -51,6 +54,7 @@
     width: 48px;
     background-repeat: no-repeat;
     background-size: contain;
+    margin: 0 8px;
 }
 .navbar-header__name {
     font-size: 2.2rem;
