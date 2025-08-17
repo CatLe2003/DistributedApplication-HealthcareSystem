@@ -696,7 +696,7 @@ footer {
 }
 
 .paper-detail-description {
-    margin: 8px 0;
+    margin: 18px 0;
     color: var(--text-color);
 }
 
@@ -935,3 +935,47 @@ function closePopup() {
     transform: scale(1.2);
 }
 
+.payment-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.info-box {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 5px;
+}
+
+.info-box h3 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+/* Popup overlay */
+.popup-overlay {
+  display: none; /* Ẩn mặc định */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Popup box */
+.popup-box {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}

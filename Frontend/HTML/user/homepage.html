@@ -8,8 +8,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/Frontend/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merienda:wght@700;800&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 </head>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const logoutLink = document.querySelector('a[href="login.html"]');
+        const popup = document.getElementById("logout-popup");
+        const confirmBtn = document.getElementById("confirm-logout");
+        const cancelBtn = document.getElementById("cancel-logout");
+
+        // Khi bấm Logout -> hiện popup
+        logoutLink.addEventListener("click", function (e) {
+            e.preventDefault(); // chặn chuyển trang ngay
+            popup.style.display = "flex";
+        });
+
+        // Xác nhận Logout
+        confirmBtn.addEventListener("click", function () {
+            window.location.href = "login.html";
+        });
+
+        // Hủy -> đóng popup
+        cancelBtn.addEventListener("click", function () {
+            popup.style.display = "none";
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const logoutLink = document.getElementById("logout-btn"); // 'a[href="index.php?action=logout"]'
+        const popup = document.getElementById("logout-popup");
+        const confirmBtn = document.getElementById("confirm-logout");
+        const cancelBtn = document.getElementById("cancel-logout");
+
+        // Khi bấm Logout -> hiện popup
+        logoutLink.addEventListener("click", function (e) {
+            e.preventDefault(); // chặn hành vi mặc định
+            popup.style.display = "flex"; // hiện popup
+        });
+
+        // Xác nhận Logout
+        confirmBtn.addEventListener("click", function () {
+            window.location.href = "login.html"; // chuyển sang login
+        });
+
+        // Hủy -> đóng popup
+        cancelBtn.addEventListener("click", function () {
+            popup.style.display = "none";
+        });
+    });
+</script>
 
 <body>
     <div class="container">
@@ -28,7 +79,7 @@
                 <!-- <a href="index.php?action=login" class="btn-header">Login</a> -->
 
                 <!-- If login -->
-                <a href="index.php?action=add-paper" class="btn-primary">Book an appointment</a>
+                <a href="../appt/add_appt.html" class="btn-primary">Book an appointment</a>
                 <div class="user-dropdown">
                     <div class="user-info">
                         <div class="avatar-circle"></div>
@@ -36,15 +87,27 @@
                     </div>
                     <div class="dropdown-user">
                         <a href="index.php?action=profile">
-                            <i class="fa-solid fa-file-invoice nav-item__icon"></i>                            
+                            <i class="fa-solid fa-file-invoice nav-item__icon"></i>
                             Profile
                         </a>
-                        <a href="index.php?action=logout">
+                        <a href="javascript:void(0)" id="logout-btn">
                             <i class="fa-solid fa-right-from-bracket nav-item__icon"></i>
                             Logout
                         </a>
                     </div>
                 </div>
+                <!-- Logout Confirmation Popup -->
+                <div id="logout-popup" class="popup-overlay">
+                    <div class="popup-box">
+                        <h3 class="paper-list-title">Confirm Logout</h3>
+                        <p class="paper-detail-description">Are you sure you want to logout?</p>
+                        <div style="margin-top: 15px;">
+                            <button id="confirm-logout" class="btn-primary">Yes, Logout</button>
+                            <button id="cancel-logout" class="btn-outline">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </header>
@@ -56,7 +119,7 @@
                 <p>
                     Access your medical information anytime, anywhere.
                 </p>
-                <a href="index.php?action=list-papers" class="btn-primary">Your medical record</a>
+                <a href="../appt/add_appt.html" class="btn-primary">Book an appointment</a>
             </div>
             <div class="intro-right">
                 <img src="/Frontend/assets/images/banner.png" alt="Banner image">
