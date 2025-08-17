@@ -47,7 +47,7 @@ class PatientController extends Controller
             // Any other error
             return response()->json(['message' => 'Unexpected error'], 500);
         }
-    }  
+    }
     public function show($id)
     {
         $patient = Patient::find($id);
@@ -56,4 +56,62 @@ class PatientController extends Controller
         }
         return response()->json($patient);
     }
+
+    public function update(Request $request, $id)
+    {
+        $patient = Patient::find($id);
+
+        if (!$patient) {
+            return response()->json(['message' => 'Patient not found'], 404);
+        }
+
+        try {
+            // Validation rules (email & citizen_id must ignore current patient)
+            $incomingFields = $request->validate([
+                'full_name' => 'sometimes|string|max:255',
+                'email' => 'sometimes|email|unique:patient,email,' . $id,
+                'phone_number' => 'sometimes|string|max:15',
+                'gender' => 'sometimes|string|max:10',
+                'date_of_birth' => 'sometimes|date',
+                'citizen_id' => 'sometimes|string|max:15|unique:patient,citizen_id,' . $id,
+                'address' => 'sometimes|string|max:255',
+                'nationality' => 'sometimes|string|max:255',
+                'ethnicity' => 'sometimes|string|max:255',
+                'occupation' => 'sometimes|string|max:255',
+                'allergy' => 'sometimes|string|max:255',
+            ]);
+
+            $patient->update($incomingFields);
+
+            return response()->json([
+                'message' => 'Patient updated successfully',
+                'data' => $patient
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Unexpected error'], 500);
+        }
+    }
+
+    public function delete($id)
+    {
+        $patient = Patient::find($id);
+
+        if (!$patient) {
+            return response()->json(['message' => 'Patient not found'], 404);
+        }
+
+        try {
+            $patient->delete();
+
+            return response()->json(['message' => 'Patient deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Unexpected error'], 500);
+        }
+    }
+
 }

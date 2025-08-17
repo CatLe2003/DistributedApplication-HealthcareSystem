@@ -9,21 +9,39 @@ use Illuminate\Validation\ValidationException;
 
 class PrescriptionController extends Controller
 {
-     public function create(Request $request)
+    public function create(Request $request)
     {
         try {
-            // Validation phase
-            $incomingFields = $request->validate([
+            // 1. Validate the request
+            $validated = $request->validate([
                 'visit_id' => 'required|exists:medicalvisit,id',
-                'notes' => 'nullable|string|max:255',
-                'status' => 'required|string|max:255',
+                'status' => 'required|string|in:printed, not printed',
                 'date' => 'required|date',
+                'notes' => 'nullable|string',
+
+                'details' => 'required|array|min:1',
+                'details.*.medicine_id' => 'required|integer',
+                'details.*.dosage' => 'required|string',
+                'details.*.duration' => 'required|string'
             ]);
 
-            // Database insert phase
-            Prescription::create($incomingFields);
+            // 2. Create the prescription (parent)
+            $prescription = Prescription::create([
+                'visit_id' => $validated['visit_id'],
+                'status' => $validated['status'],
+                'date' => $validated['date'],
+                'notes' => $validated['notes'] ?? null
+            ]);
 
-            return response()->json(['message' => 'Prescription created successfully']);
+            // 3. Create multiple prescription details (children)
+            foreach ($validated['details'] as $detail) {
+                $prescription->details()->create([
+                    'medicine_id' => $detail['medicine_id'],
+                    'dosage' => $detail['dosage'],
+                    'duration' => $detail['duration']
+                ]);
+            }
+            return response()->json($prescription->load('details'));
         } catch (ValidationException $e) {
             // Laravel validation error (duplicate found during validation or invalid input)
             return response()->json([
@@ -40,10 +58,10 @@ class PrescriptionController extends Controller
             // Any other error
             return response()->json(['message' => 'Unexpected error'], 500);
         }
-    }  
+    }
     public function show($id)
     {
-        $prescription = Prescription::find($id);
+        $prescription = Prescription::with('details')->find($id);
         if (!$prescription) {
             return response()->json(['message' => 'Prescription not found'], 404);
         }
