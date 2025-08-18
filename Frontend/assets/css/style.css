@@ -1,46 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap');
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
+
 :root {
     --bg-color: #0c2b3c;
-    --primary-color: #583fbc; /* rgb(88, 63, 188) */
+    --primary-color: #583fbc;
+    /* rgb(88, 63, 188) */
     --secondary-color: #DBEFFA;
     --primary-hover: #4427a3;
     --text-color: #181945;
 }
+
 h1 {
     font-family: 'Merienda', cursive;
     color: var(--primary-color);
 }
+
 html {
     scroll-behavior: smooth;
     font-size: 16px;
 }
+
 body {
     margin: 0;
     font-family: 'Lexend', sans-serif;
     background-color: white;
     color: black;
 }
+
 header {
     position: fixed;
     top: 0;
     width: 100%;
     background: white;
     z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
+
 /* common style */
 img {
     width: 100%;
 }
+
 a {
     text-decoration: none;
     color: var(--text-color);
 }
+
 /* layouts */
 .container {
     max-width: 100%;
@@ -50,11 +60,13 @@ a {
     background: white;
     align-items: center;
 }
+
 @media only screen and (max-width: 768px) {
     .container {
         width: 100%;
     }
 }
+
 /* Header */
 .nav-container {
     display: flex;
@@ -75,6 +87,7 @@ a {
     justify-content: space-between;
 
 }
+
 .nav-header__logo {
     background-color: var(--white-color);
     border-radius: 4px;
@@ -83,18 +96,21 @@ a {
     background-repeat: no-repeat;
     background-size: contain;
 }
+
 .nav-header__name {
     font-size: 28px;
     color: var(--primary-color);
     margin: 16px 8px;
 }
+
 .nav-items {
     list-style: none;
     display: flex;
     height: auto;
     width: fit-content;
-    margin: 16px 8px; 
+    margin: 16px 8px;
 }
+
 .nav-item {
     text-decoration: none;
     font-weight: 600;
@@ -103,11 +119,13 @@ a {
     display: inline-block;
     transition: background-color 0.3s;
 }
+
 .nav-item:hover {
     /* background-color: var(--primary-color); */
     font-weight: 600;
     color: var(--primary-color);
 }
+
 .nav-item:first-child a {
     background-color: var(--primary-color);
     color: var(--primary-color);
@@ -161,14 +179,15 @@ a {
     top: 70%;
     background: white;
     border: 1px solid #ddd;
-    min-width: 120%;
+    /* min-width: max-content;    rộng theo text dài nhất */
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-top: 16px;
     padding: 8px 16px;
     z-index: 10;
     border: 1px solid var(--secondary-color);
 }
+
 
 .dropdown-user a:hover {
     background-color: #f3f3f3;
@@ -178,10 +197,16 @@ a {
 .dropdown-user a {
     color: var(--text-color);
     padding: 8px 10px;
-    display: block;
+    display: flex;
+    /* icon + text trên cùng một hàng */
+    align-items: center;
+    /* căn giữa icon với text */
     text-decoration: none;
     transition: background 0.2s;
+    white-space: nowrap;
+    /* không xuống dòng */
 }
+
 
 .dropdown-user i {
     margin-right: 10px;
@@ -201,15 +226,18 @@ a {
     max-width: 1200px;
     margin-inline: auto;
 }
+
 .intro-section h2 {
     font-weight: 600;
     font-size: 1.8rem;
 }
+
 .search-container {
     max-width: 800px;
     margin: 2rem auto;
     text-align: center;
 }
+
 .search-container input {
     width: 100%;
     padding: 12px;
@@ -217,6 +245,7 @@ a {
     border-radius: 24px;
     font-size: 16px;
 }
+
 .topic-section {
     max-width: 100%;
     margin: 48px auto;
@@ -232,8 +261,9 @@ a {
     font-weight: 700;
     color: var(--primary-color);
 }
+
 .breakline {
-    border-color: rgba(255,255,255,0.3); 
+    border-color: rgba(255, 255, 255, 0.3);
     margin: 16px 0 8px 0;
 }
 
@@ -243,6 +273,7 @@ a {
     align-items: center;
     margin: 20px 0 20px 0;
 }
+
 .subtopic-header {
     font-size: 20px;
     font-weight: 700;
@@ -274,10 +305,12 @@ a {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
 }
+
 .paper-card:hover {
     transform: translateY(-1px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
+
 .paper-title {
     font-weight: 600;
     color: var(--text-color);
@@ -287,6 +320,7 @@ a {
     font-size: 0.9rem;
     color: var(--text-color);
 }
+
 /* Footer */
 footer {
     background: var(--text-color);
@@ -294,6 +328,7 @@ footer {
     padding: 32px 80px;
     margin-top: 64px;
 }
+
 .footer-grid {
     display: flex;
     flex-wrap: wrap;
@@ -303,21 +338,26 @@ footer {
     gap: 32px;
     text-align: left;
 }
+
 .footer-col {
     flex: 1 1 250px;
 }
+
 .footer-col p {
     margin: 8px 0;
     font-weight: 400;
 }
+
 .social-icons {
     text-align: center;
     margin-top: 16px;
 }
+
 .social-icons img {
     width: 24px;
     margin: 0 8px;
 }
+
 .main-container {
     display: block;
     justify-content: space-between;
@@ -384,10 +424,12 @@ footer {
         text-align: center;
     }
 
-    .intro-left, .intro-right {
+    .intro-left,
+    .intro-right {
         flex: 1 1 100%;
     }
 }
+
 /* List papers */
 .paper-list-container {
     max-width: 1200px;
@@ -401,6 +443,7 @@ footer {
     font-weight: 700;
     margin-bottom: 1rem;
 }
+
 /* Button filter */
 .btn-filter {
     background-color: var(--primary-color);
@@ -443,7 +486,7 @@ footer {
     background-color: white;
     min-width: 220px;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     z-index: 999;
     padding: 12px 0;
     border: 1px solid var(--secondary-color);
@@ -466,6 +509,7 @@ footer {
     color: var(--primary-color);
     background-color: #f3f3f3
 }
+
 /* Show dropdown when hovering filter area */
 .filter-dropdown:hover .dropdown-content {
     display: block;
@@ -486,14 +530,14 @@ footer {
     border: 1px solid var(--secondary-color);
     border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     background-color: white;
 }
 
 .paper-list-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .paper-list-title {
@@ -507,6 +551,7 @@ footer {
     color: var(--text-color);
     margin-bottom: 10px;
 }
+
 /* Pagination */
 .pagination {
     display: flex;
@@ -556,7 +601,7 @@ footer {
     background: white;
     padding: 28px 24px;
     border-radius: 15px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     text-align: center;
     max-width: 420px;
     width: 100%;
@@ -592,7 +637,7 @@ footer {
     width: 100%;
     padding: 12px;
     border: 1px solid rgba(88, 63, 188, 0.4);
-    border-radius: 15px;  
+    border-radius: 15px;
     font-size: 16px;
     outline: none;
     background-color: white;
@@ -677,7 +722,7 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.05);
+    background: rgba(0, 0, 0, 0.05);
     /* display: none; */
     align-items: center;
     justify-content: center;
@@ -690,7 +735,7 @@ footer {
     border-radius: 15px;
     width: 600px;
     max-width: 90%;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     text-align: left;
     position: relative;
 }
@@ -716,8 +761,8 @@ footer {
 }
 
 .delete-icon {
-  color: red;
-  cursor: pointer;
+    color: red;
+    cursor: pointer;
 }
 
 .add-author-link {
@@ -750,6 +795,7 @@ body:not(.is-admin) .admin-only {
 body.user-is-author .add-author-link {
     display: none;
 }
+
 /* <script>
 function openPopup() {
   document.getElementById("paperDetailPopup").style.display = "flex";
@@ -905,6 +951,7 @@ function closePopup() {
 .view-all:hover {
     text-decoration: underline;
 }
+
 /* Add Paper */
 .author-list-section {
     /* margin-top: 32px; */
@@ -941,7 +988,7 @@ function closePopup() {
     background: #fff;
     padding: 20px 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .info-box {
@@ -959,23 +1006,80 @@ function closePopup() {
 
 /* Popup overlay */
 .popup-overlay {
-  display: none; /* Ẩn mặc định */
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
+    display: none;
+    /* Ẩn mặc định */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Popup box */
 .popup-box {
-  background: #fff;
-  padding: 25px 30px;
-  border-radius: 8px;
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Grid danh sách bệnh án */
+.record-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-top: 16px;
+}
+
+/* Thẻ bệnh án */
+.record-card {
+    border: 1px solid rgba(88, 63, 188, 0.4);
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    outline: none;
+}
+
+.record-card:hover,
+.record-card:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+    background: #f8fbff;
+}
+
+.record-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+/* Modal */
+.modal {
+    background: #fff;
+    width: min(92vw, 720px);
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
 }

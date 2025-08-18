@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Paper - LifeCare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/Frontend/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merienda:wght@700;800&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const logoutLink = document.querySelector('a[href="login.html"]');
+        const popup = document.getElementById("logout-popup");
+        const confirmBtn = document.getElementById("confirm-logout");
+        const cancelBtn = document.getElementById("cancel-logout");
+
+        // Khi bấm Logout -> hiện popup
+        logoutLink.addEventListener("click", function (e) {
+            e.preventDefault(); // chặn chuyển trang ngay
+            popup.style.display = "flex";
+        });
+
+        // Xác nhận Logout
+        confirmBtn.addEventListener("click", function () {
+            window.location.href = "login.html";
+        });
+
+        // Hủy -> đóng popup
+        cancelBtn.addEventListener("click", function () {
+            popup.style.display = "none";
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const logoutLink = document.getElementById("logout-btn"); // 'a[href="index.php?action=logout"]'
+        const popup = document.getElementById("logout-popup");
+        const confirmBtn = document.getElementById("confirm-logout");
+        const cancelBtn = document.getElementById("cancel-logout");
+
+        // Khi bấm Logout -> hiện popup
+        logoutLink.addEventListener("click", function (e) {
+            e.preventDefault(); // chặn hành vi mặc định
+            popup.style.display = "flex"; // hiện popup
+        });
+
+        // Xác nhận Logout
+        confirmBtn.addEventListener("click", function () {
+            window.location.href = "login.html"; // chuyển sang login
+        });
+
+        // Hủy -> đóng popup
+        cancelBtn.addEventListener("click", function () {
+            popup.style.display = "none";
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // --- mở modal khi click/thao tác bàn phím ---
+        function openModalFromCard(card) {
+            const modal = document.getElementById('record-modal');
+            // set nội dung
+            document.getElementById('m-date').textContent = card.dataset.date || '';
+            document.getElementById('m-dept').textContent = card.dataset.dept || '';
+            document.getElementById('m-doctor').textContent = card.dataset.doctor || '';
+            document.getElementById('m-symptoms').textContent = card.dataset.symptoms || '';
+            document.getElementById('m-diagnosis').textContent = card.dataset.diagnosis || '';
+            document.getElementById('m-prescription').textContent = card.dataset.prescription || '';
+            document.getElementById('m-tests').textContent = card.dataset.tests || '';
+            document.getElementById('m-notes').textContent = card.dataset.notes || '';
+
+            modal.style.display = 'flex';
+            // chặn scroll nền
+            document.body.style.overflow = 'hidden';
+        }
+
+        document.querySelectorAll('.record-card').forEach(function (card) {
+            card.addEventListener('click', function () { openModalFromCard(card); });
+            // mở bằng Enter/Space
+            card.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModalFromCard(card);
+                }
+            });
+        });
+
+        // --- đóng modal ---
+        const overlay = document.getElementById('record-modal');
+        const btnClose = document.getElementById('modal-close');
+        const btnCancel = document.getElementById('modal-cancel');
+
+        function closeModal() {
+            overlay.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        btnClose.addEventListener('click', closeModal);
+        btnCancel.addEventListener('click', closeModal);
+
+        // click ra ngoài modal
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) closeModal();
+        });
+
+        // ESC để đóng
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && overlay.style.display === 'flex') closeModal();
+        });
+    });
+</script>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="nav-container">
+            <div class="nav-left">
+                <img src="/Frontend/assets/images/smile-2_removebg.png" alt="Smile.png" class="nav-header__logo">
+                <h1 class="nav-header__name">LifeCare</h1>
+            </div>
+            <div class="nav-items">
+                <a class="nav-item" href="#">Homepage</a>
+                <a class="nav-item" href="#">Services</a>
+                <a class="nav-item" href="#">About</a>
+            </div>
+            <div class="nav-right">
+                <!-- <a href="index.php?action=login" class="btn-header">Login</a> -->
+
+                <!-- If login -->
+                <a href="../appt/add_appt.html" class="btn-primary">Book an appointment</a>
+                <div class="user-dropdown">
+                    <div class="user-info">
+                        <div class="avatar-circle"></div>
+                        <span class="username">Username</span>
+                    </div>
+                    <div class="dropdown-user">
+                        <a href="index.php?action=profile">
+                            <i class="fa-solid fa-file-invoice nav-item__icon"></i>
+                            Profile
+                        </a>
+
+                        <a href="index.php?action=history">
+                            <i class="fa-solid fa-calendar-check nav-item__icon"></i>
+                            Appointment History
+                        </a>
+
+                        <a href="index.php?action=medical_records">
+                            <i class="fa-solid fa-notes-medical nav-item__icon"></i>
+                            Medical Records
+                        </a>
+
+                        <a href="javascript:void(0)" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket nav-item__icon"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+                <!-- Logout Confirmation Popup -->
+                <div id="logout-popup" class="popup-overlay">
+                    <div class="popup-box">
+                        <h3 class="paper-list-title">Confirm Logout</h3>
+                        <p class="paper-detail-description">Are you sure you want to logout?</p>
+                        <div style="margin-top: 15px;">
+                            <button id="confirm-logout" class="btn-primary">Yes, Logout</button>
+                            <button id="cancel-logout" class="btn-outline">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+    </div>
+    <!-- Main -->
+    <div class="main-container">
+        <section class="paper-list-container">
+            <h2 class="paper-list-title">Your Medical Records</h2>
+            <hr class="breakline">
+
+            <!-- Medical Records
+            <div class="info-box">
+                <h3>...</h3>
+                <p class="paper-detail-description"><Storng>Department: </Storng>Tai mũi họng</p>
+                <p class="paper-detail-description"><Storng>Doctor: </Storng>Chung</p>
+                <p class="paper-detail-description"><Storng>Datetime: </Storng>15/08/2025 (8:00 - 8:30)</p>
+            </div>
+
+            <ul class="pagination">
+                <li><a href="#">«</a></li>
+                <li><a class="active" href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">»</a></li>
+            </ul> -->
+            <!-- Medical Records -->
+            <div class="record-grid">
+                <!-- 1 -->
+                <div class="record-card" 
+                    tabindex="0" 
+                    data-date="15/08/2025 (8:00 - 8:30)" 
+                    data-dept="Tai Mũi Họng"
+                    data-doctor="BS. Nguyễn Văn Chung" 
+                    data-symptoms="Đau họng, nghẹt mũi, ho nhẹ"
+                    data-diagnosis="Viêm họng cấp"
+                    data-prescription="Paracetamol 500mg x 3/ngày; Xịt mũi NaCl 0,9% x 3/ngày"
+                    data-tests="Công thức máu; CRP" data-notes="Tái khám sau 7 ngày hoặc khi sốt > 38.5°C kéo dài">
+                    <div class="record-title">Khám ngày 15/08/2025</div>
+                    <p class="paper-detail-description"><strong>Department:</strong> Tai Mũi Họng</p>
+                    <p class="paper-detail-description"><strong>Doctor:</strong> BS. Nguyễn Văn Chung</p>
+                    <p class="paper-detail-description"><strong>Datetime:</strong> 15/08/2025 (8:00 - 8:30)</p>
+                </div>
+
+                <!-- 2 -->
+                <div class="record-card" 
+                    tabindex="0" data-date="02/06/2025 (14:00 - 14:30)" 
+                    data-dept="Nội Tổng Quát"
+                    data-doctor="BS. Trần Minh Anh" 
+                    data-symptoms="Mệt mỏi, giảm ăn" 
+                    data-diagnosis="Thiếu máu nhẹ"
+                    data-prescription="Sắt fumarate 1 viên/ngày sau ăn; Vitamin C 500mg/ngày"
+                    data-tests="Công thức máu; Ferritin; Vitamin B12"
+                    data-notes="Ăn uống đủ chất; tái khám sau 1 tháng">
+                    <div class="record-title">Khám ngày 02/06/2025</div>
+                    <p class="paper-detail-description"><strong>Department:</strong> Nội Tổng Quát</p>
+                    <p class="paper-detail-description"><strong>Doctor:</strong> BS. Trần Minh Anh</p>
+                    <p class="paper-detail-description"><strong>Datetime:</strong> 02/06/2025 (14:00 - 14:30)</p>
+                </div>
+            </div>
+
+            <ul class="pagination">
+                <li><a href="#">«</a></li>
+                <li><a class="active" href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+
+            <!-- Modal chi tiết -->
+            <div class="popup-overlay" id="record-modal">
+                <div class="modal">
+                    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+                    <h3 class="paper-list-title">Chi tiết bệnh án</h3>
+                    <hr class="breakline">
+                    <div class="modal-content">
+                        <p class="paper-detail-description"><strong>Ngày khám:</strong> <span id="m-date"></span></p>
+                        <p class="paper-detail-description"><strong>Khoa:</strong> <span id="m-dept"></span></p>
+                        <p class="paper-detail-description"><strong>Bác sĩ phụ trách:</strong> <span
+                                id="m-doctor"></span></p>
+                        <p class="paper-detail-description"><strong>Triệu chứng:</strong> <span id="m-symptoms"></span>
+                        </p>
+                        <p class="paper-detail-description"><strong>Chẩn đoán:</strong> <span id="m-diagnosis"></span>
+                        </p>
+                        <p class="paper-detail-description"><strong>Toa thuốc:</strong> <span
+                                id="m-prescription"></span></p>
+                        <p class="paper-detail-description"><strong>Kết quả xét nghiệm:</strong> <span
+                                id="m-tests"></span></p>
+                        <p class="paper-detail-description"><strong>Ghi chú:</strong> <span id="m-notes"></span></p>
+                    </div>
+                    <div style="margin-top:16px; text-align:right">
+                        <button class="btn-outline" id="modal-cancel">Close</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <p><strong>Subject</strong><br>Distributed System - 21HTTT - Gr01</p>
+                <p><strong>Student</strong>
+                    <br>21127234 - Nguyen Le Anh Chi
+                    <br>21127235 - Nguyen Xuan Quynh Chi
+                    <br>21127495 - Le Ngo Song Cat
+                    <br>21127659 - Bui Ngoc Kieu Nhi
+                </p>
+            </div>
+            <div class="footer-col">
+                <p><strong>Monday - Saturday:</strong> 7:00 am - 9:00 pm</p>
+                <p><strong>Sunday:</strong> Close</p>
+            </div>
+            <div class="footer-col">
+                <p><strong>Address</strong><br>Nguyen Van Cu street, district 5, Ho Chi Minh city</p>
+                <p><strong>Phone</strong><br>01112023</p>
+            </div>
+        </div>
+        <hr class="breakline">
+        <div class="social-icons">
+            <i class="fa-brands fa-instagram social-icon"></i>
+            <i class="fa-brands fa-facebook social-icon"></i>
+        </div>
+    </footer>
+</body>
