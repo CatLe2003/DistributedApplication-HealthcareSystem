@@ -5,25 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Author Profile - BBB</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/Frontend/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <!-- Header -->
-       <header class="nav-container">
+        <header class="nav-container">
             <div class="nav-left">
-                <img src="/assets/images/smile-2_removebg.png" alt="Smile.png" class="nav-header__logo">
-                <h1 class="nav-header__name">BBB</h1>
+                <img src="/Frontend/assets/images/smile-2_removebg.png" alt="Smile.png" class="nav-header__logo">
+                <h1 class="nav-header__name">LifeCare</h1>
             </div>
             <div class="nav-items">
                 <a class="nav-item" href="#">Homepage</a>
-                <a class="nav-item" href="#">Papers</a>
-                <a class="nav-item" href="#">Search</a>
+                <a class="nav-item" href="#">Services</a>
+                <a class="nav-item" href="#">About</a>
             </div>
             <div class="nav-right">
-                <a href="#" class="btn-header">Login</a>
+                <!-- <a href="index.php?action=login" class="btn-header">Login</a> -->
+
+                <!-- If login -->
+                <a href="../appt/add_appt.html" class="btn-primary">Book an appointment</a>
+                <div class="user-dropdown">
+                    <div class="user-info">
+                        <div class="avatar-circle"></div>
+                        <span class="username">Username</span>
+                    </div>
+                    <div class="dropdown-user">
+                        <a href="profile.html">
+                            <i class="fa-solid fa-file-invoice nav-item__icon"></i>
+                            Profile
+                        </a>
+
+                        <a href="index.php?action=history">
+                            <i class="fa-solid fa-calendar-check nav-item__icon"></i>
+                            Appointment History
+                        </a>
+                        
+                        <a href="../patient/medical_records.html">
+                            <i class="fa-solid fa-notes-medical nav-item__icon"></i>
+                            Medical Records
+                        </a>
+
+                        <a href="javascript:void(0)" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket nav-item__icon"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+                <!-- Logout Confirmation Popup -->
+                <div id="logout-popup" class="popup-overlay">
+                    <div class="popup-box">
+                        <h3 class="paper-list-title">Confirm Logout</h3>
+                        <p class="paper-detail-description">Are you sure you want to logout?</p>
+                        <div style="margin-top: 15px;">
+                            <button id="confirm-logout" class="btn-primary">Yes, Logout</button>
+                            <button id="cancel-logout" class="btn-outline">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
         </header>
         
         <!-- Main -->
@@ -38,19 +81,23 @@
                     <div class="profile-section user-details">
                         <div class="section-header">
                             <h3>User details</h3>
-                            <a href="#" class="edit-profile">Edit profile</a>
+                            <a href="edit-profile.html" class="edit-profile">Edit profile</a>
                         </div>
-                        <p class="user-detail"><strong>Bio</strong><br>John is a researcher in computer science</p>
-                        <p class="user-detail"><strong>Interests</strong><br>AI, Machine Learning</p>
-                        <p class="user-detail"><strong>Education</strong><br>Master</p>
-                        <p class="user-detail"><strong>Work Experiences</strong><br>None</p>
-                        <p class="user-detail"><strong>Email address</strong><br><a class="edit-profile" href="mailto:john.smith@example.com">john.smith@example.com</a></p>
-                        <p class="user-detail"><strong>Website address</strong><br><a class="edit-profile" href="http://johnsmith.com" target="_blank">http://johnsmith.com</a></p>
+                        <p class="user-detail"><strong>Gender: </strong>Male</p>
+                        <p class="user-detail"><strong>Phone Number: </strong>094543545</p>
+                        <p class="user-detail"><strong>Citizen ID: </strong>830534546785</p>
+                        <p class="user-detail"><strong>Date of Birth: </strong>20/08/2025</p>
+                        <p class="user-detail"><strong>Address: </strong>12 ABC Street</p>
+                        <p class="user-detail"><strong>Nationality: </strong>Vietnam</p>
+                        <p class="user-detail"><strong>Occupation: </strong>Neet</p>
+                        <p class="user-detail"><strong>Ethnicity: </strong>...</p>
+                        <p class="user-detail"><strong>Allergry: </strong>...</p>
+                        <p class="user-detail"><strong>Email address: </strong><a class="edit-profile" href="mailto:john.smith@example.com">john.smith@example.com</a></p>
                     </div>
 
                     <div class="profile-section article-details">
                         <div class="topic">
-                            <h3 class="subtopic-header">Article Details</h3>
+                            <h3 class="subtopic-header">Your Appointments</h3>
                             <!-- <a href="#" class="view-all">View All &gt;&gt;</a> -->
                         </div>
 
