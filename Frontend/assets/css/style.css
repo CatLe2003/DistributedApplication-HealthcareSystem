@@ -695,7 +695,7 @@ footer {
 
 .login-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 32px;
     gap: 16px;
 }
@@ -719,6 +719,7 @@ footer {
     background: white;
     color: var(--primary-color);
     min-width: 40px;
+    max-width: 220px;
     font-size: 16px;
     border: 2px solid rgba(88, 63, 188, 0.4);
     padding: 10px 20px;
@@ -789,7 +790,7 @@ footer {
 }
 
 .paper-detail-description {
-    margin: 18px 0;
+    margin-top: 16px;
     color: var(--text-color);
 }
 
@@ -1040,7 +1041,8 @@ function closePopup() {
 }
 
 .info-box {
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 15px;
     background: #f9f9f9;
     border-left: 4px solid var(--primary-color);
