@@ -19,7 +19,7 @@
             </div>
             <div class="nav-items">
                 <a class="nav-item" href="#">Homepage</a>
-                <a class="nav-item" href="#">Services</a>
+                <a class="nav-item" href="#">Departments</a>
                 <a class="nav-item" href="#">About</a>
             </div>
             <div class="nav-right">
