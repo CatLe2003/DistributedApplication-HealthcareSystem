@@ -4,6 +4,6 @@ services:
     build: .
     container_name: frontend
     ports:
-      - "8080:80"   # access frontend at http://localhost:8080
+      - "8082:80"   # access frontend at http://localhost:8080
     volumes:
       - .:/var/www/html
