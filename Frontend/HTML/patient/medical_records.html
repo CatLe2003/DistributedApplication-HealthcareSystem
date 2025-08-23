@@ -61,7 +61,7 @@
         });
     });
 </script>
-<script>
+<!-- <script>
     document.addEventListener('DOMContentLoaded', function () {
         // --- mở modal khi click/thao tác bàn phím ---
         function openModalFromCard(card) {
@@ -115,7 +115,7 @@
             if (e.key === 'Escape' && overlay.style.display === 'flex') closeModal();
         });
     });
-</script>
+</script> -->
 
 <body>
     <div class="container">
@@ -141,7 +141,7 @@
                         <span class="username">Username</span>
                     </div>
                     <div class="dropdown-user">
-                        <a href="index.php?action=profile">
+                        <a href="profile.html">
                             <i class="fa-solid fa-file-invoice nav-item__icon"></i>
                             Profile
                         </a>
@@ -150,8 +150,8 @@
                             <i class="fa-solid fa-calendar-check nav-item__icon"></i>
                             Appointment History
                         </a>
-
-                        <a href="index.php?action=medical_records">
+                        
+                        <a href="../patient/medical_records.html">
                             <i class="fa-solid fa-notes-medical nav-item__icon"></i>
                             Medical Records
                         </a>
@@ -206,28 +206,38 @@
             <!-- Medical Records -->
             <div class="record-grid">
                 <!-- 1 -->
-                <div class="record-card" tabindex="0" data-date="15/08/2025 (8:00 - 8:30)" data-dept="Tai Mũi Họng"
-                    data-doctor="BS. Nguyễn Văn Chung" data-symptoms="Đau họng, nghẹt mũi, ho nhẹ"
+                <a href="detail_medrecord.html" class="record-card" tabindex="0" 
+                    data-date="15/08/2025 (8:00 - 8:30)" 
+                    data-dept="Tai Mũi Họng"
+                    data-doctor="BS. Nguyễn Văn Chung" 
+                    data-symptoms="Đau họng, nghẹt mũi, ho nhẹ"
                     data-diagnosis="Viêm họng cấp"
                     data-prescription="Paracetamol 500mg x 3/ngày; Xịt mũi NaCl 0,9% x 3/ngày"
-                    data-tests="Công thức máu; CRP" data-notes="Tái khám sau 7 ngày hoặc khi sốt > 38.5°C kéo dài">
+                    data-tests="Công thức máu; CRP" 
+                    data-notes="Tái khám sau 7 ngày hoặc khi sốt > 38.5°C kéo dài"
+                    >
                     <div class="record-title">Khám ngày 15/08/2025</div>
                     <p class="paper-detail-description"><strong>Department:</strong> Tai Mũi Họng</p>
                     <p class="paper-detail-description"><strong>Doctor:</strong> BS. Nguyễn Văn Chung</p>
                     <p class="paper-detail-description"><strong>Datetime:</strong> 15/08/2025 (8:00 - 8:30)</p>
-                </div>
+                </a>
 
                 <!-- 2 -->
-                <div class="record-card" tabindex="0" data-date="02/06/2025 (14:00 - 14:30)" data-dept="Nội Tổng Quát"
-                    data-doctor="BS. Trần Minh Anh" data-symptoms="Mệt mỏi, giảm ăn" data-diagnosis="Thiếu máu nhẹ"
+                <a href="detail_medrecord.html" class="record-card" tabindex="0" 
+                data-date="02/06/2025 (14:00 - 14:30)" 
+                data-dept="Nội Tổng Quát"
+                    data-doctor="BS. Trần Minh Anh" 
+                    data-symptoms="Mệt mỏi, giảm ăn" 
+                    data-diagnosis="Thiếu máu nhẹ"
                     data-prescription="Sắt fumarate 1 viên/ngày sau ăn; Vitamin C 500mg/ngày"
                     data-tests="Công thức máu; Ferritin; Vitamin B12"
-                    data-notes="Ăn uống đủ chất; tái khám sau 1 tháng">
+                    data-notes="Ăn uống đủ chất; tái khám sau 1 tháng"
+                    >
                     <div class="record-title">Khám ngày 02/06/2025</div>
                     <p class="paper-detail-description"><strong>Department:</strong> Nội Tổng Quát</p>
                     <p class="paper-detail-description"><strong>Doctor:</strong> BS. Trần Minh Anh</p>
                     <p class="paper-detail-description"><strong>Datetime:</strong> 02/06/2025 (14:00 - 14:30)</p>
-                </div>
+                </a>
             </div>
 
             <ul class="pagination">
@@ -239,31 +249,42 @@
             </ul>
 
             <!-- Modal chi tiết -->
-            <div class="popup-overlay" id="record-modal">
+            <!-- <div class="popup-overlay" id="record-modal">
                 <div class="modal">
                     <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
                     <h3 class="paper-list-title">Chi tiết bệnh án</h3>
                     <hr class="breakline">
                     <div class="modal-content">
-                        <p class="paper-detail-description"><strong>Ngày khám:</strong> <span id="m-date"></span></p>
-                        <p class="paper-detail-description"><strong>Khoa:</strong> <span id="m-dept"></span></p>
-                        <p class="paper-detail-description"><strong>Bác sĩ phụ trách:</strong> <span
-                                id="m-doctor"></span></p>
-                        <p class="paper-detail-description"><strong>Triệu chứng:</strong> <span id="m-symptoms"></span>
+                        <p class="paper-detail-description">
+                            <strong>Visit Date:</strong> <span id="m-date"></span>
                         </p>
-                        <p class="paper-detail-description"><strong>Chẩn đoán:</strong> <span id="m-diagnosis"></span>
+                        <p class="paper-detail-description">
+                            <strong>Department:</strong> <span id="m-dept"></span>
                         </p>
-                        <p class="paper-detail-description"><strong>Toa thuốc:</strong> <span
-                                id="m-prescription"></span></p>
-                        <p class="paper-detail-description"><strong>Kết quả xét nghiệm:</strong> <span
-                                id="m-tests"></span></p>
-                        <p class="paper-detail-description"><strong>Ghi chú:</strong> <span id="m-notes"></span></p>
+                        <p class="paper-detail-description">
+                            <strong>Doctor:</strong> <span id="m-doctor"></span>
+                        </p>
+                        <p class="paper-detail-description">
+                            <strong>Symptoms:</strong> <span id="m-symptoms"></span>
+                        </p>
+                        <p class="paper-detail-description">
+                            <strong>Diagnosis:</strong> <span id="m-diagnosis"></span>
+                        </p>
+                        <p class="paper-detail-description">
+                            <strong>Notes:</strong> <span id="m-notes"></span>
+                        </p>
+                        <p class="paper-detail-description">
+                            <strong>Test Result:</strong> <span id="m-tests"></span>
+                        </p>
+                        <p class="paper-detail-description">
+                            <strong>Toa thuốc:</strong> <span id="m-prescription"></span>
+                        </p>
                     </div>
                     <div style="margin-top:16px; text-align:right">
                         <button class="btn-outline" id="modal-cancel">Close</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </section>
     </div>

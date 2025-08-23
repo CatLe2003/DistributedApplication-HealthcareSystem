@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LifeCare</title>
+    <title>Detail Medical Record - LifeCare</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/Frontend/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -71,8 +71,8 @@
                 <h1 class="nav-header__name">LifeCare</h1>
             </div>
             <div class="nav-items">
-                <a class="nav-item" href="homepage.html">Homepage</a>
-                <a class="nav-item" href="list_departments.html">Services</a>
+                <a class="nav-item" href="#">Homepage</a>
+                <a class="nav-item" href="#">Services</a>
                 <a class="nav-item" href="#">About</a>
             </div>
             <div class="nav-right">
@@ -91,11 +91,11 @@
                             Profile
                         </a>
 
-                        <!-- <a href="index.php?action=history">
+                        <a href="index.php?action=history">
                             <i class="fa-solid fa-calendar-check nav-item__icon"></i>
                             Appointment History
-                        </a> -->
-
+                        </a>
+                        
                         <a href="../patient/medical_records.html">
                             <i class="fa-solid fa-notes-medical nav-item__icon"></i>
                             Medical Records
@@ -123,37 +123,95 @@
 
         </header>
     </div>
+    <!-- Main -->
     <div class="main-container">
-        <section class="intro-section">
-            <div class="intro-left">
-                <h2>Book appointments quickly – Manage your records easily</h2>
-                <p>
-                    Access your medical information anytime, anywhere.
-                </p>
-                <a href="../appt/add_appt.html" class="btn-primary">Book an appointment</a>
-            </div>
-            <div class="intro-right">
-                <img src="/Frontend/assets/images/banner.png" alt="Banner image">
-            </div>
-        </section>
-
-        <section class="topic-section">
-            <div class="topic-header">
-                Popular Services
-                <a href="list_departments.html" class="view-all">View All &gt;&gt;</a>
-            </div>
-
+        <section class="paper-list-container">
+            <h2 class="paper-list-title">Detail Medical Record</h2>
             <hr class="breakline">
 
-            <div class="topic">
-                <h class="subtopic-header"></h>
-            </div>
-
             <div class="info-box">
-                <h3>Tai Mũi Họng</h3>
-                <p class="paper-detail-description"><strong>Description: </strong>Khám tai-mũi-họng</p>
+                <h3>Khám ngày 15/08/2025</h3>
+                <p class="paper-detail-description"><strong>Department:</strong> Tai Mũi Họng</p>
+                <p class="paper-detail-description"><strong>Doctor:</strong> BS. Nguyễn Văn Chung</p>
+                <p class="paper-detail-description"><strong>Datetime:</strong> 15/08/2025 (8:00 - 8:30)</p>
+                <p class="paper-detail-description"><strong>Symptoms:</strong> Không làm</p>
+                <p class="paper-detail-description"><strong>Diagnosis:</strong> Lười</p>
+
             </div>
 
+            <!-- KẾT QUẢ TETS -->
+            <div class="container">
+                <div class="container-recent">
+                    <div class="card shadow">
+                        <div class="container-recent__heading">
+                            <p class="recent__heading-title">Test Result</p>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-column-emphasis" scope="col">Test</th> 
+                                        <th class="text-column" scope="col">Date</th> 
+                                        <th class="text-column" scope="col">Status</th> 
+                                        <th class="text-column" scope="col">Reuslt</th> 
+                                    </tr>
+                                </thead>
+                                <tbody class="table-body">
+                                    <tr>
+                                        <th class="text-column-emphasis" scope="row">CRP</th> 
+                                        <th class="text-column" scope="row">15/08/2025</th> 
+                                        <th class="badge badge-success" scope="row">Ordered</th> <!-- badge-plan - Completed -->
+                                        <th class="text-column" scope="row">6mg/l</th> 
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOA THUỐC -->
+            <div class="container">
+                <div class="container-recent">
+                    <div class="card shadow">
+                        <div class="container-recent__heading">
+                            <p class="recent__heading-title">Prescription</p>
+                            <!-- <div class="container__heading-search">
+                                <input type="text" class="heading-search__area" placeholder="Medicine" name="contraindication_text">
+                                <button class="btn-control btn-control-search" name="btn-add-contraindication">
+                                    <i class="fa-solid fa-hand-dots btn-control-icon"></i>
+                                    Add
+                                </button>                        
+                            </div> -->
+
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-column-emphasis" scope="col">Medicine</th> 
+                                        <th class="text-column" scope="col">Dosage</th> 
+                                        <th class="text-column" scope="col">Duration</th> 
+                                    </tr>
+                                </thead>
+                                <tbody class="table-body">
+                                    <tr>
+                                        <th class="text-column-emphasis" scope="row">Paracetamol 500mg</th> 
+                                        <th class="text-column" scope="row">1v x3/ngày</th> 
+                                        <th class="text-column" scope="row">5 ngày</th> 
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </section>
     </div>

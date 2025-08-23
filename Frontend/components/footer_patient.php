@@ -1,28 +1,26 @@
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <p><strong>Subject</strong><br>Distributed System - 21HTTT - Gr01</p>
-                <p><strong>Student</strong>
-                    <br>21127234 - Nguyen Le Anh Chi
-                    <br>21127235 - Nguyen Xuan Quynh Chi
-                    <br>21127495 - Le Ngo Song Cat
-                    <br>21127659 - Bui Ngoc Kieu Nhi
-                </p>
-            </div>
-            <div class="footer-col">
-                <p><strong>Monday - Saturday:</strong> 7:00 am - 9:00 pm</p>
-                <p><strong>Sunday:</strong> Close</p>
-            </div>
-            <div class="footer-col">
-                <p><strong>Address</strong><br>Nguyen Van Cu street, district 5, Ho Chi Minh city</p>
-                <p><strong>Phone</strong><br>01112023</p>
-            </div>
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <p><strong>Subject</strong><br>Distributed System - 21HTTT - Gr01</p>
+            <p><strong>Student</strong>
+                <br>21127234 - Nguyen Le Anh Chi
+                <br>21127235 - Nguyen Xuan Quynh Chi
+                <br>21127495 - Le Ngo Song Cat
+                <br>21127659 - Bui Ngoc Kieu Nhi
+            </p>
         </div>
-        <hr class="breakline">
-        <div class="social-icons">
-            <i class="fa-brands fa-instagram social-icon"></i>
-            <i class="fa-brands fa-facebook social-icon"></i>
+        <div class="footer-col">
+            <p><strong>Monday - Saturday:</strong> 7:00 am - 9:00 pm</p>
+            <p><strong>Sunday:</strong> Close</p>
         </div>
-    </footer>
-</body>
+        <div class="footer-col">
+            <p><strong>Address</strong><br>Nguyen Van Cu street, district 5, Ho Chi Minh city</p>
+            <p><strong>Phone</strong><br>01112023</p>
+        </div>
+    </div>
+    <hr class="breakline">
+    <div class="social-icons">
+        <i class="fa-brands fa-instagram social-icon"></i>
+        <i class="fa-brands fa-facebook social-icon"></i>
+    </div>
+</footer>

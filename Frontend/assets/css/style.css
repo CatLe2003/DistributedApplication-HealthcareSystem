@@ -13,6 +13,11 @@
     --secondary-color: #DBEFFA;
     --primary-hover: #4427a3;
     --text-color: #181945;
+    --red-color: #8B394B;
+    --brow-color: #975A3D;
+    --success-color: #2dce89;
+    --warning-color: #FE6F3F;
+
 }
 
 h1 {
@@ -66,7 +71,31 @@ a {
         width: 100%;
     }
 }
+.container-recent {
+    padding: 20px 0 0 0;
+    /* max-width: 1240px; */
+}
 
+.container-recent-inner {
+    background-color: var(--white-color);
+    height: 100%;
+    border-radius: 7px;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.container-recent__heading {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 24px;
+    align-items: center;
+}
+
+.recent__heading-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--primary-color)
+}
 /* Header */
 .nav-container {
     display: flex;
@@ -291,9 +320,10 @@ a {
     text-decoration: underline;
     /* font-weight: 600; */
 }
+
 /* Focus (bàn phím): có ring nhẹ + underline để dễ nhận biết */
 .link:focus-visible {
-    box-shadow: 0 0 0 3px rgba(13,110,253,0.15);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
     text-decoration-line: underline;
     text-decoration-color: currentColor;
 }
@@ -309,6 +339,7 @@ a {
     margin-right: .35rem;
     font-size: .95em;
 }
+
 .paper-card {
     border: 1px solid rgba(88, 63, 188, 0.4);
     border-radius: 16px;
@@ -664,7 +695,7 @@ footer {
 
 .login-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 32px;
     gap: 16px;
 }
@@ -688,6 +719,7 @@ footer {
     background: white;
     color: var(--primary-color);
     min-width: 40px;
+    max-width: 220px;
     font-size: 16px;
     border: 2px solid rgba(88, 63, 188, 0.4);
     padding: 10px 20px;
@@ -758,7 +790,7 @@ footer {
 }
 
 .paper-detail-description {
-    margin: 18px 0;
+    margin-top: 16px;
     color: var(--text-color);
 }
 
@@ -1009,7 +1041,8 @@ function closePopup() {
 }
 
 .info-box {
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 15px;
     background: #f9f9f9;
     border-left: 4px solid var(--primary-color);
@@ -1099,4 +1132,102 @@ function closePopup() {
     font-size: 28px;
     line-height: 1;
     cursor: pointer;
+}
+
+/* ===== Medical Record Tables (Test Result + Prescription) ===== */
+
+/* Card khối bảng */
+.paper-list-container .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+/* Bảng cuộn ngang khi hẹp */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Bảng */
+.table {
+    width: 100%;
+    min-width: 640px;
+    /* tránh vỡ cột trên màn hẹp */
+    border-collapse: collapse;
+}
+
+/* Header bảng */
+.thead-light th {
+    background: #f8fafc;
+    color: #111827;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 2px solid #e5e7eb;
+    position: sticky;
+    /* cố định header khi cuộn */
+    top: 0;
+    z-index: 1;
+}
+
+/* Body bảng */
+.card  {
+    border: 1px solid rgba(88, 63, 188, 0.4);
+}
+
+.table td, .table th {
+    vertical-align: middle;
+    border-top: 1px solid #e9ecef;
+    white-space: nowrap;
+}
+
+.table thead th {
+    font-size: 14px;
+    /* font-weight: 600; */
+    padding: 12px 24px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-top: 1px solid #d9d9d9;
+    background-color: #f9f9f9;
+    text-align: left;
+}
+
+.table tbody th {
+    font-size: 16px;
+    /* font-weight: 600; */
+    padding: 16px 24px;
+    letter-spacing: 1px;
+    border-top: 1px solid #d9d9d9;
+    text-align: left;
+    min-height: 58px;
+    align-self: center;
+    font-weight: 500;
+}
+
+.table tbody tr {
+    min-height: 100px;
+}
+
+.text-primary {
+    color: var(--text-color);
+}
+
+.text-muted {
+    color: #8898aa
+}
+
+.text-danger{
+    color: var(--red-color);
+}
+
+.text-column-emphasis {
+    color: var(--brow-color);
+}
+
+.text-column {
+    color: var(--text-color);
 }
