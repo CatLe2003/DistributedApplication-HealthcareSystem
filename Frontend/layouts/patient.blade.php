@@ -1,27 +1,47 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title','LifeCare')</title>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+// $page_title = "Add New Paper - BBB";
+include(__DIR__ . '/../components/header_patient.blade.php');
+?>
+<script src="/DistributedApplication-HealthcareSystem/Frontend/assets/js/function_patient.js"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('Frontend/assets/css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        @include('components.header_patient')
-    </div>
+<div class="main-container">
+    <section class="intro-section">
+        <div class="intro-left">
+            <h2>Book appointments quickly – Manage your records easily</h2>
+            <p>
+                Access your medical information anytime, anywhere.
+            </p>
+            <a href="../appointment/add_appt.blade.php" class="btn-primary">Book an appointment</a>
+        </div>
+        <div class="intro-right">
+            <img src="/DistributedApplication-HealthcareSystem/Frontend/assets/images/banner.png" alt="Banner image">
+        </div>
+    </section>
 
-    <div class="main-container">
-        @yield('content')
-    </div>
+    <section class="topic-section">
+        <div class="topic-header">
+            Popular Services
+            <a href="../department/list_departments.blade.php" class="view-all">View All &gt;&gt;</a>
+        </div>
 
-    @includeWhen(View::exists('components.footer_patient'), 'components.footer_patient')
+        <hr class="breakline">
 
-    {{-- Scripts chung + stack cho từng trang/components --}}
-    @stack('scripts')
-</body>
-</html>
+        <div class="topic">
+            <h class="subtopic-header"></h>
+        </div>
+
+        <div class="info-box">
+            <h3>Tai Mũi Họng</h3>
+            <p class="paper-detail-description"><strong>Description: </strong>Khám tai-mũi-họng</p>
+        </div>
+
+
+    </section>
+</div>
+
+<?php
+include(__DIR__ . '/../components/footer_patient.blade.php');
+?>
