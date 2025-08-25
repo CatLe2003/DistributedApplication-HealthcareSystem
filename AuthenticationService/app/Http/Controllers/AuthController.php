@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\BlacklistToken;
 use Illuminate\Http\Request;
 use Firebase\JWT\JWT; 
+use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Hash;
 use Exception;
 
@@ -76,5 +78,60 @@ class AuthController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }        
+    }
+    public function logout(Request $request)
+    {
+        try {
+            $authHeader = $request->header('Authorization');
+            if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
+                return response()->json(['message' => 'Token not provided'], 400);
+            }
+
+            $token = substr($authHeader, 7);
+
+            $decoded = JWT::decode($token, new Key(env('JWT_SECRET'), 'HS256'));
+
+            BlacklistToken::create([
+                'token' => $token,
+                'expired_at' => date('Y-m-d H:i:s', $decoded->exp),
+            ]);
+
+            return response()->json([
+                'message' => 'Logged out successfully'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Logout failed',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function verifyToken(Request $request)
+    {
+        try {
+            $authHeader = $request->header('Authorization');
+            if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
+                return response()->json(['message' => 'Token not provided'], 400);
+            }
+
+            $token = substr($authHeader, 7);
+
+            if (BlacklistToken::where('token', $token)->exists()) {
+                return response()->json(['message' => 'Token is blacklisted'], 401);
+            }
+
+            $decoded = JWT::decode($token, new Key(env('JWT_SECRET'), 'HS256'));
+
+            return response()->json([
+                'valid' => true,
+                'userid' => $decoded->userid,
+                'role' => $decoded->role,
+                'exp' => $decoded->exp,
+            ]);
+        } catch (\Firebase\JWT\ExpiredException $e) {
+            return response()->json(['message' => 'Token expired'], 401);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Invalid token', 'error' => $e->getMessage()], 401);
+        }
     }
 }
