@@ -7,19 +7,19 @@
     <div class="intro-left">
         <h2>Book appointments quickly – Manage your records easily</h2>
         <p>Access your medical information anytime, anywhere.</p>
-        {{-- <a href="{{ url('appt/add_appt') }}" class="btn-primary">Book an appointment</a> --}}
-        <a href="/appt/add_appt" class="btn-primary">Book an appointment</a>
+        {{-- <a href="{{ url('appointment/add_appt') }}" class="btn-primary">Book an appointment</a> --}}
+        <!-- <a href="/appointment/add_appt" class="btn-primary">Book an appointment</a> -->
     </div>
     <div class="intro-right">
-        {{-- <img src="{{ asset('Frontend/assets/images/banner.png') }}" alt="Banner image"> --}}
+        {{-- <img src="{{ asset('views/assets/images/banner.png') }}" alt="Banner image"> --}}
     </div>
 </section>
 
 <section class="topic-section">
     <div class="topic-header">
         Popular Services
-        {{-- <a href="{{ url('list_departments') }}" class="view-all">View All &gt;&gt;</a> --}}
-        <a href="/list_departments" class="view-all">View All &gt;&gt;</a>
+        {{-- <a href="{{ url('department/list_departments') }}" class="view-all">View All &gt;&gt;</a> --}}
+        <!-- <a href="/list_departments" class="view-all">View All &gt;&gt;</a> -->
     </div>
     <hr class="breakline">
     <div class="topic"><h class="subtopic-header"></h></div>

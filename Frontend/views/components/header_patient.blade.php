@@ -1,6 +1,6 @@
 <header class="nav-container">
     <div class="nav-left">
-        <img src="{{ asset('Frontend/assets/images/smile-2_removebg.png') }}" alt="Smile.png" class="nav-header__logo">
+        <img src="{{ asset('Frontend/views/assets/images/smile-2_removebg.png') }}" alt="Smile.png" class="nav-header__logo">
         <h1 class="nav-header__name">LifeCare</h1>
     </div>
 
@@ -9,9 +9,12 @@
         <a class="nav-item" href="{{ url('list_departments') }}">Services</a>
         <a class="nav-item" href="#">About</a>
     </div>
-
+    
+    <!-- If is guest -->
+    <!-- <a href="index.php?action=login" class="btn-header">Login</a> -->
+    
     <div class="nav-right">
-        <a href="{{ url('appt/add_appt') }}" class="btn-primary">Book an appointment</a>
+        <a href="{{ url('appointment/add_appt') }}" class="btn-primary">Book an appointment</a>
 
         <div class="user-dropdown">
             <div class="user-info">
@@ -19,10 +22,10 @@
                 <span class="username">{{ Auth::user()->name ?? 'Username' }}</span>
             </div>
             <div class="dropdown-user">
-                <a href="{{ url('profile') }}">
+                <a href="{{ url('medical_record/profile') }}">
                     <i class="fa-solid fa-file-invoice nav-item__icon"></i> Profile
                 </a>
-                <a href="{{ url('patient/medical_records') }}">
+                <a href="{{ url('medical_record/medical_records') }}">
                     <i class="fa-solid fa-notes-medical nav-item__icon"></i> Medical Records
                 </a>
                 <a href="javascript:void(0)" id="logout-btn">
