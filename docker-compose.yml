@@ -70,22 +70,31 @@ services:
   # Frontend
   # -------------------------
   frontend:
-    build: ./Frontend
+    build:
+      context: ./frontend-laravel
     container_name: frontend
     restart: always
     ports:
-      - "8082:80" #  exposed at localhost:8082
+      - "8082:8000"
     networks:
       - gateway_network
     depends_on:
       - api_gateway
-
+    volumes:
+      - ./frontend-laravel:/var/www/html # sync code with container
+      - ./frontend-laravel/vendor:/var/www/html/vendor  # Persist composer dependencies
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+    command: >
+      sh -c "composer install --ignore-platform-reqs &&
+             php artisan serve --host=0.0.0.0 --port=8000"
 # -------------------------
 # Volumes
 # -------------------------
 volumes:
   patientservice_mysql_data:
-   external: true   
+    external: true
 
 # -------------------------
 # Networks
@@ -95,4 +104,3 @@ networks:
     driver: bridge
   gateway_network:
     external: true
-
