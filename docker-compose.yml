@@ -94,7 +94,6 @@ services:
 # -------------------------
 volumes:
   mysql_data:
-    # external: true
 
 # -------------------------
 # Networks
@@ -103,4 +102,4 @@ networks:
   patient_network:
     driver: bridge
   gateway_network:
-    external: true
+    driver: bridge
