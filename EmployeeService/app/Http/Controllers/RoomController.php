@@ -1,62 +1,62 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Shift;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Exception;
 
-
-class ShiftController extends Controller
+class RoomController extends Controller
 {
-    // GET /shifts
-    public function getAllShifts(Request $request)
+    // GET /rooms
+    public function getAllRooms (Request $request)
     {
         try {
-            $shifts = Shift::all();
+            $rooms = Room::all();
 
             return response()->json([
                 'success' => true,
-                'data' => $shifts
+                'data' => $rooms
             ], 200);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to fetch shifts',
+                'message' => 'Failed to fetch rooms',
                 'error' => $e->getMessage()
             ], 500);
         }
     }
-    // GET /shifts/{id}
-    public function getShiftById($id)
+    // GET /rooms/{id}
+    public function getRoomById ($id)
     {
        try {
 
             if(!is_numeric($id) || $id <= 0) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Invalid shift ID'
+                    'message' => 'Invalid room ID'
                 ], 400);
             }
             
-            $shift = Shift::find($id);
+            $room = Room::find($id);
 
-            if (!$shift) {
+            if (!$room) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Shift not found'
+                    'message' => 'Room not found'
                 ], 404);
             }
 
             return response()->json([
                 'success' => true,
-                'data' => $shift
+                'data' => $room
             ], 200);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to fetch shift',
+                'message' => 'Failed to fetch room',
                 'error' => $e->getMessage()
             ], 500);
         }
     }
 }
+

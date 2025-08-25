@@ -13,6 +13,10 @@ class Doctor extends Model
         'RoomID',
     ];
 
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'DepartmentID', 'EmployeeID');
+    }
     public function employee()
     {
         return $this->belongsTo(Employee::class, 'EmployeeID');
@@ -26,5 +30,9 @@ class Doctor extends Model
     public function room()
     {
         return $this->belongsTo(Room::class, 'RoomID');
+    }
+    public function schedules()
+    {
+        return $this->hasMany(DoctorSchedule::class, 'DoctorID', 'EmployeeID');
     }
 }

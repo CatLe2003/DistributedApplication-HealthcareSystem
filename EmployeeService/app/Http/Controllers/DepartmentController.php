@@ -25,7 +25,7 @@ class DepartmentController extends Controller
         }
     }
 
-    public function getDepartmentById($id)
+    public function getDepartmentsById ($id)
     {
         try {
 
