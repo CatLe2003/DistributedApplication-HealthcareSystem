@@ -6,10 +6,13 @@
 `
     <div class="nav-items">
         <a class="nav-item" href="{{ url('/home') }}">Homepage</a>
-        <a class="nav-item" href="{{ url('/list_departments') }}">Services</a>
+        <a class="nav-item" href="{{ url('department/list_departments') }}">Services</a>
         <a class="nav-item" href="#">About</a>
     </div>
+    <!-- If is guest -->
+    <!-- <a href="{{ url('/login') }}" class="btn-header">Login</a> -->
 
+    <!-- If login -->
     <div class="nav-right">
         <a href="{{ url('appointment/add_appt') }}" class="btn-primary">Book an appointment</a>
 
