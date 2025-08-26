@@ -91,17 +91,82 @@ services:
     command: >
       sh -c "composer install --ignore-platform-reqs &&
              php artisan serve --host=0.0.0.0 --port=8000"
-# -------------------------
+
+  # -------------------------
+  # Employee Service 
+  # -------------------------
+  employeeservice:
+    build: ./EmployeeService
+    container_name: employee_service
+    ports:
+      - "8003:8000"
+    volumes:
+      - ./EmployeeService:/var/www/html
+      - ./EmployeeService/vendor:/var/www/html/vendor
+    networks:
+      - employee_network
+      - gateway_network
+    environment:
+      - APP_NAME=Laravel
+      - APP_ENV=local
+      - APP_KEY=base64:JH+cB2XMtncxBVhjEccrERFgAlVtsgrolGLU+1eoGTQ=
+      - APP_DEBUG=true
+      - APP_URL=http://localhost:8003
+      - DB_CONNECTION=pgsql
+      - DB_URL=postgresql://postgres:songcat_employeedb@db.krmbzznitpedivsepeyw.supabase.co:5432/postgres
+      - DB_PASSWORD=songcat_employeedb
+      - SESSION_DRIVER=database
+      - CACHE_STORE=database
+      - QUEUE_CONNECTION=database
+    command: >
+      sh -c "composer install --ignore-platform-reqs &&
+             php artisan serve --host=0.0.0.0 --port=8000"
+
+
+  # -------------------------
+  # Authentication Service
+  # -------------------------
+  authentication_service:
+    build: ./AuthenticationService
+    container_name: authentication_service
+    ports:
+      - "8002:8000"
+    networks:
+      - auth_network
+      - gateway_network
+    environment:
+      - APP_NAME=Laravel
+      - APP_ENV=local
+      - APP_KEY=base64:JH+cB2XMtncxBVhjEccrERFgAlVtsgrolGLU+1eoGTQ=
+      - APP_DEBUG=true
+      - APP_URL=http://localhost:8002
+      - DB_CONNECTION=pgsql
+      - DB_URL=postgresql://postgres.zrhqaqklduaafeoqjcoj:songcat_authenticationdb@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres
+      - DB_PASSWORD=songcat_authenticationdb
+      - SESSION_DRIVER=database
+      - SESSION_LIFETIME=120
+      - CACHE_STORE=database
+      - QUEUE_CONNECTION=database
+      - API_GATEWAY_URL=http://api_gateway
+      - JWT_SECRET=songcat_authenticationdb
+    command: >
+      sh -c "composer install --ignore-platform-reqs &&
+             php artisan migrate --force &&
+             php artisan serve --host=0.0.0.0 --port=8000"
+
+  # -------------------------
 # Volumes
 # -------------------------
 volumes:
   mysql_data:
-
-# -------------------------
 # Networks
 # -------------------------
 networks:
   patient_network:
     driver: bridge
   gateway_network:
+    driver: bridge
+  employee_network:
+    driver: bridge
+  auth_network:
     driver: bridge
