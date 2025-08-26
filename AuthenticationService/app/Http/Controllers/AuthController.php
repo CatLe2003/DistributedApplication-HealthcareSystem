@@ -19,9 +19,9 @@ class AuthController extends Controller
                 return response()->json(['message' => 'Login key already exists'], 400);
             }
             $request->validate([
-            'password' => 'required|max:255',
-            'login_key' => 'required|string|max:50',
-            'role' => 'required|string',
+                'password' => 'required|max:255',
+                'login_key' => 'required|string|max:50',
+                'role' => 'required|string',
             ]);
 
             $user = new User();
