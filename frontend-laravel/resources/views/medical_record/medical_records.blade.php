@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title','Medical Records - LifeCare')</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
-    {{-- <link rel="stylesheet" href="{{ asset('Frontend/assets/css/style.css') }}"> --}}
-    <link rel="stylesheet" href="Frontend/views/assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
-<script src="{{ asset('Frontend/assets/js/function_patient.js') }}"></script>
+<script src="{{ asset('assets/js/function_patient.js') }}"></script>
 <body>
     <div class="container">
-       {{--  @include('components.header_patient') --}}
+        @include('components.header_patient')
     </div>
 
     <!-- Main -->
@@ -74,7 +73,7 @@
         </section>
     </div>
 
-    {{-- @includeWhen(View::exists('components.footer_patient'), 'components.footer_patient') --}}
+    @includeWhen(View::exists('components.footer_patient'), 'components.footer_patient')
 
     {{-- Scripts chung + stack cho từng trang/components --}}
     @stack('scripts')

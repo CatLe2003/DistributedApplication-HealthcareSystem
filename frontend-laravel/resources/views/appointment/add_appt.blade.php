@@ -37,7 +37,7 @@
 
             <hr class="breakline">
 
-            <form action="payment_confirm.blade.php" class="search-form">
+            <form action="{{ url('appointment/payment_confirm') }}" class="search-form">
                 <div class="search-row">
                     <label class="form-label" for="keyword">Department</label>
                     <select id="department" class="input-field">
@@ -75,8 +75,5 @@
     </div>
 
     @includeWhen(View::exists('components.footer_patient'), 'components.footer_patient')
-
-    {{-- Scripts chung + stack cho từng trang/components --}}
-    @stack('scripts')
 </body>
 </html>

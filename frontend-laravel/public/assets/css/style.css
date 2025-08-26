@@ -713,6 +713,9 @@ footer {
     cursor: pointer;
     transition: all 0.3s ease;
     flex: 1;
+    /* display: flex; */
+    align-items: center;   /* dọc */
+    justify-content: center; /* ngang */
 }
 
 .btn-outline {
@@ -728,6 +731,9 @@ footer {
     cursor: pointer;
     transition: all 0.3s ease;
     flex: 1;
+    display: flex;
+    align-items: center;   /* dọc */
+    justify-content: center; /* ngang */
 }
 
 .btn-primary:hover {
@@ -790,7 +796,8 @@ footer {
 }
 
 .paper-detail-description {
-    margin-top: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     color: var(--text-color);
 }
 

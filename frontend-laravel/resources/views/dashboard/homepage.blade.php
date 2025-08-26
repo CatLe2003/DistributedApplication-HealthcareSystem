@@ -17,7 +17,7 @@
 <section class="topic-section">
     <div class="topic-header">
         Popular Services
-        <a href="{{ url('list_departments') }}" class="view-all">View All &gt;&gt;</a>
+        <a href="{{ url('department/list_departments') }}" class="view-all">View All &gt;&gt;</a>
     </div>
     <hr class="breakline">
     <div class="topic"><h class="subtopic-header"></h></div>
