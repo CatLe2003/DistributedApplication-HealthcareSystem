@@ -47,7 +47,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('profile.update') }}">
+            <form method="POST" action="{{ route('profile.update') }}" class="search-form">
                 @csrf
                 <div class="profile-header">
                     <img src="" alt="" class="profile-avatar" id="avatar-preview">

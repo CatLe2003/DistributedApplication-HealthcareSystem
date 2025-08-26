@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>{{ $title ?? 'Register - LifeCare' }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('Frontend/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 </head>
 <body class="login-body">
 
@@ -25,8 +25,7 @@
         </div>
     @endif
 
-    <form class="login-form" method="POST" action="{{ route('register') }}">
-        @csrf
+    <form class="login-form" method="POST" action="{{-- route('register') --}}">
 
         <label class="login-field" for="fullname">Fullname</label>
         <input class="input-field" type="text" id="fullname" name="fullname"
@@ -50,7 +49,7 @@
         </select>
 
         <div class="login-buttons">
-            <a href="{{ route('login') }}" class="btn-outline">Back</a>
+            <a href="{{ url('login') }}" class="btn-outline">Back</a>
             <button type="submit" class="btn-primary">Register</button>
         </div>
     </form>
