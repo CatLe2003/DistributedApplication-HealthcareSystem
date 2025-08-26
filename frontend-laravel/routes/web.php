@@ -3,6 +3,15 @@
 use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
+Route::get('/register', function () {
+    return view('auth.register');
+});
+
+// PATIENT'S UI
 Route::get('/', function () {
     return view('dashboard.homepage');
 }) ->name('home');
@@ -10,10 +19,6 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('dashboard.homepage');
 })->name('home');
-
-Route::get('/login', function () {
-    return view('auth.login');
-});
 
 Route::get('/department/list_departments', function () {
     return view('department.list_departments');
@@ -52,3 +57,34 @@ Route::get('/medical_record/medical_records', function () {
 Route::get('/medical_record/detail_medrecord', function () {
     return view('medical_record.detail_medrecord');
 });
+// DOCTOR'S UI
+Route::get('/dashboard_doctor', function () {
+    return view('layouts.doctor');
+});
+
+Route::get('/profile_employee', function () {
+    return view('employee.profile_employee');
+});
+
+Route::get('/patients', function () {
+    return view('employee.profile_employee');
+});
+
+Route::get('/schedule_management', function () {
+    return view('employee.schedule_management');
+});
+
+Route::get('/patient_management', function () {
+    return view('patient.list_patients');
+});
+
+Route::get('/detail_patient', function () {
+    return view('patient.update_patient');
+});
+
+Route::get('/update_medicalrecord', function () {
+    return view('patient.update_medrecord');
+});
+// STAFF'S UI
+
+// ADMIN'S UI
