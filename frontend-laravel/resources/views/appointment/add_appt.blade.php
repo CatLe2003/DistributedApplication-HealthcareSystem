@@ -31,7 +31,7 @@
                 </label>
                 <label class="paper-detail-description">
                     <input type="radio" name="patient_status" value="no">
-                    No, I’m a new patient
+                    No, I'm a new patient
                 </label>
             </div>
 
