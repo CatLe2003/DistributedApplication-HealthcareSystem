@@ -51,3 +51,4 @@ Route::delete('/doctor-schedules/{id}', [DoctorScheduleController::class, 'delet
 Route::get('/doctors/{doctorId}/schedules', [DoctorScheduleController::class, 'getSchedulesByDoctor']);
 Route::get('/doctor-schedules/by-weekday/{weekdayId}', [DoctorScheduleController::class, 'getSchedulesByWeekday']);
 Route::get('/doctor-schedules/by-shift/{shiftId}', [DoctorScheduleController::class, 'getSchedulesByShift']);
+Route::post('/doctor-schedules/check-availability', [DoctorScheduleController::class, 'checkDoctorAvailability']);

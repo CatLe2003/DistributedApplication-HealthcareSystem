@@ -7,6 +7,9 @@ use App\Models\Doctor;
 use App\Models\Weekday;
 use App\Models\Shift;
 use Illuminate\Http\Request;
+use Carbon\Carbon; 
+use Illuminate\Support\Facades\DB;
+
 use Exception;
 
 class DoctorScheduleController extends Controller
@@ -246,6 +249,55 @@ class DoctorScheduleController extends Controller
                 'success' => false,
                 'message' => 'Failed to fetch available doctors',
                 'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    // POST /doctor-schedules/check-availability
+    public function checkDoctorAvailability(Request $request)
+    {
+        try {
+            $request->validate([
+                'date' => 'required|date',       // Ngày cần check
+                'doctorId' => 'required|integer',
+                'shiftId' => 'required|integer',
+            ]);
+
+            $date = Carbon::parse($request->date);
+            $weekdayName = $date->format('l'); // Monday, Tuesday,...
+            
+            // Lấy weekdayId từ bảng weekdays
+            $weekday = DB::table('weekdays')
+                ->where('WeekdayName', $weekdayName)
+                ->first();
+
+            if (!$weekday) {
+                return response()->json([
+                    'available' => false,
+                    'message' => 'Invalid weekday mapping'
+                ]);
+            }
+
+            $weekdayId = $weekday->WeekdayID;
+
+            // Check trong doctor_schedules có tồn tại không
+            $exists = DB::table('doctor_schedules')
+                ->where('DoctorID', $request->doctorId)
+                ->where('WeekdayID', $weekdayId)
+                ->where('ShiftID', $request->shiftId)
+                ->exists();
+
+            return response()->json([
+                'isAvailable' => $exists,
+                'doctorId' => $request->doctorId,
+                'shiftId' => $request->shiftId,
+                'date' => $request->date,
+                'weekdayId' => $weekdayId,
+                'weekdayName' => $weekdayName
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Failed to check availability',
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
