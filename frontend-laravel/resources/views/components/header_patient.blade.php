@@ -3,15 +3,15 @@
         <img src="{{ asset('assets/images/smile-2_removebg.png') }}" alt="Smile.png" class="nav-header__logo">
         <h1 class="nav-header__name">LifeCare</h1>
     </div>
-
+`
     <div class="nav-items">
-        <a class="nav-item" href="{{ url('homepage') }}">Homepage</a>
-        <a class="nav-item" href="{{ url('list_departments') }}">Services</a>
+        <a class="nav-item" href="{{ url('/home') }}">Homepage</a>
+        <a class="nav-item" href="{{ url('/list_departments') }}">Services</a>
         <a class="nav-item" href="#">About</a>
     </div>
 
     <div class="nav-right">
-        <a href="{{ url('appt/add_appt') }}" class="btn-primary">Book an appointment</a>
+        <a href="{{ url('appointment/add_appt') }}" class="btn-primary">Book an appointment</a>
 
         <div class="user-dropdown">
             <div class="user-info">

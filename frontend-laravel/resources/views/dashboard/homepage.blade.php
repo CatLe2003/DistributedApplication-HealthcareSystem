@@ -7,7 +7,7 @@
     <div class="intro-left">
         <h2>Book appointments quickly – Manage your records easily</h2>
         <p>Access your medical information anytime, anywhere.</p>
-        <a href="{{ url('appt/add_appt') }}" class="btn-primary">Book an appointment</a>
+        <a href="{{ url('appointment/add_appt') }}" class="btn-primary">Book an appointment</a>
     </div>
     <div class="intro-right">
         <img src="{{ asset('assets/images/banner.png') }}" alt="Banner image">
