@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title','Patient Profile - LifeCare')</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
-    {{-- <link rel="stylesheet" href="{{ asset('Frontend/assets/css/style.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
-<script src="{{ asset('Frontend/assets/js/function_patient.js') }}"></script>
-
+<script src="{{ asset('assets/js/function_patient.js') }}"></script>
 <body>
-    {{-- <div class="container">
+    <div class="container">
         @include('components.header_patient')
-    </div> --}}
+    </div>
     
     <!-- Main -->
     <div class="main-container">
@@ -28,7 +27,7 @@
                 <div class="profile-section user-details">
                     <div class="section-header">
                         <h3>User details</h3>
-                        <a href="{ url('medical_record/update_profile') }}" class="edit-profile">Edit profile</a>
+                        <a href="{{ url('medical_record/update_profile') }}" class="edit-profile">Edit profile</a>
                     </div>
                     <p class="user-detail"><strong>Gender: </strong>Male</p>
                     <p class="user-detail"><strong>Phone Number: </strong>094543545</p>
@@ -70,7 +69,7 @@
 
     </div>
 
-    {{-- @includeWhen(View::exists('components.footer_patient'), 'components.footer_patient') --}}
+    @includeWhen(View::exists('components.footer_patient'), 'components.footer_patient')
 
     {{-- Scripts chung + stack cho từng trang/components --}}
     @stack('scripts')

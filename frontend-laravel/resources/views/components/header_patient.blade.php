@@ -19,10 +19,10 @@
                 <span class="username">{{ Auth::user()->name ?? 'Username' }}</span>
             </div>
             <div class="dropdown-user">
-                <a href="{{ url('profile') }}">
+                <a href="{{ url('medical_record/profile') }}">
                     <i class="fa-solid fa-file-invoice nav-item__icon"></i> Profile
                 </a>
-                <a href="{{ url('patient/medical_records') }}">
+                <a href="{{ url('medical_record/medical_records') }}">
                     <i class="fa-solid fa-notes-medical nav-item__icon"></i> Medical Records
                 </a>
                 <a href="javascript:void(0)" id="logout-btn">
