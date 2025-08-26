@@ -1231,3 +1231,20 @@ function closePopup() {
 .text-column {
     color: var(--text-color);
 }
+
+/* alert */
+.alert {
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}

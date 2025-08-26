@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     radios.forEach(radio => {
         radio.addEventListener("change", function () {
             if (this.value === "no") {
-                window.location.href = "../medical_record/update_profile.blade.php";
+                window.location.href = "/medical_record/update_profile";
             }
         });
     });

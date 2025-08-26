@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -37,6 +38,8 @@ Route::get('/medical_record/profile', function () {
 Route::get('/medical_record/update_profile', function () {
     return view('medical_record.update_profile');
 });
+
+Route::post('/medical_record/update_profile', [PatientController::class, 'updateProfile'])->name('profile.update');
 
 Route::get('/medical_record/medical_records', function () {
     return view('medical_record.medical_records');
