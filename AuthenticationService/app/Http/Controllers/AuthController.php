@@ -134,4 +134,71 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid token', 'error' => $e->getMessage()], 401);
         }
     }
+
+    public function getAllUsers()
+    {
+        try {
+            $users = User::all();
+            return response()->json(['users' => $users]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Failed to retrieve users',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getUserById($id)
+    {
+        try {
+            $user = User::find($id);
+            if (!$user) {
+                return response()->json(['message' => 'User not found'], 404);
+            }
+            return response()->json(['user' => $user]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Failed to retrieve user',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function updateUserById(Request $request, $id)
+    {
+        try {
+            $user = User::findOrFail($id);
+
+            // Validate input
+            $request->validate([
+                'password' => 'nullable|string|max:255',
+                'is_active' => 'nullable|boolean',
+                'referend_id' => 'nullable|integer',
+            ]);
+
+            // Update các field
+            if ($request->has('password')) {
+                $user->password_hash = Hash::make($request->password);
+            }
+            if ($request->has('is_active')) {
+                $user->is_active = $request->is_active;
+            }
+            if ($request->has('referend_id')) {
+                $user->referend_id = $request->referend_id;
+            }
+
+            $user->save();
+
+            return response()->json([
+                'message' => 'User updated successfully',
+                'user' => $user
+            ], 200);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Failed to update user',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
