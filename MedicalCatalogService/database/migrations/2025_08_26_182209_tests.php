@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->string('TestName');
             $table->text('Description')->nullable();
             $table->decimal('Price', 12, 2)->nullable();
-            $table->unsignedBigInteger('DepartmentID')->nullable(); // cần bảng department riêng
+            $table->unsignedBigInteger('DepartmentID')->nullable(); 
             $table->timestamps();
         });
     }
