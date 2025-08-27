@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prescriptions Management - LifeCare</title>
+    <title>Appointments Management - LifeCare</title>
     <link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,29 +26,23 @@
                 <div class="container-recent">
                     <div class="container-recent-inner">
                         <div class="container-recent__heading heading__button">
-                            <a href="{{ url('add_prescription') }}" class="btn-control btn-control-add">
-                                <i class="fa-solid fa-pills btn-control-icon"></i>
-                                Add new prescription
+                            <a href="{{ url('add_appointment') }}" class="btn-control btn-control-add">
+                                <i class="fa-solid fa-calendar btn-control-icon"></i>
+                                Add new appointment
                             </a>
-                            <!-- <p class="recent__heading-title">Prescriptions</p> -->
-                            <form class="container__heading-search">
-                                <input type="text" class="heading-search__area" placeholder="Search by notes..." name>
-                                <button href="" class="btn-control btn-control-search">
-                                    <i class="fa-solid fa-magnifying-glass btn-control-icon"></i>
-                                    Search
-                                </button>                        
-
-                            </form>
-
                         </div>
 
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="thead-light"> 
                                     <tr>
-                                        <th class="text-column-emphasis" scope="col">VISIT ID</th> 
-                                        <th class="text-column" scope="col">Notes</th> 
+                                        <th class="text-column-emphasis" scope="col">ID</th> 
+                                        <th class="text-column" scope="col">Patient</th> 
+                                        <th class="text-column" scope="col">Doctor</th> 
+                                        <th class="text-column" scope="col">Department</th> 
                                         <th class="text-column" scope="col">Date</th> 
+                                        <th class="text-column" scope="col">Timeslot</th> 
+                                        <th class="text-column" scope="col">Room</th> 
                                         <th class="text-column" scope="col">Status</th> 
                                         <th class="text-column" scope="col">ACTION</th> 
                                     </tr>
@@ -56,8 +50,12 @@
                                 <tbody class="table-body">
                                     <tr>
                                         <th class="text-column-emphasis" scope="row">12</th> 
-                                        <th class="text-column" scope="row">abc</th> 
-                                        <th class="text-column" scope="row">08/09/2025</th> 
+                                        <th class="text-column" scope="col">Patient</th> 
+                                        <th class="text-column" scope="col">Doctor</th> 
+                                        <th class="text-column" scope="col">Department</th> 
+                                        <th class="text-column" scope="col">12/09/2025</th> 
+                                        <th class="text-column" scope="col">Timeslot</th> 
+                                        <th class="text-column" scope="col">Room</th> 
                                         <th class="text-column" scope="row">
                                             <span class="badge badge-success">New</span>
                                             <!-- <span class="badge badge-unsuccess">Cancel</span>
@@ -65,14 +63,15 @@
                                         </th>
                                         <th class="text-column" scope="row">
                                             <div class="text-column__action">
-                                                <a href="{{ url('update_prescription') }}" class="btn-control btn-control-delete">
-                                                    <i class="fa-solid fa-square-check btn-control-icon"></i>
-                                                    Update
-                                                </a>
-                                                <a href="{{ url('detail_prescription') }}" class="btn-control btn-control-edit">
+                                                <!-- Chỉ hiển thị khi status="BOOKED" -->
+                                                <button href="{{-- url('update_prescription') --}}" class="btn-control btn-control-delete">
+                                                    <i class="fa-solid fa-trash btn-control-icon"></i>
+                                                    Cancel
+                                                </button>
+                                                <!-- <a href="{{ url('detail_prescription') }}" class="btn-control btn-control-edit">
                                                     <i class="fa-solid fa-user-pen btn-control-icon"></i>
                                                     View Detail
-                                                </a>
+                                                </a> -->
                                             </div>
                                         </th> 
                                     </tr>

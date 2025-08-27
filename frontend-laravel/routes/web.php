@@ -86,6 +86,7 @@ Route::get('/update_medicalrecord', function () {
     return view('patient.update_medrecord');
 });
 
+// STAFF'S UI
 Route::get('/prescriptions', function () {
     return view('patient.prescriptions');
 });
@@ -97,6 +98,24 @@ Route::get('/add_prescription', function () {
 Route::get('/update_prescription', function () {
     return view('patient.update_prescription');
 });
-// STAFF'S UI
+
+Route::get('/detail_prescription', function () {
+    return view('patient.detail_prescription');
+});
+
+Route::get('/appointment_management', function () {
+    return view('appointment.list_appts_staff');
+});
+
+Route::get('/add_appointment', function () {
+    return view('appointment.add_appt_staff');
+});
 
 // ADMIN'S UI
+Route::get('/medicine_management', function () {
+    return view('medicine.medicines');
+});
+
+Route::get('/add_medicine', function () {
+    return view('medicine.add_medicine');
+});
