@@ -85,6 +85,18 @@ Route::get('/detail_patient', function () {
 Route::get('/update_medicalrecord', function () {
     return view('patient.update_medrecord');
 });
+
+Route::get('/prescriptions', function () {
+    return view('patient.prescriptions');
+});
+
+Route::get('/add_prescription', function () {
+    return view('patient.add_prescription');
+});
+
+Route::get('/update_prescription', function () {
+    return view('patient.update_prescription');
+});
 // STAFF'S UI
 
 // ADMIN'S UI

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prescriptions Management - LifeCare</title>
+    <title>Add Prescription - LifeCare</title>
     <link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,17 +69,9 @@
                                                     <i class="fa-solid fa-trash-can btn-control-icon"></i>
                                                     Delete
                                                 </a>
-                                                <button href="{{ url('update_prescription') }}" class="btn-control btn-control-edit">
+                                                <a href="{{ url('detail_patient') }}" class="btn-control btn-control-edit">
                                                     <i class="fa-solid fa-square-check btn-control-icon"></i>
                                                     Update
-                                                </button>
-                                                <button href="{{ url('update_prescription') }}" class="btn-control btn-control-edit">
-                                                    <i class="fa-solid fa-square-check btn-control-icon"></i>
-                                                    Save
-                                                </button>
-                                                <a href="{{ url('update_prescription') }}" class="btn-control btn-control-edit">
-                                                    <i class="fa-solid fa-user-pen btn-control-icon"></i>
-                                                    View Detail
                                                 </a>
                                             </div>
                                         </th> 

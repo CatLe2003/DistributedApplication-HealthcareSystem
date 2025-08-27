@@ -41,8 +41,8 @@
                                     <option value="Monday">9:00 - 9:30</option>
                                     <option value="Monday">9:30 - 10:00</option>
                                 </select>
-                                <button class="btn-control btn-control-search" name="btn-add-contraindication">
-                                    <i class="fa-solid fa-hand-dots btn-control-icon"></i>
+                                <button class="btn-control btn-control-search" name="btn-add-schedule">
+                                    <!-- <i class="fa-solid fa-hand-dots btn-control-icon"></i> -->
                                     Add Schedule
                                 </button>                        
                             </form>
