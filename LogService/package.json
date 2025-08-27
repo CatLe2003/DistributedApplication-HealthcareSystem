@@ -1,0 +1,38 @@
+{
+  "name": "healthcare-log-service",
+  "version": "1.0.0",
+  "description": "Centralized logging service for healthcare microservices using RabbitMQ and MongoDB",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "test": "node test-log-system.js",
+    "docker:build": "docker build -t healthcare-log-service .",
+    "docker:run": "docker run -p 3000:3000 healthcare-log-service"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.9",
+    "axios": "^1.11.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^17.2.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongoose": "^8.18.0",
+    "morgan": "~1.9.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "keywords": [
+    "logging",
+    "microservices",
+    "healthcare",
+    "rabbitmq",
+    "mongodb",
+    "express"
+  ],
+  "author": "Healthcare System",
+  "license": "MIT"
+}
