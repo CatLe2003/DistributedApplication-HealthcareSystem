@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Prescription - LifeCare</title>
+    <title>Add Medicine - LifeCare</title>
     <link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
                 <div class="container-recent">
                     <div class="card shadow">
                         <div class="container-recent__heading">
-                            <p class="recent__heading-title">Prescription</p>
+                            <p class="recent__heading-title">Add New Medicine</p>
                         </div>
                         
                         <div class="container-recent__body card__body-form">
@@ -34,8 +34,8 @@
                                 <div class="form-row">
                                     <div class="form-row__flex">
                                         <div class="form-col">
-                                            <label for="" class="form-col__label">Date</label>
-                                            <input type="text" name="paintent_phone" class="form-control" value="08/09/2025" readonly>
+                                            <label for="" class="form-col__label">Name</label>
+                                            <input type="text" name="medicineName" class="form-control" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -43,8 +43,8 @@
                                 <div class="form-row">
                                     <div class="form-row__flex">
                                         <div class="form-col">
-                                            <label for="" class="form-col__label">Notes</label>
-                                            <input type="text" name="paitent_gender" class="form-control" value="abc">
+                                            <label for="" class="form-col__label">Ingredient</label>
+                                            <input type="text" name="ingredient" class="form-control" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -52,11 +52,39 @@
                                 <div class="form-row">
                                     <div class="form-row__flex">
                                         <div class="form-col">
-                                            <label for="" class="form-col__label">Status</label>
-                                            <select name="presc_status" id="prescStatus" class="form-cotrol" onchange="getCustomer(this.value)">
+                                            <label for="" class="form-col__label">Dosage</label>
+                                            <input type="text" name="dosage" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Unit</label>
+                                            <select name="unit" id="unit" class="form-cotrol" onchange="getCustomer(this.value)">
                                                 <option value="" class="">New</option>
                                                 <option value="" class="">In Progress</option>
                                             </select>
+                                        </div>
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Manufacturer</label>
+                                            <select name="manufacturer" id="manufacturer" class="form-cotrol" onchange="getCustomer(this.value)">
+                                                <option value>8:00 - 8:30</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">In Stock</label>
+                                            <input type="number" name="inStock" class="form-control" value="">
+                                        </div>
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Price</label>
+                                            <input type="number" name="price" class="form-control" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +94,7 @@
                                 <div class="form-row">
                                     <div class="form-col margin-0">
                                         <div class="form-col-bottom">
-                                            <input type="submit" name="updatePrescription" value="Update Prescription" class="btn-control btn-control-add">
+                                            <input type="submit" name="addNedicine" value="Add Medicine" class="btn-control btn-control-add">
                                         </div>
                                     </div>
                                 </div>

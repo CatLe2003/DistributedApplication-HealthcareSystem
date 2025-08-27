@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Prescription - LifeCare</title>
+    <title>Add Appointment - LifeCare</title>
     <link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
                 <div class="container-recent">
                     <div class="card shadow">
                         <div class="container-recent__heading">
-                            <p class="recent__heading-title">Prescription</p>
+                            <p class="recent__heading-title">Add New Appointment</p>
                         </div>
                         
                         <div class="container-recent__body card__body-form">
@@ -34,28 +34,49 @@
                                 <div class="form-row">
                                     <div class="form-row__flex">
                                         <div class="form-col">
-                                            <label for="" class="form-col__label">Date</label>
-                                            <input type="text" name="paintent_phone" class="form-control" value="08/09/2025" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-row__flex">
-                                        <div class="form-col">
-                                            <label for="" class="form-col__label">Notes</label>
-                                            <input type="text" name="paitent_gender" class="form-control" value="abc">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-row__flex">
-                                        <div class="form-col">
-                                            <label for="" class="form-col__label">Status</label>
-                                            <select name="presc_status" id="prescStatus" class="form-cotrol" onchange="getCustomer(this.value)">
+                                            <label for="" class="form-col__label">Patient</label>
+                                            <select name="patient" id="patient" class="form-cotrol" onchange="getCustomer(this.value)">
                                                 <option value="" class="">New</option>
                                                 <option value="" class="">In Progress</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Department</label>
+                                            <select name="department" id="department" class="form-cotrol" onchange="getCustomer(this.value)">
+                                                <option value="" class="">New</option>
+                                                <option value="" class="">In Progress</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Doctor</label>
+                                            <select name="doctor" id="doctor" class="form-cotrol" onchange="getCustomer(this.value)">
+                                                <option value="" class="">New</option>
+                                                <option value="" class="">In Progress</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Date</label>
+                                            <input type="date" name="date" class="form-control" value="">
+                                        </div>
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Time slot</label>
+                                            <select name="time_slot" id="timeslot" class="form-cotrol" onchange="getCustomer(this.value)">
+                                                <option value>8:00 - 8:30</option>
                                             </select>
                                         </div>
                                     </div>
@@ -66,7 +87,7 @@
                                 <div class="form-row">
                                     <div class="form-col margin-0">
                                         <div class="form-col-bottom">
-                                            <input type="submit" name="updatePrescription" value="Update Prescription" class="btn-control btn-control-add">
+                                            <input type="submit" name="addAppointment" value="Add Appointment" class="btn-control btn-control-add">
                                         </div>
                                     </div>
                                 </div>

@@ -81,7 +81,7 @@
                                 <div class="form-row">
                                     <div class="form-col margin-0">
                                         <div class="form-col-bottom">
-                                            <input type="submit" name="updateMedRecord" value="Update Record" class="btn-control btn-control-add" value="">
+                                            <input type="submit" name="updateMedRecord" value="Update Record" class="btn-control btn-control-add">
                                         </div>
                                     </div>
                                 </div>

@@ -17,6 +17,7 @@
                         <p class="nav-item__text">Dashboard</p>
                     </a>
                 </li>
+                <!-- Dentist Only -->
                 <li class="navbar-nav__item">
                     <a href="{{ url('patient_management') }}" class="nav-item__link text-primary">
                         <i class="fa-solid fa-bed-pulse nav-item__icon"></i>
@@ -29,6 +30,7 @@
                         <p class="nav-item__text">Schedule Management</p>
                     </a>
                 </li>
+                <!-- Staff Only -->
                 <li class="navbar-nav__item">
                     <a href="{{ url('prescriptions') }}" class="nav-item__link text-primary">
                         <i class="fa-solid fa-pills nav-item__icon"></i>
@@ -36,15 +38,16 @@
                     </a>
                 </li>
                 <li class="navbar-nav__item">
-                    <a href="{{ url('medicine_management') }}" class="nav-item__link text-primary">
-                        <i class="fa-solid fa-pills nav-item__icon"></i>
-                        <p class="nav-item__text">Medicines</p>
-                    </a>
-                </li>
-                <li class="navbar-nav__item">
                     <a href="{{ url('appointment_management') }}" class="nav-item__link text-primary">
                         <i class="fa-solid fa-calendar-check nav-item__icon"></i>
                         <p class="nav-item__text">Appointments</p>
+                    </a>
+                </li>
+                <!-- Admin Only -->
+                <li class="navbar-nav__item">
+                    <a href="{{ url('medicine_management') }}" class="nav-item__link text-primary">
+                        <i class="fa-solid fa-pills nav-item__icon"></i>
+                        <p class="nav-item__text">Medicines</p>
                     </a>
                 </li>
                 <li class="navbar-nav__item">
