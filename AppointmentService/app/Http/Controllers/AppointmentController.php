@@ -2,14 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Appointment;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Validation\ValidationException;
 use Exception;
+use App\Models\Appointment;
+use Illuminate\Http\Request;
+use App\Services\AppointmentService;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AppointmentController extends Controller
 {
+
+    protected $appointmentService;
+
+    public function __construct(AppointmentService $appointmentService)
+    {
+        $this->appointmentService = $appointmentService;
+    }
+
+
     // GET /appointments
     public function index()
     {
@@ -64,6 +74,8 @@ class AppointmentController extends Controller
             //         return response()->json(['error' => $errorMessage], 422);
             //     }
             // }
+            $this->appointmentService->validateEntities($data);
+
             $appointment = Appointment::create($data);
 
             return response()->json([

@@ -4,11 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Services\PatientService;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
 {
+     protected $patientService;
+
+    public function __construct(PatientService $patientService)
+    {
+        $this->patientService = $patientService;
+    }
+
+
     public function create(Request $request)
     {
         try {
@@ -22,6 +31,8 @@ class OrderController extends Controller
                 'result' => 'nullable|string',
                 'detailsURL' => 'required|url'
             ]);
+            
+            $this->patientService->validateEntitiesOrder($incomingFields);
 
             // Database insert phase
             Order::create($incomingFields);
@@ -51,5 +62,18 @@ class OrderController extends Controller
             return response()->json(['message' => 'Order not found'], 404);
         }
         return response()->json($Order);
+    }
+
+    public function getAll()
+    {
+        try {
+            $orders = Order::all();
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to retrieve orders'], 500);
+        }
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class PrescriptionController extends Controller
 {
+
     public function create(Request $request)
     {
         try {
@@ -66,5 +67,56 @@ class PrescriptionController extends Controller
             return response()->json(['message' => 'Prescription not found'], 404);
         }
         return response()->json($prescription);
+    }
+
+    public function getAll()
+    {
+        try {
+            $prescriptions = Prescription::with('details')->get();
+            return response()->json([
+                'message' => 'Prescriptions retrieved successfully',
+                'data' => $prescriptions
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to retrieve prescriptions'], 500);
+        }
+    }
+
+    public function getByPatientAndDate(Request $request)
+    {
+        try {
+            $request->validate([
+                'patient_id' => 'nullable|integer',
+                'date' => 'nullable|date'
+            ]);
+
+            $query = Prescription::with('details');
+
+            // Apply patient filter if provided
+            if ($request->has('patient_id')) {
+                $query->whereHas('medicalVisit', function($q) use ($request) {
+                    $q->where('patient_id', $request->patient_id);
+                });
+            }
+
+            // Apply date filter if provided
+            if ($request->has('date')) {
+                $query->whereDate('date', $request->date);
+            }
+
+            $prescriptions = $query->get();
+
+            return response()->json([
+                'message' => 'Prescriptions retrieved successfully',
+                'data' => $prescriptions
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to retrieve prescriptions'], 500);
+        }
     }
 }

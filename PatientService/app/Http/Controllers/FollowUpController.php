@@ -48,4 +48,17 @@ class FollowUpController extends Controller
         }
         return response()->json($FollowUp);
     }
+
+    public function getAll()
+    {
+        try {
+            $followUps = FollowUp::all();
+            return response()->json([
+                'message' => 'Follow ups retrieved successfully',
+                'data' => $followUps
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to retrieve follow ups'], 500);
+        }
+    }
 }

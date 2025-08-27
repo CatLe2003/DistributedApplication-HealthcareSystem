@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('prescription', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('visit_id')->constrained('patient')->onDelete('cascade');
+            $table->foreignId('visit_id')->constrained('medicalvisit')->onDelete('cascade');
             $table->text('notes')->nullable();
             $table->string('status');
             $table->date('date');

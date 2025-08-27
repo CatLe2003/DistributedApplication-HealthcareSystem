@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'api_gateway' => [
+        'url' => env('API_GATEWAY_URL', 'http://api_gateway'),
+    ],
+
 ];

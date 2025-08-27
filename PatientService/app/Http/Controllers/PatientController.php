@@ -114,4 +114,17 @@ class PatientController extends Controller
         }
     }
 
+    public function getAll()
+    {
+        try {
+            $patients = Patient::all();
+            return response()->json([
+                'message' => 'Patients retrieved successfully',
+                'data' => $patients
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to retrieve patients'], 500);
+        }
+    }
+
 }

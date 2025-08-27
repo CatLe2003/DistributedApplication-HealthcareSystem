@@ -3,12 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\MedicalVisit;
+use App\Services\PatientService;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 
 class MedicalVisitController extends Controller
 {
+    protected $patientService;
+
+    public function __construct(PatientService $patientService)
+    {
+        $this->patientService = $patientService;
+    }
+
+
     public function create(Request $request)
     {
         try {
@@ -22,6 +31,7 @@ class MedicalVisitController extends Controller
                 'symptoms' => 'required|string|max:255',
                 'notes' => 'nullable|string|max:255',
             ]);
+            $this->patientService->validateEntitiesMedicalVisit($incomingFields);
 
             // Database insert phase
             MedicalVisit::create($incomingFields);
@@ -51,5 +61,18 @@ class MedicalVisitController extends Controller
             return response()->json(['message' => 'Medical visit not found'], 404);
         }
         return response()->json($medicalVisit);
+    }
+
+    public function getAll()
+    {
+        try {
+            $medicalVisits = MedicalVisit::all();
+            return response()->json([
+                'message' => 'Medical visits retrieved successfully',
+                'data' => $medicalVisits
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to retrieve medical visits'], 500);
+        }
     }
 }
