@@ -1,15 +1,27 @@
 <?php
 
-use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\AuthenticationController;
 
 Route::get('/login', function () {
     return view('auth.login');
 });
 
+Route::post('/login', [AuthenticationController::class, 'login'])->name('login');
+
 Route::get('/register', function () {
     return view('auth.register');
 });
+
+Route::post('/register', [AuthenticationController::class, 'registerAccount'])->name('register');
+
+Route::get('/register_profile', function () {
+    return view('auth.register_profile');
+});
+
+Route::post('/register_profile', [PatientController::class, 'registerProfile'])->name('profile.register');
+
 
 // PATIENT'S UI
 Route::get('/', function () {
@@ -47,8 +59,6 @@ Route::get('/medical_record/profile', function () {
 Route::get('/medical_record/update_profile', function () {
     return view('medical_record.update_profile');
 });
-
-Route::post('/medical_record/update_profile', [PatientController::class, 'updateProfile'])->name('profile.update');
 
 Route::get('/medical_record/medical_records', function () {
     return view('medical_record.medical_records');

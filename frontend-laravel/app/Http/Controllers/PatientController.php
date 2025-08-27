@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Http;
 
 class PatientController extends Controller
 {
-    public function updateProfile(Request $request)
+    public function registerProfile(Request $request)
     {
         $response = Http::post('http://api_gateway/patient/register-patient', $request->all());
 
         if ($response->successful()) {
-            return redirect()->back()->with('success', 'Profile updated successfully!');
+            return redirect()->route('login')->with('success', 'Profile registered successfully!');
         }
 
         $errors = json_decode($response->body(), true);

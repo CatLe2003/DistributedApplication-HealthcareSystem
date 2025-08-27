@@ -24,6 +24,9 @@
     @if (session('status'))
         <div class="alert alert-success">{{ session('status') }}</div>
     @endif
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
     @if ($errors->any())
         <div class="alert alert-danger" style="margin-bottom:12px">
             <ul style="margin:0; padding-left:18px">
@@ -34,14 +37,15 @@
         </div>
     @endif
 
-    <form class="login-form" method="POST" action="{{-- route('login') --}}">
-        <label class="login-field" for="phone_number">Username</label>
+    <form class="login-form" method="POST" action="{{ route('login') }}">
+        @csrf
+        <label class="login-field" for="login-key">Login Key</label>
         <input class="input-field"
                type="text"
-               id="phone_number"
-               name="phone_number"
-               value="{{ old('phone_number') }}"
-               placeholder="Please enter your number phone"
+               id="login_key"
+               name="login_key"
+               value="{{ old('login_key') }}"
+               placeholder="Please enter your phone number"
                required autofocus>
 
         <label class="login-field" for="password">Password</label>

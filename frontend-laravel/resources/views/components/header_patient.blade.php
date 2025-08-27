@@ -19,7 +19,7 @@
         <div class="user-dropdown">
             <div class="user-info">
                 <div class="avatar-circle"></div>
-                <span class="username">{{ Auth::user()->name ?? 'Username' }}</span>
+                <span class="username">{{ session('login_key') ?? 'Guest' }} (ID: {{ session('user_id') }})</span>
             </div>
             <div class="dropdown-user">
                 <a href="{{ url('medical_record/profile') }}">
