@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\EmployeeController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -32,9 +33,7 @@ Route::get('/home', function () {
     return view('dashboard.homepage');
 })->name('home');
 
-Route::get('/department/list_departments', function () {
-    return view('department.list_departments');
-});
+Route::get('/department/list_departments', [EmployeeController::class, 'listDepartments']);
 
 Route::get('/appointment/add_appt', function () {
     return view('appointment.add_appt');
