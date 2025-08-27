@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prescriptions Management - LifeCare</title>
+    <title>Update Prescription - LifeCare</title>
     <link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,17 +26,17 @@
                 <div class="container-recent">
                     <div class="container-recent-inner">
                         <div class="container-recent__heading heading__button">
-                            <a href="{{ url('add_prescription') }}" class="btn-control btn-control-add">
+                            <!-- <a href="{{ url('add_prescription') }}" class="btn-control btn-control-add">
                                 <i class="fa-solid fa-pills btn-control-icon"></i>
                                 Add new prescription
-                            </a>
-                            <!-- <p class="recent__heading-title">Prescriptions</p> -->
+                            </a> -->
+                            <p class="recent__heading-title">Detail Prescription</p>
                             <form class="container__heading-search">
-                                <input type="text" class="heading-search__area" placeholder="Search by notes..." name>
-                                <button href="" class="btn-control btn-control-search">
+                                <input type="text" class="heading-search__area" placeholder="Search by date, notes..." name>
+                                <!-- <button href="" class="btn-control btn-control-search">
                                     <i class="fa-solid fa-magnifying-glass btn-control-icon"></i>
                                     Search
-                                </button>                        
+                                </button>                         -->
 
                             </form>
 
@@ -46,41 +46,35 @@
                             <table class="table">
                                 <thead class="thead-light"> 
                                     <tr>
-                                        <th class="text-column-emphasis" scope="col">VISIT ID</th> 
-                                        <th class="text-column" scope="col">Notes</th> 
-                                        <th class="text-column" scope="col">Date</th> 
-                                        <th class="text-column" scope="col">Status</th> 
+                                        <th class="text-column-emphasis" scope="col">No.</th> 
+                                        <th class="text-column" scope="col">Medicine</th> <!-- Tên thuốc -->
+                                        <th class="text-column" scope="col">Dosage</th> 
+                                        <th class="text-column" scope="col">Duration</th> 
                                         <th class="text-column" scope="col">ACTION</th> 
                                     </tr>
                                 </thead>
                                 <tbody class="table-body">
                                     <tr>
-                                        <th class="text-column-emphasis" scope="row">12</th> 
-                                        <th class="text-column" scope="row">abc</th> 
-                                        <th class="text-column" scope="row">08/09/2025</th> 
+                                        <th class="text-column-emphasis" scope="row">1</th>  <!-- Tăng tự động -->
                                         <th class="text-column" scope="row">
-                                            <span class="badge badge-success">New</span>
-                                            <!-- <span class="badge badge-unsuccess">Cancel</span>
-                                            <span class="badge badge-plan">In Progress</span> -->
-                                        </th>
+                                            <input type="text" name="medicine" value="21" placeholder="Paracetamol" class="form-control" required>
+                                        </th> 
+                                        <th class="text-column" scope="row">
+                                            <input type="text" name="dosage" value="2 viên/ngày" class="form-control" required>
+                                        </th> 
+                                        <th class="text-column" scope="row">
+                                            <input type="text" name="duration" value="Max 200 mg/day" class="form-control">
+                                        </th> 
                                         <th class="text-column" scope="row">
                                             <div class="text-column__action">
-                                                <a href="" class="btn-control btn-control-delete">
+                                                <!-- <a href="" class="btn-control btn-control-delete">
                                                     <i class="fa-solid fa-trash-can btn-control-icon"></i>
                                                     Delete
-                                                </a>
-                                                <button href="{{ url('update_prescription') }}" class="btn-control btn-control-edit">
-                                                    <i class="fa-solid fa-square-check btn-control-icon"></i>
-                                                    Update
-                                                </button>
-                                                <button href="{{ url('update_prescription') }}" class="btn-control btn-control-edit">
+                                                </a> -->
+                                                <button type="submit" class="btn-control btn-control-edit">
                                                     <i class="fa-solid fa-square-check btn-control-icon"></i>
                                                     Save
                                                 </button>
-                                                <a href="{{ url('update_prescription') }}" class="btn-control btn-control-edit">
-                                                    <i class="fa-solid fa-user-pen btn-control-icon"></i>
-                                                    View Detail
-                                                </a>
                                             </div>
                                         </th> 
                                     </tr>
