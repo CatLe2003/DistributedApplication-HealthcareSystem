@@ -30,7 +30,7 @@
                     </a>
                 </li>
                 <li class="navbar-nav__item">
-                    <a href="{{ url('presciptions') }}" class="nav-item__link text-primary">
+                    <a href="{{ url('prescriptions') }}" class="nav-item__link text-primary">
                         <i class="fa-solid fa-pills nav-item__icon"></i>
                         <p class="nav-item__text">Prescriptions</p>
                     </a>
