@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Helpers\RabbitMQHelper;
 
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -8,7 +9,13 @@ use Illuminate\Http\Request;
 class UnitController extends Controller
 {
     public function index() {
-        return response()->json(Unit::all());
+
+        try {
+            $units = response()->json(Unit::all());
+            return response()->json($units);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to retrieve units'], 500);
+        }
     }
 
     public function store(Request $request) {
