@@ -78,9 +78,7 @@ Route::get('/schedule_management', function () {
     return view('employee.schedule_management');
 });
 
-Route::get('/patient_management', function () {
-    return view('patient.list_patients');
-});
+Route::get('/patient_management', [PatientController::class, 'getAll'])->name('patient_management');
 
 Route::get('/detail_patient', function () {
     return view('patient.update_patient');
@@ -91,9 +89,7 @@ Route::get('/update_medicalrecord', function () {
 });
 
 // STAFF'S UI
-Route::get('/prescriptions', function () {
-    return view('patient.prescriptions');
-});
+Route::get('/prescriptions', [PatientController::class, 'getAllPrescriptions'])->name('prescriptions');
 
 Route::get('/add_prescription', function () {
     return view('patient.add_prescription');

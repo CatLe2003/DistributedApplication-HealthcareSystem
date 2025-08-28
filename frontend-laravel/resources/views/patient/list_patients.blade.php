@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,19 +9,22 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merienda:wght@700;800&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
     <!-- Sidebar -->
-    @include('components.sidebar_employee')    
+    @include('components.sidebar_employee')
     <!-- Main content -->
     <div class="main-content">
         <div class="content">
             <!-- Top navbar -->
-            @include('components.header_employee')            
+            @include('components.header_employee')
             <!-- Page content -->
             <div class="container">
                 <div class="container-recent">
@@ -32,11 +36,12 @@
                             </a> -->
                             <p class="recent__heading-title">Patients</p>
                             <div class="container__heading-search">
-                                <input type="text" class="heading-search__area" placeholder="Search by code, name, phone number..." name>
+                                <input type="text" class="heading-search__area"
+                                    placeholder="Search by code, name, phone number..." name>
                                 <a href="" class="btn-control btn-control-search">
                                     <i class="fa-solid fa-magnifying-glass btn-control-icon"></i>
                                     Search
-                                </a>                        
+                                </a>
 
                             </div>
 
@@ -44,39 +49,45 @@
 
                         <div class="table-responsive">
                             <table class="table">
-                                <thead class="thead-light"> 
+                                <thead class="thead-light">
                                     <tr>
-                                        <th class="text-column-emphasis" scope="col">Paitent Id</th> 
-                                        <th class="text-column" scope="col">FULL NAME</th> 
-                                        <th class="text-column" scope="col">Gender</th> 
-                                        <th class="text-column" scope="col">Phone Number</th> 
-                                        <th class="text-column" scope="col">Address</th> 
-                                        <th class="text-column" scope="col">DOB</th> 
-                                        <th class="text-column" scope="col">ACTION</th> 
+                                        <th class="text-column-emphasis" scope="col">Patient Id</th>
+                                        <th class="text-column" scope="col">FULL NAME</th>
+                                        <th class="text-column" scope="col">Gender</th>
+                                        <th class="text-column" scope="col">Phone Number</th>
+                                        <th class="text-column" scope="col">Address</th>
+                                        <th class="text-column" scope="col">DOB</th>
+                                        <th class="text-column" scope="col">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-body">
-                                    <tr>
-                                        <th class="text-column-emphasis" scope="row">3434</th> 
-                                        <th class="text-column" scope="row">Sarah</th> 
-                                        <th class="text-column" scope="row">Female</th> 
-                                        <th class="text-column" scope="row">0923838456</th> 
-                                        <th class="text-column" scope="row">District 5, HCM</th> 
-                                        <th class="text-column" scope="row">23/1/2001</th> 
-                                        <th class="text-column" scope="row">
-                                            <div class="text-column__action">
-                                                <a href="" class="btn-control btn-control-delete">
-                                                    <i class="fa-solid fa-trash-can btn-control-icon"></i>
-                                                    Delete
-                                                </a>
-                                                <a href="{{ url('detail_patient') }}" class="btn-control btn-control-edit">
-                                                    <i class="fa-solid fa-user-pen btn-control-icon"></i>
-                                                    View Detail
-                                                </a>
-                                            </div>
-                                        </th> 
-                                    </tr>
-
+                                    @forelse($patients as $patient)
+                                        <tr>
+                                            <th class="text-column-emphasis" scope="row">{{ $patient['id'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">{{ $patient['full_name'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">{{ $patient['gender'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">{{ $patient['phone_number'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">{{ $patient['address'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">{{ $patient['date_of_birth'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">
+                                                <div class="text-column__action">
+                                                    <a href="#" class="btn-control btn-control-delete">
+                                                        <i class="fa-solid fa-trash-can btn-control-icon"></i>
+                                                        Delete
+                                                    </a>
+                                                    <a href="{{-- url('detail_patient/' . $patient['id']) --}}"
+                                                        class="btn-control btn-control-edit">
+                                                        <i class="fa-solid fa-user-pen btn-control-icon"></i>
+                                                        View Detail
+                                                    </a>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center">No patients found</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
 

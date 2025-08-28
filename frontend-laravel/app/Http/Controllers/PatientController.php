@@ -225,4 +225,28 @@ class PatientController extends Controller
 
         return view('medical_record.detail_medrecord', compact('medicalVisit', 'prescriptions', 'orders', 'followups'));
     }
+
+    public function getAll(Request $request)
+    {
+        $response = Http::get('http://api_gateway/patient/get-patients');
+
+        if ($response->successful()) {
+            $patients = $response->json()['data']; // Access 'data' key
+            return view('patient.list_patients', compact('patients'));
+        }
+
+        return redirect()->back()->withErrors(['message' => $response->body()]);
+    }
+
+    public function getAllPrescriptions(Request $request)
+    {
+        $response = Http::get("http://api_gateway/patient/get-prescriptions");
+
+        if ($response->successful()) {
+            $prescriptions = $response->json()['data']; // Access 'data' key
+            return view('patient.prescriptions', compact('prescriptions'));
+        }
+
+        return redirect()->back()->withErrors(['message' => $response->body()]);
+    }
 }
