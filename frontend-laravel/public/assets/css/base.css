@@ -100,7 +100,8 @@ p.form-cotrol {
     text-align: left;
 }
 
-.table tbody th {
+.table tbody th,
+.table tbody td {
     font-size: 1.3rem;
     /* font-weight: 600; */
     padding: 16px 24px;

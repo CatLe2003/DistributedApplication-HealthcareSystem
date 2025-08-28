@@ -94,7 +94,7 @@
                                 <div class="form-row">
                                     <div class="form-col margin-0">
                                         <div class="form-col-bottom">
-                                            <input type="submit" name="addNedicine" value="Add Medicine" class="btn-control btn-control-add">
+                                            <input type="submit" name="addMedicine" value="Add Medicine" class="btn-control btn-control-add">
                                         </div>
                                     </div>
                                 </div>

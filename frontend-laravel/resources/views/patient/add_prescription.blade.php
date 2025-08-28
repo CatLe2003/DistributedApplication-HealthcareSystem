@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+<script src="{{ asset('assets/js/function_staff.js') }}"></script>
 
 <body>
     <!-- Sidebar -->
@@ -24,71 +25,125 @@
             <!-- Page content -->
             <div class="container">
                 <div class="container-recent">
-                    <div class="container-recent-inner">
-                        <div class="container-recent__heading heading__button">
-                            <a href="{{ url('add_prescription') }}" class="btn-control btn-control-add">
-                                <i class="fa-solid fa-pills btn-control-icon"></i>
-                                Add new prescription
-                            </a>
-                            <!-- <p class="recent__heading-title">Prescriptions</p> -->
+                    <div class="card shadow">
+                        <div class="container-recent__heading">
+                            <p class="recent__heading-title">Add New Prescription</p>
+
                             <form class="container__heading-search">
-                                <input type="text" class="heading-search__area" placeholder="Search by notes..." name>
+                                <input type="text" class="heading-search__area" placeholder="Search by medical record..." name>
                                 <button href="" class="btn-control btn-control-search">
                                     <i class="fa-solid fa-magnifying-glass btn-control-icon"></i>
                                     Search
                                 </button>                        
 
                             </form>
-
                         </div>
 
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="thead-light"> 
-                                    <tr>
-                                        <th class="text-column-emphasis" scope="col">VISIT ID</th> 
-                                        <th class="text-column" scope="col">Notes</th> 
-                                        <th class="text-column" scope="col">Date</th> 
-                                        <th class="text-column" scope="col">Status</th> 
-                                        <th class="text-column" scope="col">ACTION</th> 
-                                    </tr>
-                                </thead>
-                                <tbody class="table-body">
-                                    <tr>
-                                        <th class="text-column-emphasis" scope="row">12</th> 
-                                        <th class="text-column" scope="row">abc</th> 
-                                        <th class="text-column" scope="row">08/09/2025</th> 
-                                        <th class="text-column" scope="row">
-                                            <span class="badge badge-success">New</span>
-                                            <!-- <span class="badge badge-unsuccess">Cancel</span>
-                                            <span class="badge badge-plan">In Progress</span> -->
-                                        </th>
-                                        <th class="text-column" scope="row">
-                                            <div class="text-column__action">
-                                                <a href="" class="btn-control btn-control-delete">
-                                                    <i class="fa-solid fa-trash-can btn-control-icon"></i>
-                                                    Delete
-                                                </a>
-                                                <a href="{{ url('detail_patient') }}" class="btn-control btn-control-edit">
-                                                    <i class="fa-solid fa-square-check btn-control-icon"></i>
-                                                    Update
-                                                </a>
-                                            </div>
-                                        </th> 
-                                    </tr>
+                        <div class="container-recent__body card__body-form">
+                            <form method="POST" class="">
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Date</label>
+                                            <input type="date" name="visit_date" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                </div>
 
-                                </tbody>
-                            </table>
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Diagnosis</label>
+                                            <input type="text" name="diagnosis" class="form-control" value="">
+                                        </div>
 
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Dosage</label>
+                                            <input type="text" name="dosage" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Notes</label>
+                                            <input type="text" name="notes" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                 <br class="">
+
+                                <p class="recent__heading-title">Detail Prescription</p>
+
+                                <div class="table-responsive">
+                                    <table class="table" id="prescriptionTable">
+                                        <thead class="thead-light"> 
+                                            <tr>
+                                                <th class="text-column-emphasis" scope="col">No.</th> 
+                                                <th class="text-column" scope="col">Medicine</th> <!-- Tên thuốc -->
+                                                <th class="text-column" scope="col">Dosage</th> 
+                                                <th class="text-column" scope="col">Duration</th> 
+                                                <th class="text-column" scope="col">ACTION</th> 
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-body" id="prescriptionBody">
+                                            <tr>
+                                                <td class="text-column-emphasis" scope="row">1</td>
+                                                <td class="text-column" scope="row">
+                                                    <select name="medicine_id" class="form-control" required>
+                                                        <option value="">-- Select --</option>
+                                                        <option value="1">Paracetamol</option>
+                                                        <option value="2">Amoxicillin</option>
+                                                        <option value="3">Ibuprofen</option>
+                                                    </select>                                                
+                                                </td> 
+                                                <td class="text-column" scope="row">
+                                                    <input type="text" name="dosage" value="2 viên/ngày" class="form-control" required>
+                                                </td> 
+                                                <td class="text-column" scope="row">
+                                                    <input type="text" name="duration" value="Max 200 mg/day" class="form-control">
+                                                </td> 
+                                                <td class="text-column" scope="row">
+                                                    <div class="text-column__action">
+                                                        <a href="" class="btn-control btn-control-delete" onclick="removeRow(this)">
+                                                            <i class="fa-solid fa-trash-can btn-control-icon"></i>
+                                                            Delete
+                                                        </a>
+                                                    </div>
+                                                </td> 
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <!-- Add new row button -->
+                                     <button type="submit" class="btn-control btn-control-edit" onclick="addNewRow()">
+                                        <i class="fa-solid fa-plus btn-control-icon"></i>
+                                        Add new row
+                                    </button>
+                                </div>
+
+                                <br class="">
+
+                                <div class="form-row">
+                                    <div class="form-col margin-0">
+                                        <div class="form-col-bottom">
+                                            <input type="submit" name="addPrescription" value="Add Prescription" class="btn-control btn-control-add">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
                         </div>
+
                     </div>
                 </div>
             </div>
+
             @include('components.footer_employee')
         </div>
     </div>
     <!-- Argon Scripts -->
 
 </body>
-
 </html>
