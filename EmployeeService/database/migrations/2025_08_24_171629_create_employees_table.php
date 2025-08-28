@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('PhoneNumber');
             $table->string('Email')->unique();
             $table->unsignedBigInteger('DepartmentID');
+            $table->unsignedBigInteger('UserID')->unique();
             $table->string('AvatarURL')->nullable();
             $table->string('Role');
             $table->string('Status');

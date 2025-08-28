@@ -77,6 +77,7 @@ class EmployeeController extends Controller
             ], 500);
         }
     }
+
     public function getEmployeesByDepartmentId($departmentId)
     {
         try {
@@ -109,6 +110,73 @@ class EmployeeController extends Controller
             ], 500);
         }
     }
+    public function getDoctorsByDepartmentId($departmentId)
+    {
+        try {
+            if (!is_numeric($departmentId) || $departmentId <= 0) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid department ID'
+                ], 400);
+            }
 
+            $doctors = Employee::where('DepartmentID', $departmentId)
+                               ->where('Role', 'DOCTOR')
+                               ->get();
+
+            if ($doctors->isEmpty()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No doctors found for this department'
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $doctors
+            ], 200);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch doctors by department',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function getDoctorByUserId($userId)
+    {
+        try {
+            if (!is_numeric($userId) || $userId <= 0) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid user ID'
+                ], 400);
+            }
+
+            $doctor = Employee::where('UserID', $userId)
+                               ->where('Role', 'DOCTOR')
+                               ->first();
+
+            if (!$doctor) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No doctor found for this user ID'
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $doctor
+            ], 200);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch doctor by user ID',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
 
