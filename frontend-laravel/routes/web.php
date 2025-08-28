@@ -47,15 +47,15 @@ Route::get('/appointment/list_appts', function () {
     return view('appointment.list_appts');
 });
 
-Route::get('/appointment/payment_confirm', function () {
-    return view('appointment.payment_confirm');
-});
+// Route::get('/appointment/payment_confirm', function () {
+//     return view('appointment.payment_confirm');
+// });
 
-Route::get('/medical_record/profile', [PatientController::class, 'getProfile']);
+Route::get('/medical_record/profile', [PatientController::class, 'getProfile'])->name('medical_record.profile');
 
-Route::get('/medical_record/update_profile', function () {
-    return view('medical_record.update_profile');
-});
+Route::put('/medical_record/update_profile', [PatientController::class, 'updateProfile'])->name('medical_record.update_profile');
+
+Route::get('/medical_record/update_profile', [PatientController::class, 'getProfileBeforeUpdate'])->name('medical_record.get_update_profile');
 
 Route::get('/medical_record/medical_records', function () {
     return view('medical_record.medical_records');

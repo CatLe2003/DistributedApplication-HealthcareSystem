@@ -22,9 +22,30 @@
     <!-- Main -->
     <div class="main-container">
         <section class="profile-container">
+             @if(session('success'))
+                    <div class="alert alert-success" id="profile-alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger" id="profile-alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             <div class="profile-header">
                 <img src="" alt="" class="profile-avatar">
-                <h2 class="profile-name">John Smith</h2>
+                <h2 class="profile-name">{{ $profile['full_name'] }}</h2>
             </div>
 
             <div class="profile-content">
@@ -37,7 +58,7 @@
                     <p class="user-detail"><strong>Gender: </strong>{{ $profile['gender'] ?? 'N/A' }}</p>
                     <p class="user-detail"><strong>Phone Number: </strong>{{ $profile['phone_number'] ?? 'N/A' }}</p>
                     <p class="user-detail"><strong>Citizen ID: </strong>{{ $profile['citizen_id'] ?? 'N/A' }}</p>
-                    <p class="user-detail"><strong>Date of Birth: </strong>{{ $profile['dob'] ?? 'N/A' }}</p>
+                    <p class="user-detail"><strong>Date of Birth: </strong>{{ $profile['date_of_birth'] ?? 'N/A' }}</p>
                     <p class="user-detail"><strong>Address: </strong>{{ $profile['address'] ?? 'N/A' }}</p>
                     <p class="user-detail"><strong>Nationality: </strong>{{ $profile['nationality'] ?? 'N/A' }}</p>
                     <p class="user-detail"><strong>Occupation: </strong>{{ $profile['occupation'] ?? 'N/A' }}</p>

@@ -18,7 +18,7 @@
     <!-- Main -->
     <div class="main-container">
         <section class="paper-list-container">
-            <h2 class="paper-list-title">Your Medical Records</h2>
+            <h2 class="paper-list-title">Phiếu khám</h2>
             <hr class="breakline">
 
             <div class="info-box">

@@ -35,6 +35,22 @@ class PatientController extends Controller
         return redirect()->back()->withErrors(['message' => $response->body()]);
     }
 
+    public function getProfileBeforeUpdate(Request $request)
+    {
+        $patientId = session('patient_id'); // get patient_id from session
+        if (!$patientId) {
+            return redirect()->back()->withErrors(['message' => 'Patient ID not found in session. Please log in again.']);
+        }
+
+        $response = Http::get("http://api_gateway/patient/get-patient/{$patientId}");
+
+        if ($response->successful()) {
+            return view('medical_record.update_profile', ['profile' => $response->json()]);
+        }
+
+        return redirect()->back()->withErrors(['message' => $response->body()]);
+    }
+
     public function updateProfile(Request $request)
     {
         $patientId = session('patient_id'); // get patient_id from session
@@ -45,7 +61,23 @@ class PatientController extends Controller
         $response = Http::put("http://api_gateway/patient/update-patient/{$patientId}", $request->all());
 
         if ($response->successful()) {
-            return redirect()->route('profile.show')->with('success', 'Profile updated successfully!');
+            return redirect()->route('medical_record.profile')->with('success', 'Profile updated successfully!');
+        }
+
+        return redirect()->back()->withErrors(['message' => $response->body()]);
+    }
+
+    public function getMedicalVisits(Request $request)
+    {
+        $patientId = session('patient_id'); // get patient_id from session
+        if (!$patientId) {
+            return redirect()->back()->withErrors(['message' => 'Patient ID not found in session. Please log in again.']);
+        }
+
+        $response = Http::get("http://api_gateway/patient/medical-visits/{$patientId}");
+
+        if ($response->successful()) {
+            return view('medical_record.medical_records', ['medical_visits' => $response->json()]);
         }
 
         return redirect()->back()->withErrors(['message' => $response->body()]);
