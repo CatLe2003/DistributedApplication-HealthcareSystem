@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('followup', function (Blueprint $table) {
             $table->id();
             $table->foreignId('visit_id')->constrained('medicalvisit')->onDelete('cascade');
-            $table->date('date');
+            $table->dateTime('date');
             $table->string('notes')->nullable();
             $table->timestamps();
         });

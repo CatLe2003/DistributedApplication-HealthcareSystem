@@ -57,9 +57,7 @@ Route::put('/medical_record/update_profile', [PatientController::class, 'updateP
 
 Route::get('/medical_record/update_profile', [PatientController::class, 'getProfileBeforeUpdate'])->name('medical_record.get_update_profile');
 
-Route::get('/medical_record/medical_records', function () {
-    return view('medical_record.medical_records');
-});
+Route::get('/medical_record/medical_records', [PatientController::class, 'getMedicalVisits'])->name('medical_record.medical_records');
 
 Route::get('/medical_record/detail_medrecord', function () {
     return view('medical_record.detail_medrecord');

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('visit_id')->constrained('medicalvisit')->onDelete('cascade');
             $table->unsignedBigInteger('test_id');
             $table->unsignedBigInteger('employee_id'); 
-            $table->date('order_date');
+            $table->dateTime('order_date');
             $table->string('status');
             $table->string('result')->nullable();
             $table->string('detailsURL');

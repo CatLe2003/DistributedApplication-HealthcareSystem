@@ -50,7 +50,7 @@
                                 {{ $visit['department_name'] ?? 'N/A' }}</p>
                             <p class="paper-detail-description"><strong>Doctor:</strong> {{ $visit['doctor_name'] ?? 'N/A' }}
                             </p>
-                            <p class="paper-detail-description"><strong>Datetime:</strong>
+                            <p class="paper-detail-description"><strong>Visit Date:</strong>
                                 {{ \Carbon\Carbon::parse($visit['visit_date'])->format('d/m/Y (H:i)') }}</p>
                         </a>
                     @endforeach

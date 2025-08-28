@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 
 class PatientController extends Controller
@@ -75,11 +76,28 @@ class PatientController extends Controller
         }
 
         $response = Http::get("http://api_gateway/patient/get-medicalvisit-patient/{$patientId}");
-
-        if ($response->successful()) {
-            return view('medical_record.medical_records', ['medical_visits' => $response->json()]);
-        }
-
+        
+        if (!$response->successful()) {
         return redirect()->back()->withErrors(['message' => $response->body()]);
+    }
+
+    $medicalVisits = $response->json();
+
+    // 2️⃣ Enrich each visit with doctor and department names
+    $medicalVisits = collect($medicalVisits)->map(function ($visit) {
+        // Get doctor name
+        $doctorResponse = Http::get("http://api_gateway/employee/employees/{$visit['doctor_id']}");
+        $visit['doctor_name'] = $doctorResponse->successful()
+            ? $doctorResponse->json()['full_name'] ?? 'N/A'
+            : 'N/A';
+
+        // Get department name (adjust the URL later)
+        $departmentResponse = Http::get("http://api_gateway/department/departments/{$visit['department_id']}");
+        $visit['department_name'] = $departmentResponse->successful()
+            ? $departmentResponse->json()['name'] ?? 'N/A'
+            : 'N/A';
+
+        return $visit;
+    })->toArray();
     }
 }

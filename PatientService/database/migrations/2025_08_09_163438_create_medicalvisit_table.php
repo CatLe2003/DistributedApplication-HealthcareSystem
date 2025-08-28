@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('patient_id')->constrained('patient')->onDelete('cascade');
             $table->bigInteger('doctor_id');
             $table->bigInteger('department_id');
-            $table->date('visit_date');
+            $table->dateTime('visit_date');
             $table->string('diagnosis');
             $table->string('symptoms');
             $table->text('notes')->nullable();

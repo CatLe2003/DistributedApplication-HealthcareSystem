@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('visit_id')->constrained('medicalvisit')->onDelete('cascade');
             $table->text('notes')->nullable();
             $table->string('status');
-            $table->date('date');
+            $table->dateTime('date');
             $table->timestamps();
         });
     }
