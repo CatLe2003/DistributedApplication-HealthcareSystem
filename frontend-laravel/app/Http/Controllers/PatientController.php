@@ -21,10 +21,31 @@ class PatientController extends Controller
 
     public function getProfile(Request $request)
     {
-        $response = Http::get('http://api_gateway/patient/profile', $request->all());
+        $patientId = session('patient_id'); // get patient_id from session
+        if (!$patientId) {
+            return redirect()->back()->withErrors(['message' => 'Patient ID not found in session. Please log in again.']);
+        }
+
+        $response = Http::get("http://api_gateway/patient/get-patient/{$patientId}");
 
         if ($response->successful()) {
-            return view('patient.profile', ['profile' => $response->json()]);
+            return view('medical_record.profile', ['profile' => $response->json()]);
+        }
+
+        return redirect()->back()->withErrors(['message' => $response->body()]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $patientId = session('patient_id'); // get patient_id from session
+        if (!$patientId) {
+            return redirect()->back()->withErrors(['message' => 'Patient ID not found in session. Please log in again.']);
+        }
+
+        $response = Http::put("http://api_gateway/patient/update-patient/{$patientId}", $request->all());
+
+        if ($response->successful()) {
+            return redirect()->route('profile.show')->with('success', 'Profile updated successfully!');
         }
 
         return redirect()->back()->withErrors(['message' => $response->body()]);

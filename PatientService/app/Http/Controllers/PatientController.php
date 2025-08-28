@@ -6,6 +6,8 @@ use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class PatientController extends Controller
 {
@@ -59,6 +61,7 @@ class PatientController extends Controller
 
     public function findByPhone($phone_number)
     {
+        Log::info("Finding patient by phone number: {$phone_number}");
         $patient = Patient::where('phone_number', $phone_number)->first();
 
         if (!$patient) {

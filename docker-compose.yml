@@ -106,6 +106,9 @@ services:
     container_name: authentication_service
     ports:
       - "8002:8000"
+    volumes:
+      - ./AuthenticationService:/var/www/html
+      - ./AuthenticationService/vendor:/var/www/html/vendor
     command: >
       sh -c "composer install --ignore-platform-reqs &&
              php artisan migrate --force &&
@@ -118,6 +121,9 @@ services:
     container_name: appointment_service
     ports:
       - "8001:8000"
+    volumes:
+      - ./AppointmentService:/var/www/html
+      - ./AppointmentService/vendor:/var/www/html/vendor
     command: >
       sh -c "composer install --ignore-platform-reqs &&
              php artisan serve --host=0.0.0.0 --port=8000"

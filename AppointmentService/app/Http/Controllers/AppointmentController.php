@@ -47,7 +47,6 @@ class AppointmentController extends Controller
                 'AppointmentDate' => 'required|date',
                 'TimeSlotID' => 'required|integer',
                 'RoomID' => 'required|integer',
-                'DepartmentID' => 'required|integer',
                 'WeekdayID' => 'nullable|integer',
             ]);
 

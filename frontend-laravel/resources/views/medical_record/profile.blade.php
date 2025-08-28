@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title','Patient Profile - LifeCare')</title>
+    <title>@yield('title', 'Patient Profile - LifeCare')</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merienda:wght@700;800&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 </head>
 <script src="{{ asset('assets/js/function_patient.js') }}"></script>
+
 <body>
     <div class="container">
         @include('components.header_patient')
     </div>
-    
+
     <!-- Main -->
     <div class="main-container">
         <section class="profile-container">
@@ -29,17 +33,22 @@
                         <h3>User details</h3>
                         <a href="{{ url('medical_record/update_profile') }}" class="edit-profile">Edit profile</a>
                     </div>
-                    <p class="user-detail"><strong>Gender: </strong>Male</p>
-                    <p class="user-detail"><strong>Phone Number: </strong>094543545</p>
-                    <p class="user-detail"><strong>Citizen ID: </strong>830534546785</p>
-                    <p class="user-detail"><strong>Date of Birth: </strong>20/08/2025</p>
-                    <p class="user-detail"><strong>Address: </strong>12 ABC Street</p>
-                    <p class="user-detail"><strong>Nationality: </strong>Vietnam</p>
-                    <p class="user-detail"><strong>Occupation: </strong>Neet</p>
-                    <p class="user-detail"><strong>Ethnicity: </strong>...</p>
-                    <p class="user-detail"><strong>Allergry: </strong>...</p>
-                    <p class="user-detail"><strong>Email address: </strong><a class="edit-profile"
-                            href="mailto:john.smith@example.com">john.smith@example.com</a></p>
+                    <p class="user-detail"><strong>Full Name: </strong>{{ $profile['full_name'] ?? 'N/A' }}</p>
+                    <p class="user-detail"><strong>Gender: </strong>{{ $profile['gender'] ?? 'N/A' }}</p>
+                    <p class="user-detail"><strong>Phone Number: </strong>{{ $profile['phone_number'] ?? 'N/A' }}</p>
+                    <p class="user-detail"><strong>Citizen ID: </strong>{{ $profile['citizen_id'] ?? 'N/A' }}</p>
+                    <p class="user-detail"><strong>Date of Birth: </strong>{{ $profile['dob'] ?? 'N/A' }}</p>
+                    <p class="user-detail"><strong>Address: </strong>{{ $profile['address'] ?? 'N/A' }}</p>
+                    <p class="user-detail"><strong>Nationality: </strong>{{ $profile['nationality'] ?? 'N/A' }}</p>
+                    <p class="user-detail"><strong>Occupation: </strong>{{ $profile['occupation'] ?? 'N/A' }}</p>
+                    <p class="user-detail"><strong>Ethnicity: </strong>{{ $profile['ethnicity'] ?? 'N/A' }}</p>
+                    <p class="user-detail"><strong>Allergy: </strong>{{ $profile['allergy'] ?? 'N/A' }}</p>
+                    <p class="user-detail">
+                        <strong>Email address: </strong>
+                        <a class="edit-profile" href="mailto:{{ $profile['email'] ?? '' }}">
+                            {{ $profile['email'] ?? 'N/A' }}
+                        </a>
+                    </p>
                 </div>
 
                 <div class="profile-section article-details">
@@ -74,4 +83,5 @@
     {{-- Scripts chung + stack cho từng trang/components --}}
     @stack('scripts')
 </body>
+
 </html>

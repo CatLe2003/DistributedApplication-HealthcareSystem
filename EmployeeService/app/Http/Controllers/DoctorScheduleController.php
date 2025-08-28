@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DoctorSchedule;
+use Exception;
+use Carbon\Carbon; 
+use App\Models\Shift;
 use App\Models\Doctor;
 use App\Models\Weekday;
-use App\Models\Shift;
 use Illuminate\Http\Request;
-use Carbon\Carbon; 
-use Illuminate\Support\Facades\DB;
+use App\Models\DoctorSchedule;
 
-use Exception;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DoctorScheduleController extends Controller
 {
@@ -226,6 +228,8 @@ class DoctorScheduleController extends Controller
 
             $weekdayName = date('l', strtotime($date));
             $weekday = Weekday::where('WeekdayName', $weekdayName)->first();
+
+            Log::info("Finding available doctors for date: {$date}, which is a {$weekdayName}, shift ID: {$shiftId}");
 
             if (!$weekday) {
                 return response()->json([

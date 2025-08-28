@@ -24,6 +24,7 @@ Route::get('/register_profile', function () {
 
 Route::post('/register_profile', [PatientController::class, 'registerProfile'])->name('profile.register');
 
+Route::post('/update_profile', [PatientController::class, 'updateProfile'])->name('profile.update');
 
 // PATIENT'S UI
 Route::get('/', function () {
@@ -50,9 +51,7 @@ Route::get('/appointment/payment_confirm', function () {
     return view('appointment.payment_confirm');
 });
 
-Route::get('/medical_record/profile', function () {
-    return view('medical_record.profile');
-});
+Route::get('/medical_record/profile', [PatientController::class, 'getProfile']);
 
 Route::get('/medical_record/update_profile', function () {
     return view('medical_record.update_profile');
