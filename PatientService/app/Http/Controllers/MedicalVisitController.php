@@ -53,7 +53,7 @@ class MedicalVisitController extends Controller
             // Any other error
             return response()->json(['message' => 'Unexpected error'], 500);
         }
-    }  
+    }
     public function show($id)
     {
         $medicalVisit = MedicalVisit::find($id);
@@ -61,6 +61,17 @@ class MedicalVisitController extends Controller
             return response()->json(['message' => 'Medical visit not found'], 404);
         }
         return response()->json($medicalVisit);
+    }
+
+    public function findByPatient($patientId)
+    {
+        $visits = MedicalVisit::where('patient_id', $patientId)->get();
+
+        if ($visits->isEmpty()) {
+            return response()->json(['message' => 'Patient not found'], 404);
+        }
+
+        return response()->json($visits);
     }
 
     public function getAll()

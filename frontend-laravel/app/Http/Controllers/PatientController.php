@@ -74,7 +74,7 @@ class PatientController extends Controller
             return redirect()->back()->withErrors(['message' => 'Patient ID not found in session. Please log in again.']);
         }
 
-        $response = Http::get("http://api_gateway/patient/medical-visits/{$patientId}");
+        $response = Http::get("http://api_gateway/patient/get-medicalvisit-patient/{$patientId}");
 
         if ($response->successful()) {
             return view('medical_record.medical_records', ['medical_visits' => $response->json()]);

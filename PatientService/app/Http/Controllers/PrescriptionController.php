@@ -82,6 +82,17 @@ class PrescriptionController extends Controller
         }
     }
 
+    public function findByPatient($patientId)
+    {
+        $prescriptions = Prescription::where('patient_id', $patientId)->get();
+
+        if ($prescriptions->isEmpty()) {
+            return response()->json(['message' => 'Prescriptions not found'], 404);
+        }
+
+        return response()->json($prescriptions);
+    }
+
     public function getByPatientAndDate(Request $request)
     {
         try {

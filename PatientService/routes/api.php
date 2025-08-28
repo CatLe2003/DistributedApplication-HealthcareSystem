@@ -34,6 +34,8 @@ Route::get('/get-medicalvisit/{id}', [MedicalVisitController::class, 'show'])
 
 Route::get('/get-medicalvisits', [MedicalVisitController::class, 'getAll'])->name('medicalvisits.getAll');
 
+Route::get('/get-medicalvisit-patient/{patientId}', [MedicalVisitController::class, 'findByPatient'])->name('medicalvisits.findByPatient');
+
 //prescription
 Route::post('/create-prescription', [PrescriptionController::class, 'create'])
     ->name('prescription.create');
@@ -42,6 +44,9 @@ Route::get('/get-prescription/{id}', [PrescriptionController::class, 'show'])
     ->name('prescription.show');
 
 Route::get('/get-prescriptions', [PrescriptionController::class, 'getAll'])->name('prescriptions.getAll');
+
+Route::get('/get-prescription-by-patient/{patientId}', [PrescriptionController::class, 'findByPatient'])->name('prescriptions.findByPatient');
+
 Route::get('/get-prescriptions/filter', [PrescriptionController::class, 'getByPatientAndDate'])->name('prescriptions.getByPatientAndDate');
 
 //order
