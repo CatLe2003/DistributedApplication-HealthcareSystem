@@ -84,7 +84,7 @@ class PrescriptionController extends Controller
 
     public function findByPatient($patientId)
     {
-        $prescriptions = Prescription::where('patient_id', $patientId)->get();
+        $prescriptions = Prescription::with('details')->where('patient_id', $patientId)->get();
 
         if ($prescriptions->isEmpty()) {
             return response()->json(['message' => 'Prescriptions not found'], 404);
@@ -92,6 +92,18 @@ class PrescriptionController extends Controller
 
         return response()->json($prescriptions);
     }
+
+    public function findByVisit($visitId)
+    {
+        $prescriptions = Prescription::with('details')->where('visit_id', $visitId)->get();
+
+        if ($prescriptions->isEmpty()) {
+            return response()->json(['message' => 'Prescriptions not found'], 404);
+        }
+
+        return response()->json($prescriptions);
+    }
+
 
     public function getByPatientAndDate(Request $request)
     {

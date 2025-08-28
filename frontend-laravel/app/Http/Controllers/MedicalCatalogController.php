@@ -1,0 +1,62 @@
+<?php
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
+class MedicalCatalogController extends Controller
+{
+    public function listMedicines()
+    {
+        $response = Http::get('http://api_gateway/medical_catalog/medicines');
+
+        if ($response->successful()) {
+            $medicines = $response->json()['data'] ?? [];
+            Log::info('Fetched medicines successfully',['medicines' => $medicines]);
+            return view('medicine.medicines', ['medicines' => $medicines]);
+        }
+
+        Log::error('Failed to fetch medicines', ['response' => $response->body()]);
+        return view('medicine.medicines', ['medicines' => []])
+               ->withErrors(['message' => 'Failed to fetch medicines.']);
+    }
+
+    public function showAddMedicineForm()
+    {
+        return view('medicine.add_medicine', ['title' => 'Add Medicine - LifeCare']);
+    }
+
+    public function addMedicine(Request $request)
+    {
+
+        $response = Http::post('http://api_gateway/medical_catalog/medicines', $request->all());
+
+        Log::info('Add medicine request sent', ['request' => $request->all()]);
+
+        if ($response->successful()) {
+            Log::info('Add medicine response received', ['response' => $response->json()]);
+            return redirect()->route('medicine_management')->with('success', 'Medicine added successfully!');
+        }
+
+        $errors = json_decode($response->body(), true);
+        Log::error('Add medicine failed', ['errors' => $errors]);
+        return redirect()->back()->withErrors($errors['errors'] ?? ['message' => $response->body()]);
+    }
+
+    public function deleteMedicine(Request $request, $id)
+    {
+        $response = Http::delete("http://api_gateway/medical_catalog/medicines/{$id}");
+
+        Log::info('Delete medicine request sent', ['id' => $id]);
+
+        if ($response->successful()) {
+            Log::info('Delete medicine response received', ['response' => $response->json()]);
+            return redirect()->route('medicine_management')->with('success', 'Medicine deleted successfully!');
+        }
+
+        $errors = json_decode($response->body(), true);
+        Log::error('Delete medicine failed', ['errors' => $errors]);
+        return redirect()->back()->withErrors($errors['errors'] ?? ['message' => $response->body()]);
+    }
+}

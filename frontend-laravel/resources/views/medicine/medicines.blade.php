@@ -41,6 +41,10 @@
                                         <th class="text-column" scope="col">Ingredient</th> 
                                         <th class="text-column" scope="col">Unit</th> 
                                         <th class="text-column" scope="col">Dosage</th> 
+                                        <th class="text-column" scope="col">Form</th> 
+                                        <th class="text-column" scope="col">Contraindication</th> 
+                                        <th class="text-column" scope="col">Side Effects</th> 
+                                        <th class="text-column" scope="col">Storage</th>
                                         <th class="text-column" scope="col">Manufacturer</th> 
                                         <th class="text-column" scope="col">In Stock</th> 
                                         <th class="text-column" scope="col">Price</th> 
@@ -48,38 +52,54 @@
                                         <th class="text-column" scope="col">ACTION</th> 
                                     </tr>
                                 </thead>
-                                <tbody class="table-body">
-                                    <tr>
-                                        <th class="text-column-emphasis" scope="row">12</th> 
-                                        <th class="text-column" scope="col">Medicine Name</th> 
-                                        <th class="text-column" scope="col">Ingredient</th> 
-                                        <th class="text-column" scope="col">Cái</th> 
-                                        <th class="text-column" scope="col">abc</th> 
-                                        <th class="text-column" scope="col">abc</th> 
-                                        <th class="text-column" scope="col">5</th> 
-                                        <th class="text-column" scope="col">12000</th> 
-                                        <th class="text-column" scope="row">
-                                            <span class="badge badge-success">New</span>
-                                            <!-- <span class="badge badge-unsuccess">Cancel</span>
-                                            <span class="badge badge-plan">In Progress</span> -->
-                                        </th>
-                                        <th class="text-column" scope="row">
-                                            <div class="text-column__action">
-                                                <button href="{{-- url('update_prescription') --}}" class="btn-control btn-control-delete">
-                                                    <i class="fa-solid fa-trash btn-control-icon"></i>
-                                                    Delete
-                                                </button>
-                                                <!-- <a href="{{ url('detail_prescription') }}" class="btn-control btn-control-edit">
-                                                    <i class="fa-solid fa-user-pen btn-control-icon"></i>
-                                                    View Detail
-                                                </a> -->
-                                            </div>
-                                        </th> 
-                                    </tr>
-
-                                </tbody>
+                                
+                                @if(empty($medicines) || count($medicines) === 0)
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="14">
+                                                <div class="info-box">
+                                                    <p>No medicines found.</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                @else
+                                    <tbody class="table-body">
+                                        @foreach($medicines as $medicine)
+                                            <tr>
+                                                <td class="text-column-emphasis">{{ $medicine['MedicineID'] }}</td>
+                                                <td class="text-column">{{ $medicine['MedicineName'] ?? '-' }}</td>
+                                                <td class="text-column">{{ $medicine['Ingredient'] ?? '-' }}</td>
+                                                <td class="text-column">{{ $medicine['unit']['UnitName'] ?? $medicine['UnitID'] ?? '-' }}</td>
+                                                <td class="text-column">{{ $medicine['DosageInstruction'] ?? '-' }}</td>
+                                                <td class="text-column">{{ $medicine['form']['FormName'] ?? $medicine['FormID'] ?? '-' }}</td>
+                                                <td class="text-column">{{ $medicine['Contraindication'] ?? '-' }}</td>
+                                                <td class="text-column">{{ $medicine['SideEffects'] ?? $medicine['SideEffect'] ?? '-' }}</td>
+                                                <td class="text-column">{{ $medicine['Storage'] ?? '-' }}</td>
+                                                <td class="text-column">{{ $medicine['manufacturer']['ManufacturerName'] ?? '-' }}</td>
+                                                <td class="text-column">{{ $medicine['InStock'] ?? 0 }}</td>
+                                                <td class="text-column">{{ isset($medicine['Price']) ? number_format((float)$medicine['Price'], 0, ',', '.') : '-' }}</td>
+                                                <td class="text-column">{{ $medicine['Status'] ?? '-' }}</td>
+                                                <td class="text-column">
+                                                    <div class="text-column__action">
+                                                        <!-- <a href="{{ url('delete_medicine/'.$medicine['MedicineID']) }}" class="btn-control btn-control-delete" onclick="return confirm('Delete this medicine?')">
+                                                            <i class="fa-solid fa-trash btn-control-icon"></i>
+                                                            Delete
+                                                        </a> -->
+                                                    <form action="{{ route('medicine.delete', $medicine['MedicineID']) }}" method="POST" onsubmit="return confirm('Delete this medicine?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn-control btn-control-delete">
+                                                            <i class="fa-solid fa-trash btn-control-icon"></i> Delete
+                                                        </button>
+                                                    </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                @endif
                             </table>
-
                         </div>
                     </div>
                 </div>

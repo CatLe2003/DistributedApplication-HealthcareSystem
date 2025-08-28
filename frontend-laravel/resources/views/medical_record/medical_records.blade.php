@@ -22,29 +22,16 @@
     <!-- Main -->
     <div class="main-container">
         <section class="paper-list-container">
-            <h2 class="paper-list-title">Phiếu khám</h2>
+            <h2 class="paper-list-title">Medical Record</h2>
             <hr class="breakline">
-            {{-- Show message if no records --}}
-            @if(empty($medical_visits) || count($medical_visits) === 0)
-                <div class="info-box">
-                    Bạn chưa có bệnh án nào. Vui lòng <a href="{{ url('appointment/add_appt') }}" class="link">đặt lịch
-                        khám</a>.
-                </div>
-            @endif
 
             {{-- Medical Records --}}
             @if(!empty($medical_visits) && count($medical_visits) > 0)
                 <div class="record-grid">
                     @foreach($medical_visits as $visit)
-                        <a href="{{ url('medical_record/detail_medrecord/' . $visit['id']) }}" class="record-card" tabindex="0"
-                            data-date="{{ \Carbon\Carbon::parse($visit['visit_date'])->format('d/m/Y (H:i)') }}"
-                            data-dept="{{ $visit['department_name'] ?? 'N/A' }}"
-                            data-doctor="{{ $visit['doctor_name'] ?? 'N/A' }}" data-symptoms="{{ $visit['symptoms'] ?? '' }}"
-                            data-diagnosis="{{ $visit['diagnosis'] ?? '' }}"
-                            data-prescription="{{ $visit['prescription'] ?? '' }}" data-tests="{{ $visit['tests'] ?? '' }}"
-                            data-notes="{{ $visit['notes'] ?? '' }}">
+                        <a href="{{ url('medical_record/detail_medrecord/' . $visit['id']) }}" class="record-card" tabindex="0">
 
-                            <div class="record-title">Khám ngày
+                            <div class="record-title">Visit on
                                 {{ \Carbon\Carbon::parse($visit['visit_date'])->format('d/m/Y') }}</div>
                             <p class="paper-detail-description"><strong>Department:</strong>
                                 {{ $visit['department_name'] ?? 'N/A' }}</p>

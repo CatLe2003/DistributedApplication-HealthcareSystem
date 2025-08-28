@@ -48,21 +48,28 @@ class AuthenticationController extends Controller
                 'patient_id' => $patientData['id'] ?? null,
                 'patient_name' => $patientData['full_name'] ?? null,
             ]);
+            
 
-            // //use the login_key to find in patient's phone
-            // if (!empty($data['user']['login_key'])) {
-            //     $patientResponse = Http::get("http://api_gateway/patient/get-patient-phone/" . $data['user']['login_key']);
+            $role = $data['user']['role'] ?? null;
 
-            //     if ($patientResponse->successful()) {
-            //         $patientData = $patientResponse->json();
-            //         session(['patient_id' => $patientData['id'] ?? null]);
-            //     }
-            // }
-
-
-            Log::info('Session data:', session()->all());
-
-            return redirect()->route('home')->with('success', 'Welcome back!');
+            switch ($role) {
+                case 'DOCTOR':
+                    Log::info('Doctor user logged in:', ['user' => $data['user']]);
+                    return redirect()->route('profile_employee')->with('success', 'Welcome back!');
+                    break;
+                case 'EMPLOYEE':
+                    Log::info('Employee user logged in:', ['user' => $data['user']]);
+                    return redirect()->route('profile_employee')->with('success', 'Welcome back!');
+                    break;
+                case 'ADMIN':
+                    Log::info('Admin user logged in:', ['user' => $data['user']]);
+                    return redirect()->route('statistical_report')->with('success', 'Welcome back!');
+                    break;
+                default:
+                    Log::info('Patient user role:', ['user' => $data['user']]);
+                    return redirect()->route('home')->with('success', 'Welcome back!');
+                    break;
+            }
         }
 
         $errors = json_decode($response->body(), true);

@@ -64,6 +64,14 @@ class OrderController extends Controller
         return response()->json($Order);
     }
 
+    public function getByVisit($id)
+    {
+        $order = Order::where('visit_id', $id)->get();
+        if ($order->isEmpty()) {
+            return response()->json(['message' => 'Order not found'], 404);
+        }
+        return response()->json($order);
+    }
     public function getAll()
     {
         try {
