@@ -23,6 +23,8 @@ Route::put('/update-patient/{id}', [PatientController::class, 'update'])
 Route::delete('/delete-patient/{id}', [PatientController::class, 'delete'])
 ->name('patient.delete');
 
+Route::get('/get-patient-phone/{phone_number}', [PatientController::class, 'findByPhone']);
+
 //medicalvisit
 Route::post('/create-medicalvisit', [MedicalVisitController::class, 'create'])
     ->name('medicalvisit.create');

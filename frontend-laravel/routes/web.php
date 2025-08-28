@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
-use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AuthenticationController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -35,9 +36,7 @@ Route::get('/home', function () {
 
 Route::get('/department/list_departments', [EmployeeController::class, 'listDepartments']);
 
-Route::get('/appointment/add_appt', function () {
-    return view('appointment.add_appt');
-});
+Route::get('/appointment/add_appt', [AppointmentController::class, 'showBookingForm']);
 
 Route::get('/appointment/detail_appt', function () {
     return view('appointment.detail_appt');

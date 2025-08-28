@@ -19,5 +19,14 @@ class PatientController extends Controller
         return redirect()->back()->withErrors($errors['errors'] ?? ['message' => $response->body()]);
     }
 
-    
+    public function getProfile(Request $request)
+    {
+        $response = Http::get('http://api_gateway/patient/profile', $request->all());
+
+        if ($response->successful()) {
+            return view('patient.profile', ['profile' => $response->json()]);
+        }
+
+        return redirect()->back()->withErrors(['message' => $response->body()]);
+    }
 }

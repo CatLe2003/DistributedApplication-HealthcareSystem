@@ -10,7 +10,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/var/www/html
+      - ./PatientService:/var/www/html
     depends_on:
       - db
     environment:
@@ -20,6 +20,9 @@ services:
       DB_DATABASE: patient_db
       DB_USERNAME: root
       DB_PASSWORD: root
+    command: >
+      sh -c "composer install --ignore-platform-reqs &&
+             php artisan serve --host=0.0.0.0 --port=8000"
 
   db:
     image: mysql:8.0
@@ -56,8 +59,6 @@ services:
       - "9000:80" # external API Gateway entry
     volumes:
     - ./ApiGateway/nginx.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - patientservice
 
   # -------------------------
   # Frontend
@@ -122,7 +123,37 @@ services:
              php artisan serve --host=0.0.0.0 --port=8000"
 
   # -------------------------
-# Volumes
-# -------------------------
+  # Medical Catalog Service
+  # -------------------------
+  medical_catalog_service:
+    build: ./MedicalCatalogService
+    container_name: medical_catalog_service
+    ports:
+      - "8004:8000"
+    volumes:
+      - ./MedicalCatalogService:/var/www/html
+      - ./MedicalCatalogService/vendor:/var/www/html/vendor
+    command: >
+      sh -c "composer install --ignore-platform-reqs &&
+             php artisan migrate --force &&
+             php artisan serve --host=0.0.0.0 --port=8000"
+
+
+  # -------------------------
+  # Log Service
+  # -------------------------
+  log_service:
+    build: ./LogService
+    container_name: log_service
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./LogService:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm start
+
+  # -------------------------
+  # Volumes
+  # -------------------------
 volumes:
   mysql_data:

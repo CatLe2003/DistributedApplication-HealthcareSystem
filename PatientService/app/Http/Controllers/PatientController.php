@@ -57,6 +57,18 @@ class PatientController extends Controller
         return response()->json($patient);
     }
 
+    public function findByPhone($phone_number)
+    {
+        $patient = Patient::where('phone_number', $phone_number)->first();
+
+        if (!$patient) {
+            return response()->json(['message' => 'Patient not found'], 404);
+        }
+
+        return response()->json($patient);
+    }
+
+
     public function update(Request $request, $id)
     {
         $patient = Patient::find($id);
