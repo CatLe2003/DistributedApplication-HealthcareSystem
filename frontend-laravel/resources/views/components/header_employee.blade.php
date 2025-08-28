@@ -6,7 +6,7 @@
         <li class="navbar-user">
             <img src="http://localhost/RestaurantPOS/Restro/admin/assets/img/theme/user-a-min.png" alt=""
                 class="navbar-user-img">
-            <span class="navbar-user-name">Sơn Đặng</span>
+            <span class="navbar-user-name">{{ session('login_key') ?? 'Guest' }} (ID: {{ session('user_id') }})</span>
 
             <ul class="navbar-user-menu">
                 <li class="navbar-nav__item">

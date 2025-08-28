@@ -5,6 +5,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\MedicalCatalogController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -63,15 +64,15 @@ Route::get('/medical_record/detail_medrecord/{id}', [PatientController::class, '
 // DOCTOR'S UI
 Route::get('/dashboard_doctor', function () {
     return view('layouts.doctor');
-});
+})->name('dashboard_doctor');
 
 Route::get('/profile_employee', function () {
     return view('employee.profile_employee');
-});
+})->name('profile_employee');
 
 Route::get('/patients', function () {
-    return view('employee.profile_employee');
-});
+    return view('employee.patients');
+})->name('patients');
 
 Route::get('/schedule_management', function () {
     return view('employee.schedule_management');
@@ -115,13 +116,13 @@ Route::get('/add_appointment', function () {
 });
 
 // ADMIN'S UI
-Route::get('/medicine_management', function () {
-    return view('medicine.medicines');
-});
+Route::get('/medicine_management', [MedicalCatalogController::class, 'listMedicines'])->name('medicine_management');
 
-Route::get('/add_medicine', function () {
-    return view('medicine.add_medicine');
-});
+Route::get('/add_medicine', [MedicalCatalogController::class, 'showAddMedicineForm'])->name('add_medicine');
+
+Route::post('/add_medicine', [MedicalCatalogController::class, 'addMedicine'])->name('medicine.add');
+
+Route::delete('/delete_medicine/{id}', [MedicalCatalogController::class, 'deleteMedicine'])->name('medicine.delete');
 
 Route::get('/statistical_report', function () {
     return view('dashboard.statistical_report');

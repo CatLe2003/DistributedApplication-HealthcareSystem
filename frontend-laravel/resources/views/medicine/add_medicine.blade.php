@@ -28,14 +28,35 @@
                         <div class="container-recent__heading">
                             <p class="recent__heading-title">Add New Medicine</p>
                         </div>
-                        
+                         @if(session('success'))
+                    <div class="alert alert-success" id="profile-alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger" id="profile-alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                         <div class="container-recent__body card__body-form">
-                            <form method="POST" class="">
+                            <form method="POST" action="{{ route('medicine.add') }}" class="form">
+                            @csrf
                                 <div class="form-row">
                                     <div class="form-row__flex">
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Name</label>
-                                            <input type="text" name="medicineName" class="form-control" value="">
+                                            <input type="text" name="MedicineName" class="form-control" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -44,7 +65,7 @@
                                     <div class="form-row__flex">
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Ingredient</label>
-                                            <input type="text" name="ingredient" class="form-control" value="">
+                                            <input type="text" name="Ingredient" class="form-control" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -53,7 +74,7 @@
                                     <div class="form-row__flex">
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Dosage</label>
-                                            <input type="text" name="dosage" class="form-control" value="">
+                                            <input type="text" name="DosageInstruction" class="form-control" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -62,16 +83,14 @@
                                     <div class="form-row__flex">
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Unit</label>
-                                            <select name="unit" id="unit" class="form-cotrol" onchange="getCustomer(this.value)">
-                                                <option value="" class="">New</option>
-                                                <option value="" class="">In Progress</option>
-                                            </select>
+                                            <input name="UnitID" id="unit" class="form-control">
+                                            </input>
                                         </div>
+
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Manufacturer</label>
-                                            <select name="manufacturer" id="manufacturer" class="form-cotrol" onchange="getCustomer(this.value)">
-                                                <option value>8:00 - 8:30</option>
-                                            </select>
+                                            <input name="ManufacturerID" id="manufacturer" class="form-control">
+                                            </input>
                                         </div>
                                     </div>
                                 </div>
@@ -80,15 +99,21 @@
                                     <div class="form-row__flex">
                                         <div class="form-col">
                                             <label for="" class="form-col__label">In Stock</label>
-                                            <input type="number" name="inStock" class="form-control" value="">
+                                            <input type="number" name="InStock" class="form-control" value="">
                                         </div>
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Price</label>
-                                            <input type="number" name="price" class="form-control" value="">
+                                            <input type="number" name="Price" class="form-control" value="">
+                                        </div>
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Form ID</label>
+                                            <input type="text" name="FormID" class="form-control" value="">
+
                                         </div>
                                     </div>
                                 </div>
-
+                                <input type="hidden" name="Status" class="form-control" value="ACTIVE" hidden>
+                                
                                 <br class="">
 
                                 <div class="form-row">

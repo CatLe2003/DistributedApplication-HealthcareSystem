@@ -24,7 +24,7 @@
             <!-- Header -->
             <div class="heading">
                 <div class="col-lg-7">
-                    <div class="display-2">Hello System Admin</div>
+                    <div class="display-2">Welcome back!</div>
                     <h2 class="text__profile-intro">This is your profile page. You can customize your profile as you want and also change pasword too</h2>
                 </div>
             </div>
