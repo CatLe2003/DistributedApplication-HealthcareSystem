@@ -119,3 +119,7 @@ Route::get('/medicine_management', function () {
 Route::get('/add_medicine', function () {
     return view('medicine.add_medicine');
 });
+
+Route::get('/statistical_report', function () {
+    return view('dashboard.statistical_report');
+});
