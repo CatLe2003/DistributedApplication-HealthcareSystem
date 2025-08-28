@@ -49,6 +49,15 @@ class FollowUpController extends Controller
         return response()->json($FollowUp);
     }
 
+    public function getByVisit($id)
+    {
+        $followUps = FollowUp::where('visit_id', $id)->get();
+        if ($followUps->isEmpty()) {
+            return response()->json(['message' => 'No follow up information found for this visit'], 404);
+        }
+        return response()->json($followUps);
+    }
+
     public function getAll()
     {
         try {

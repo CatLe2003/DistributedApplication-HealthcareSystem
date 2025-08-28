@@ -59,9 +59,7 @@ Route::get('/medical_record/update_profile', [PatientController::class, 'getProf
 
 Route::get('/medical_record/medical_records', [PatientController::class, 'getMedicalVisits'])->name('medical_record.medical_records');
 
-Route::get('/medical_record/detail_medrecord', function () {
-    return view('medical_record.detail_medrecord');
-});
+Route::get('/medical_record/detail_medrecord/{id}', [PatientController::class, 'getMedicalVisitDetail'])->name('medical_record.detail_medrecord');
 // DOCTOR'S UI
 Route::get('/dashboard_doctor', function () {
     return view('layouts.doctor');

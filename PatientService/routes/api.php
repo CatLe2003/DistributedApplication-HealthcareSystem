@@ -45,7 +45,9 @@ Route::get('/get-prescription/{id}', [PrescriptionController::class, 'show'])
 
 Route::get('/get-prescriptions', [PrescriptionController::class, 'getAll'])->name('prescriptions.getAll');
 
-Route::get('/get-prescription-by-patient/{patientId}', [PrescriptionController::class, 'findByPatient'])->name('prescriptions.findByPatient');
+Route::get( '/get-prescription-by-patient/{patientId}', [PrescriptionController::class, 'findByPatient'])->name('prescriptions.findByPatient');
+
+Route::get('/get-prescription-by-visit/{visitId}', [PrescriptionController::class, 'findByVisit'])->name('prescriptions.findByVisit');
 
 Route::get('/get-prescriptions/filter', [PrescriptionController::class, 'getByPatientAndDate'])->name('prescriptions.getByPatientAndDate');
 
@@ -56,6 +58,8 @@ Route::post('/create-order', [OrderController::class, 'create'])
 Route::get('/get-order/{id}', [OrderController::class, 'show'])
     ->name('order.show');
 
+Route::get('/get-order-by-visit/{visitId}', [OrderController::class, 'getByVisit'])->name('order.getByVisit');
+
 Route::get('/get-orders', [OrderController::class, 'getAll'])->name('orders.getAll');
 
 //followup
@@ -64,5 +68,7 @@ Route::post('/create-followup', [FollowUpController::class, 'create'])
 
 Route::get('/get-followup/{id}', [FollowUpController::class, 'show'])
     ->name('followup.show');
+
+Route::get('/get-followup-by-visit/{visitId}', [FollowUpController::class, 'getByVisit'])->name('followup.getByVisit');
 
 Route::get('/get-followups', [FollowUpController::class, 'getAll'])->name('followups.getAll');
