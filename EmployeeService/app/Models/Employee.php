@@ -17,6 +17,7 @@ class Employee extends Model
         'AvatarURL',
         'Role',
         'Status',
+        'UserID',
     ];
 
     public function department()

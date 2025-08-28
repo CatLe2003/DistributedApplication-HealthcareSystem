@@ -3,12 +3,6 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Illuminate\Database\QueryException;
-use Firebase\JWT\ExpiredException;
-use Firebase\JWT\SignatureInvalidException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -19,43 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         //
+        $middleware->append(\App\Http\Middleware\PublishRabbitMQLog::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(function (ValidationException $e, Request $request) {
-            return response()->json([
-                'message' => 'Validation failed',
-                'errors' => $e->errors(),
-            ], 422);
-        });
-
-        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
-            return response()->json([
-                'message' => 'Resource not found',
-            ], 404);
-        });
-
-        $exceptions->render(function (QueryException $e, Request $request) {
-            return response()->json([
-                'message' => 'Database error',
-                'error' => $e->getMessage(),
-            ], 500);
-        });
-
-        $exceptions->render(function (ExpiredException $e, Request $request) {
-            return response()->json([
-                'message' => 'Token has expired',
-            ], 401);
-        });
-
-        $exceptions->render(function (SignatureInvalidException $e, Request $request) {
-            return response()->json([
-                'message' => 'Invalid token signature',
-            ], 401);
-        });
-
-        $exceptions->render(function (\Throwable $e, Request $request) {
-            return response()->json([
-                'message' => $e->getMessage() ?: 'Server error',
-            ], 500);
-        });
+        //
     })->create();

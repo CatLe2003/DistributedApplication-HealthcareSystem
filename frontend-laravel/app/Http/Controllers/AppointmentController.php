@@ -16,8 +16,8 @@ class AppointmentController extends Controller
             $departments = $departmentResponse->json()['data'] ?? [];
         }
 
-        // Fetch all doctors from Employee Service
-        $doctorResponse = Http::get('http://api_gateway/employee/doctors');
+        // Fetch all doctors from default department (e.g., department ID 1)
+        $doctorResponse = Http::get('http://api_gateway/employee/departments/1/doctors');
         $doctors = [];
         if ($doctorResponse->successful()) {
             $doctors = $doctorResponse->json()['data'] ?? [];

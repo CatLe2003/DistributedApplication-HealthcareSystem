@@ -12,7 +12,10 @@
         href="https://fonts.googleapis.com/css2?family=Merienda:wght@700;800&family=Montserrat:wght@300;400;500;600&display=swap"
         rel="stylesheet">
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{ asset('assets/js/function_patient.js') }}"></script>
+
+
 
 <body>
     <div class="container">
@@ -25,26 +28,10 @@
             <h2 class="paper-list-title">Book An Appointment</h2>
             <hr class="breakline">
 
-            <!-- Patient Check Section -->
-            <div class="info-box">
-                <h3>Patient Information</h3>
-                <p class="paper-detail-description">Have you visited our hospital before?</p>
-                <label class="paper-detail-description">
-                    <input type="radio" name="patient_status" value="yes" checked>
-                    Yes, I have
-                </label>
-                <label class="paper-detail-description">
-                    <input type="radio" name="patient_status" value="no">
-                    No, I'm a new patient
-                </label>
-            </div>
-
-            <hr class="breakline">
-
             <form action="{{ url('appointment/payment_confirm') }}" class="search-form">
                 <div class="search-row">
-                    <label class="form-label" for="keyword">Department</label>
-                    <select id="department" class="input-field">
+                    <label class="form-label" for="keyword">Service</label>
+                    <select id="department" class="input-field" require>
                         @foreach($departments as $department)
                             <option value="{{ $department['DepartmentID'] }}">{{ $department['DepartmentName'] }}</option>
                         @endforeach
@@ -53,9 +40,9 @@
 
                 <div class="search-row">
                     <label class="form-label" for="author">Doctor</label>
-                    <select id="doctor" class="input-field">
+                    <select id="doctor"  class="input-field" require>
                         @foreach($doctors as $doctor)
-                            <option value="{{ $doctor['EmployeeID'] }}">{{-- $doctor['DoctorName'] --}}</option>
+                            <option value="{{ $doctor['EmployeeID'] }}">{{ $doctor['FullName'] ?? ''}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -63,12 +50,12 @@
                 <div class="search-row date-row">
                     <div class="search-row">
                         <label class="form-label" for="Date">Date</label>
-                        <input type="date" id="date" class="input-field">
+                        <input type="date" id="date" class="input-field" require>
                     </div>
                     <div class="search-row">
                         <label class="form-label" for="time">Time slot</label>
-                        <select id="conference" class="input-field">
-                            <option value>8:00 - 8:30</option>
+                        <select id="time-slot" class="input-field" require>
+                            <option value>-- Select a timeslot --</option>
                         </select>
                     </div>
                 </div>

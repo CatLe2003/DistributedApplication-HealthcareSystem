@@ -17,8 +17,10 @@ Route::get('/', function () {
 Route::get('/departments', [DepartmentController::class, 'getAllDepartments']);
 Route::get('/departments/{id}', [DepartmentController::class, 'getDepartmentsById']);
 Route::get('/departments/{id}/employees', [EmployeeController::class, 'getEmployeesByDepartmentId']);
+Route::get('/departments/{id}/doctors', [EmployeeController::class, 'getDoctorsByDepartmentId']);
 
 Route::get('/doctors', [DoctorController::class, 'getAllDoctors']);
+Route::get('/doctors/by-userid/{userId}', [EmployeeController::class, 'getDoctorByUserId']);
 Route::get('/doctors/{id}', [DoctorController::class, 'getDoctorById']);
 Route::get('/specialities/{id}/doctors', [DoctorController::class, 'getDoctorsBySpecialityId']);
 Route::get('/rooms/{id}/doctors', [DoctorController::class, 'getDoctorsByRoomId']);

@@ -45,7 +45,8 @@ class AuthenticationController extends Controller
                 'user_id' => $data['user']['userid'] ?? null,  // changed to match API response
                 'user_role' => $data['user']['role'] ?? null,
                 'login_key' => $data['user']['login_key'] ?? null,
-                'patient_id' => $patientData['id'] ?? null
+                'patient_id' => $patientData['id'] ?? null,
+                'patient_name' => $patientData['full_name'] ?? null,
             ]);
             
 

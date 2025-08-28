@@ -47,32 +47,10 @@ class AppointmentController extends Controller
                 'AppointmentDate' => 'required|date',
                 'TimeSlotID' => 'required|integer',
                 'RoomID' => 'required|integer',
+                'DepartmentID' => 'required|integer',
                 'WeekdayID' => 'nullable|integer',
             ]);
 
-            // // Check với các service khác qua API Gateway
-            // $apiGateway = config('services.api_gateway.url');
-
-            // $checks = [
-            //     "patient/get-patient/{$data['PatientID']}" => 'Patient not found',
-            //     "employee/employee/doctors/{$data['DoctorID']}" => 'Doctor not found',
-            //     "employee/employee/rooms/{$data['RoomID']}" => 'Room not found',
-            //     "employee/employee/departments/{$data['DepartmentID']}" => 'Department not found',
-            // ];
-
-            // if (!empty($data['WeekdayID'])) {
-            //     $checks["employee/employee/weekdays/{$data['WeekdayID']}"] = 'Weekday not found';
-            // }
-
-            // // Map TimeSlotID với ShiftID (Employee service)
-            // $checks["employee/employee/shifts/{$data['TimeSlotID']}"] = 'Shift not found';
-
-            // foreach ($checks as $endpoint => $errorMessage) {
-            //     $response = Http::get("{$apiGateway}/{$endpoint}");
-            //     if ($response->failed() || empty($response->json())) {
-            //         return response()->json(['error' => $errorMessage], 422);
-            //     }
-            // }
             $this->appointmentService->validateEntities($data);
 
             $appointment = Appointment::create($data);

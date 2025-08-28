@@ -2,7 +2,7 @@ APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=base64:JH+cB2XMtncxBVhjEccrERFgAlVtsgrolGLU+1eoGTQ=
 APP_DEBUG=true
-APP_URL=http://localhost:8001
+APP_URL=http://localhost:8004
 
 APP_LOCALE=en
 APP_FALLBACK_LOCALE=en
@@ -21,8 +21,8 @@ LOG_DEPRECATIONS_CHANNEL=null
 LOG_LEVEL=debug
 
 DB_CONNECTION=pgsql
-DB_URL=postgresql://postgres.tuipxshcrlzoguvbulqo:songcat_appointmentdb@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres
-DB_PASSWORD=songcat_appointmentdb
+DB_URL=postgresql://postgres.adqirijxukoyiyorxjhw:songcat_medicaldb@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres
+DB_PASSWORD=songcat_medicaldb
 
 SESSION_DRIVER=database
 SESSION_LIFETIME=120
@@ -60,7 +60,6 @@ AWS_BUCKET=
 AWS_USE_PATH_STYLE_ENDPOINT=false
 
 VITE_APP_NAME="${APP_NAME}"
-API_GATEWAY_URL=http://api_gateway
 
 RABBITMQ_HOST=cougar-01.rmq.cloudamqp.com
 RABBITMQ_PORT=5672
