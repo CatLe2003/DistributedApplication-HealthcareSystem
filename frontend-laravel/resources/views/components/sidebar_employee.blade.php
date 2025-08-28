@@ -51,9 +51,9 @@
                     </a>
                 </li>
                 <li class="navbar-nav__item">
-                    <a href="{{ url('invoice_management') }}" class="nav-item__link text-primary">
+                    <a href="{{ url('statistical_report') }}" class="nav-item__link text-primary">
                         <i class="fa-solid fa-file-invoice nav-item__icon"></i>
-                        <p class="nav-item__text">Invoices</p>
+                        <p class="nav-item__text">Statistical Report</p>
                     </a>
                 </li>
             </ul>
