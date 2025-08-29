@@ -119,6 +119,4 @@ Route::post('/add_medicine', [MedicalCatalogController::class, 'addMedicine'])->
 
 Route::delete('/delete_medicine/{id}', [MedicalCatalogController::class, 'deleteMedicine'])->name('medicine.delete');
 
-Route::get('/statistical_report', function () {
-    return view('dashboard.statistical_report');
-});
+Route::get('/statistical_report', [PatientController::class, 'getStatisticalReport'])->name('statistical_report');

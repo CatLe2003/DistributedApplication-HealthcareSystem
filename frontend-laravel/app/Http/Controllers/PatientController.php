@@ -249,4 +249,26 @@ class PatientController extends Controller
 
         return redirect()->back()->withErrors(['message' => $response->body()]);
     }
+
+    public function getStatisticalReport(Request $request)
+    {
+        $patientsResponse = Http::get('http://api_gateway/patient/get-patients');
+        $prescriptionsResponse = Http::get("http://api_gateway/patient/get-prescriptions");
+
+        if ($patientsResponse->successful() && $prescriptionsResponse->successful()) {
+            $patients = $patientsResponse->json()['data'] ?? [];
+            $prescriptions = $prescriptionsResponse->json()['data'] ?? [];
+            return view('dashboard.statistical_report', compact('patients', 'prescriptions'));
+        }
+        // Bổ sung doctor, patient name
+        $errorMsg = [];
+        if (!$patientsResponse->successful()) {
+            $errorMsg[] = $patientsResponse->body();
+        }
+        if (!$prescriptionsResponse->successful()) {
+            $errorMsg[] = $prescriptionsResponse->body();
+        }
+        return redirect()->back()->withErrors(['message' => implode(' ', $errorMsg)]);
+    }
+
 }

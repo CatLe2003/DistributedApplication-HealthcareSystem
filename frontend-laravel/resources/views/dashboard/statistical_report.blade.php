@@ -24,19 +24,16 @@
             <!-- Page content -->
             <div class="container">
                 <div class="container-recent">
-                    <div class="card shadow">
-                        <div class="container-recent__heading">
+                    <div class="container-recent-inner">
+                        <div class="container-recent__heading heading__button">
                             <p class="recent__heading-title">Patient Statistics</p>
+                            <!-- <p class="recent__heading-title">Prescriptions</p> -->
                             <form class="container__heading-search">
-                                <select class="heading-search__area" name="month" id="month" class="form-cotrol" onchange="getStatus(this.value)">
-                                    <option value="Monday">-- Select Doctor --</option>
-                                    <option value="1">All</option>
-                                    <option value="2">2025-09</option>
-                                </select>
+                                <input type="month" class="heading-search__area form-control" name="month_year" id="month_year" max="{{ \Carbon\Carbon::now()->format('Y-m') }}">
                                 <select class="heading-search__area" name="doctor" id="doctor" class="form-cotrol" onchange="getStatus(this.value)">
-                                    <option value="Monday">-- Select Doctor --</option>
-                                    <option value="Monday">All</option>
-                                    <option value="Monday">Dr. ABC</option>
+                                    <option value="Monday">Select Doctor</option>
+                                    <option value="12">All</option>
+                                    <option value="11">ABC</option>
                                 </select>
                                 <button class="btn-control btn-control-search" name="btn-add-schedule">
                                     <i class="fa-solid fa-filter btn-control-icon"></i>
@@ -44,44 +41,51 @@
                                 </button>                        
                             </form>
                         </div>
-                        
+
                         <div class="table-responsive">
                             <table class="table">
-                                <thead class="thead-light"> 
+                                <thead class="thead-light">
                                     <tr>
-                                        <th class="text-column-emphasis" scope="col">Paitent Id</th> 
-                                        <th class="text-column" scope="col">FULL NAME</th> 
-                                        <th class="text-column" scope="col">Gender</th> 
-                                        <th class="text-column" scope="col">Phone Number</th> 
-                                        <th class="text-column" scope="col">Address</th> 
-                                        <th class="text-column" scope="col">DOB</th> 
-                                        <th class="text-column" scope="col">ACTION</th> 
+                                        <th class="text-column-emphasis" scope="col">Patient Id</th>
+                                        <th class="text-column" scope="col">FULL NAME</th>
+                                        <th class="text-column" scope="col">Gender</th>
+                                        <th class="text-column" scope="col">Phone Number</th>
+                                        <th class="text-column" scope="col">Address</th>
+                                        <th class="text-column" scope="col">DOB</th>
+                                        <th class="text-column" scope="col">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-body">
-                                    <tr>
-                                        <th class="text-column-emphasis" scope="row">3434</th> 
-                                        <th class="text-column" scope="row">Sarah</th> 
-                                        <th class="text-column" scope="row">Female</th> 
-                                        <th class="text-column" scope="row">0923838456</th> 
-                                        <th class="text-column" scope="row">District 5, HCM</th> 
-                                        <th class="text-column" scope="row">23/1/2001</th> 
-                                        <th class="text-column" scope="row">
-                                            <div class="text-column__action">
-                                                <!-- <a href="" class="btn-control btn-control-delete">
-                                                    <i class="fa-solid fa-trash-can btn-control-icon"></i>
-                                                    Delete
-                                                </a>  -->
-                                                <a href="{{ url('detail_patient') }}" class="btn-control btn-control-edit">
-                                                    <i class="fa-solid fa-user-pen btn-control-icon"></i>
-                                                    View Detail
-                                                </a>
-                                            </div>
-                                        </th>
-                                    </tr>
-
+                                    @forelse($patients as $patient)
+                                        <tr>
+                                            <th class="text-column-emphasis" scope="row">{{ $patient['id'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">{{ $patient['full_name'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">{{ $patient['gender'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">{{ $patient['phone_number'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">{{ $patient['address'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">{{ $patient['date_of_birth'] ?? 'N/A' }}</th>
+                                            <th class="text-column" scope="row">
+                                                <div class="text-column__action">
+                                                    <a href="#" class="btn-control btn-control-delete">
+                                                        <i class="fa-solid fa-trash-can btn-control-icon"></i>
+                                                        Delete
+                                                    </a>
+                                                    <a href="{{-- url('detail_patient/' . $patient['id']) --}}"
+                                                        class="btn-control btn-control-edit">
+                                                        <i class="fa-solid fa-user-pen btn-control-icon"></i>
+                                                        View Detail
+                                                    </a>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center">No patients found</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
@@ -92,12 +96,12 @@
                             <!-- <p class="recent__heading-title">Prescriptions</p> -->
                             <form class="container__heading-search">
                                 <select class="heading-search__area" name="month" id="month" class="form-cotrol" onchange="getStatus(this.value)">
-                                    <option value="Monday">-- Select Doctor --</option>
+                                    <option value="Monday">Select Doctor</option>
                                     <option value="1">All</option>
                                     <option value="2">2025-09</option>
                                 </select>
                                 <select class="heading-search__area" name="doctor" id="doctor" class="form-cotrol" onchange="getStatus(this.value)">
-                                    <option value="Monday">-- Select Patient --</option>
+                                    <option value="Monday">Select Patient</option>
                                     <option value="12">All</option>
                                     <option value="11">ABC</option>
                                 </select>
@@ -112,7 +116,8 @@
                             <table class="table">
                                 <thead class="thead-light"> 
                                     <tr>
-                                        <th class="text-column-emphasis" scope="col">VISIT ID</th> 
+                                        <th class="text-column-emphasis" scope="col">Prescription ID</th> 
+                                        <th class="text-column" scope="col">VISIT ID</th> 
                                         <th class="text-column" scope="col">Notes</th> 
                                         <th class="text-column" scope="col">Date</th> 
                                         <th class="text-column" scope="col">Status</th> 
@@ -121,26 +126,36 @@
                                 </thead>
                                 <tbody class="table-body">
                                     <tr>
-                                        <th class="text-column-emphasis" scope="row">12</th> 
-                                        <th class="text-column" scope="row">abc</th> 
-                                        <th class="text-column" scope="row">08/09/2025</th> 
-                                        <th class="text-column" scope="row">
-                                            <span class="badge badge-success">New</span>
-                                            <!-- <span class="badge badge-unsuccess">Cancel</span>
-                                            <span class="badge badge-plan">In Progress</span> -->
-                                        </th>
-                                        <th class="text-column" scope="row">
-                                            <div class="text-column__action">
-                                                <!-- <a href="{{ url('update_prescription') }}" class="btn-control btn-control-delete">
-                                                    <i class="fa-solid fa-square-check btn-control-icon"></i>
-                                                    Update
-                                                </a> -->
-                                                <a href="{{ url('detail_prescription') }}" class="btn-control btn-control-edit">
-                                                    <i class="fa-solid fa-user-pen btn-control-icon"></i>
-                                                    View Detail
-                                                </a>
-                                            </div>
-                                        </th> 
+                                        @forelse($prescriptions as $prescription)
+                                            <tr>
+                                                <th class="text-column-emphasis" scope="row">{{ $prescription['id'] ?? 'N/A' }}
+                                                </th>
+                                                <th class="text-column" scope="row">
+                                                    {{ $prescription['visit_id'] ?? 'N/A' }}
+                                                </th>
+                                                <th class="text-column" scope="row">{{ $prescription['notes'] ?? 'N/A' }}</th>
+                                                <th class="text-column" scope="row">{{ $prescription['status'] ?? 'N/A' }}</th>
+                                                <th class="text-column" scope="row">{{ $prescription['date'] ?? 'N/A' }}</th>
+                                                <th class="text-column" scope="row">
+                                                    <div class="text-column__action">
+                                                        <a href="{{ url('update_prescription') }}"
+                                                            class="btn-control btn-control-delete">
+                                                            <i class="fa-solid fa-square-check btn-control-icon"></i>
+                                                            Update
+                                                        </a>
+                                                        <a href="{{ url('detail_prescription') }}"
+                                                            class="btn-control btn-control-edit">
+                                                            <i class="fa-solid fa-user-pen btn-control-icon"></i>
+                                                            View Detail
+                                                        </a>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center">No prescriptions found</td>
+                                        </tr>
+                                    @endforelse
                                     </tr>
 
                                 </tbody>
