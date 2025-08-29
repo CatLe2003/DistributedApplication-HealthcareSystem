@@ -45,9 +45,7 @@ Route::get('/appointment/detail_appt', function () {
     return view('appointment.detail_appt');
 });
 
-Route::get('/appointment/list_appts', function () {
-    return view('appointment.list_appts');
-})->name('appointment.list');
+Route::get('/appointment/list_appts', [AppointmentController::class, 'getAppointmentsByPatient'])->name('appointment.list_appts');
 
 // Route::get('/appointment/payment_confirm', function () {
 //     return view('appointment.payment_confirm');

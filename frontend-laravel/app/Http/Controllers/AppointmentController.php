@@ -89,6 +89,29 @@ class AppointmentController extends Controller
         ]);
     }
 
+    public function getAppointmentsByPatient(Request $request)
+    {
+        $patientId = session('patient_id');
+
+        // Fetch appointments for this patient
+        $appointmentResponse = Http::get("http://api_gateway/appointment/appointments/patient/{$patientId}");
+
+        $appointments = [];
+        if ($appointmentResponse->successful()) {
+            $appointments = $appointmentResponse->json()['data'] ?? [];
+        }
+
+        // Enrich appointments with doctor and department names
+        foreach ($appointments as &$appointment) {
+            $appointment['DoctorName'] = $this->getDoctorName($appointment['DoctorID']);
+            $appointment['DepartmentName'] = $this->getDepartmentName($appointment['DepartmentID']);
+        }
+
+        return view('appointment.list_appts', [
+            'appointments' => $appointments,
+        ]);
+    }
+
     public function createAppointment(Request $request)
     {
         $validatedData = $request->validate([

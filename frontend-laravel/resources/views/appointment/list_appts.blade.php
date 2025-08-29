@@ -49,13 +49,13 @@
             <div class="record-grid">
                 @forelse($appointments as $appt)
                     <a href="{{ url('appointment/detail_appt/' . $appt['AppointmentID']) }}" class="record-card">
-                        <div class="record-title">
+                        <div class="record-title"> You have an appointment on
                             {{ \Carbon\Carbon::parse($appt['AppointmentDate'])->format('d/m/Y') }}
                             ({{ $appt['TimeSlotID'] ?? 'N/A' }}) <!--change to TimeSlot if possible-->
                         </div>
                         <p class="paper-detail-description"><strong>Department:</strong>
-                            {{ $appt['DepartmentID'] ?? 'N/A' }}</p>
-                        <p class="paper-detail-description"><strong>Doctor:</strong> {{ $appt['DoctorID'] ?? 'N/A' }}</p>
+                            {{ $appt['DepartmentName'] ?? 'N/A' }}</p>
+                        <p class="paper-detail-description"><strong>Doctor:</strong> {{ $appt['DoctorName'] ?? 'N/A' }}</p>
                         <p class="paper-detail-description"><strong>Status:</strong> {{ ucfirst($appt['Status']) }}</p>
                     </a>
                 @empty
