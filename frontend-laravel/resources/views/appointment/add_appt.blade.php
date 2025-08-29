@@ -28,10 +28,11 @@
             <h2 class="paper-list-title">Book An Appointment</h2>
             <hr class="breakline">
 
-            <form action="{{ url('appointment/payment_confirm') }}" class="search-form">
+            <form action="{{ route('appointment.create') }}" method="POST" class="search-form">
+                @csrf
                 <div class="search-row">
                     <label class="form-label" for="keyword">Service</label>
-                    <select id="department" class="input-field" require>
+                    <select id="department" name="department" class="input-field" require>
                         @foreach($departments as $department)
                             <option value="{{ $department['DepartmentID'] }}">{{ $department['DepartmentName'] }}</option>
                         @endforeach
@@ -40,7 +41,7 @@
 
                 <div class="search-row">
                     <label class="form-label" for="author">Doctor</label>
-                    <select id="doctor"  class="input-field" require>
+                    <select id="doctor" name="doctor" class="input-field" require>
                         @foreach($doctors as $doctor)
                             <option value="{{ $doctor['EmployeeID'] }}">{{ $doctor['FullName'] ?? ''}}</option>
                         @endforeach
@@ -50,16 +51,16 @@
                 <div class="search-row date-row">
                     <div class="search-row">
                         <label class="form-label" for="Date">Date</label>
-                        <input type="date" id="date" class="input-field" require>
+                        <input type="date" id="date" name="date" class="input-field" require>
                     </div>
                     <div class="search-row">
                         <label class="form-label" for="time">Time slot</label>
-                        <select id="time-slot" class="input-field" require>
+                        <select id="time-slot" name="time-slot" class="input-field" require>
                             <option value>-- Select a timeslot --</option>
                         </select>
                     </div>
                 </div>
-
+                <input type="hidden" id="weekday-id" name="weekday_id" value="">
                 <div class="search-btn-wrapper">
                     <button class="btn-primary p-center">
                         Book Appointment

@@ -112,7 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const doctorSelect = document.getElementById('doctor');
     const appointmentDateInput = document.getElementById('date');
     const timeSlotSelect = document.getElementById('time-slot');
-
+    const weekdayIdInput = document.getElementById('weekday-id');
+    
     let doctorSchedules = []; // lưu schedule của bác sĩ hiện tại
 
     // Map số weekday của JS sang tên
@@ -157,6 +158,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const weekdayName = weekdayMap[dateObj.getDay()];
 
         console.log("Selected date:", selectedDate, "Weekday:", weekdayName);
+        // Cập nhật weekday_id ẩn
+        const weekdayId = Object.keys(weekdayMap).find(key => weekdayMap[key] === weekdayName);
+        weekdayIdInput.value = weekdayId || '';
+        
         // Lọc schedule theo weekday
         const availableSlots = doctorSchedules.filter(sch => sch.weekday.WeekdayName === weekdayName);
 

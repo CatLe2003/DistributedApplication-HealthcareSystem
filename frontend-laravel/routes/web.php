@@ -39,6 +39,7 @@ Route::get('/home', function () {
 Route::get('/department/list_departments', [EmployeeController::class, 'listDepartments']);
 
 Route::get('/appointment/add_appt', [AppointmentController::class, 'showBookingForm']);
+Route::post('/appointment/add_appt', [AppointmentController::class, 'createAppointment'])->name('appointment.create');
 
 Route::get('/appointment/detail_appt', function () {
     return view('appointment.detail_appt');
@@ -46,7 +47,7 @@ Route::get('/appointment/detail_appt', function () {
 
 Route::get('/appointment/list_appts', function () {
     return view('appointment.list_appts');
-});
+})->name('appointment.list');
 
 // Route::get('/appointment/payment_confirm', function () {
 //     return view('appointment.payment_confirm');
