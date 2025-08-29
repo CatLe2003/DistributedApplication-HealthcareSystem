@@ -29,4 +29,35 @@ class AppointmentController extends Controller
             'title' => 'Book An Appointment - LifeCare'
         ]);
     }
+
+    public function getAppointmentsByDoctor(Request $request)
+    {
+        $userId = session('user_id');
+
+        // 2. Fetch the doctor data for this user
+        $doctorResponse = Http::get("http://api_gateway/employee/doctors/by-userid/{$userId}");
+
+        $appointments = [];
+
+        if ($doctorResponse->successful()) {
+            $doctorData = $doctorResponse->json()['data'] ?? null;
+
+            if ($doctorData) {
+                // Assuming API returns a single doctor object
+                $doctorId = $doctorData['EmployeeID'];
+
+                // 3. Fetch appointments for this doctor
+                $appointmentResponse = Http::get("http://api_gateway/appointment/appointments/doctor/{$doctorId}");
+
+                if ($appointmentResponse->successful()) {
+                    $appointments = $appointmentResponse->json()['data'] ?? [];
+                }
+            }
+        }
+
+        return view('appointment.list_appts_staff', [
+            'appointments' => $appointments,
+            'title' => 'View Appointments - LifeCare'
+        ]);
+    }
 }

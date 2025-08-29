@@ -103,9 +103,7 @@ Route::get('/detail_prescription', function () {
     return view('patient.detail_prescription');
 });
 
-Route::get('/appointment_management', function () {
-    return view('appointment.list_appts_staff');
-});
+Route::get('/appointment_management', [AppointmentController::class, 'getAppointmentsByDoctor'])->name('appointment_management');
 
 Route::get('/add_appointment', function () {
     return view('appointment.add_appt_staff');
