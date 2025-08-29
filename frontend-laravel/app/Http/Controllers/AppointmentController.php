@@ -7,6 +7,34 @@ use Illuminate\Support\Facades\Http;
 
 class AppointmentController extends Controller
 {
+
+    private function getDoctorName($doctorId)
+    {
+        if (!$doctorId)
+            return 'N/A';
+
+        $response = Http::get("http://api_gateway/employee/employees/{$doctorId}");
+        if ($response->successful()) {
+            $data = $response->json();
+            return $data['data']['FullName'] ?? 'N/A';
+        }
+
+        return 'N/A';
+    }
+
+    private function getDepartmentName($departmentId)
+    {
+        if (!$departmentId)
+            return 'N/A';
+
+        $response = Http::get("http://api_gateway/employee/departments/{$departmentId}");
+        if ($response->successful()) {
+            $data = $response->json();
+            return $data['data']['DepartmentName'] ?? 'N/A';
+        }
+
+        return 'N/A';
+    }
     public function showBookingForm()
     {
         // Fetch departments from Employee Service
@@ -58,6 +86,34 @@ class AppointmentController extends Controller
         return view('appointment.list_appts_staff', [
             'appointments' => $appointments,
             'title' => 'View Appointments - LifeCare'
+        ]);
+    }
+
+    public function createAppointment(Request $request)
+    {
+        $response = Http::post('http://api_gateway/appointment/appointments', $request->all());
+
+        if ($response->successful()) {
+            return redirect()->route('appointment.list_appts')->with('success', 'Appointment created successfully.');
+        }
+
+        return back()->withErrors(['error' => 'Failed to create appointment.']);
+    }
+
+    public function getAppointmentsByPatient(Request $request)
+    {
+        $patientId = session('patient_id');
+
+        if ($patientId) {
+            $appointmentResponse = Http::get("http://api_gateway/appointment/appointments/patient/{$patientId}");
+
+            if ($appointmentResponse->successful()) {
+                $appointments = $appointmentResponse->json()['data'] ?? [];
+            }
+        }
+
+        return view('appointment.list_appts', [
+            'appointments' => $appointments
         ]);
     }
 }

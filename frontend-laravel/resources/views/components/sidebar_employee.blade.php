@@ -25,6 +25,12 @@
                     </a>
                 </li>
                 <li class="navbar-nav__item">
+                    <a href="{{ url('medvisit_staff') }}" class="nav-item__link text-primary">
+                        <i class="fa-solid fa-bed-pulse nav-item__icon"></i>
+                        <p class="nav-item__text">Medical Visits</p>
+                    </a>
+                </li>
+                <li class="navbar-nav__item">
                     <a href="{{ url('schedule_management') }}" class="nav-item__link text-primary">
                         <i class="fa-solid fa-calendar-check nav-item__icon"></i>
                         <p class="nav-item__text">Schedule Management</p>

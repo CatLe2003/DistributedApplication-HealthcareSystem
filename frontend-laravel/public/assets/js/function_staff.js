@@ -1,37 +1,36 @@
-function addNewRow() {
-    const tbody = document.getElementById('prescriptionBody');
+function addNewRow()  {
+    let tbody = document.getElementById("prescriptionBody");
+    if (!tbody) {
+        console.error("prescriptionBody not found");
+        return;
+    }
 
-    const newRow = document.createElement('tr');
-
+    let newRow = document.createElement("tr");
     newRow.innerHTML = `
-        <td class="text-column-emphasis" scope="row">1</td>
         <td class="text-column" scope="row">
-            <select name="medicine_id" class="form-control" required>
+            <select name="medicine_id[]" class="form-control" required>
                 <option value="">-- Select --</option>
-                <option value="1">Paracetamol</option>
-                <option value="2">Amoxicillin</option>
-                <option value="3">Ibuprofen</option>
-            </select>                                                
-        </td> 
+                ${window.medicinesOptionsHtml}
+            </select>
+        </td>
         <td class="text-column" scope="row">
-            <input type="text" name="dosage" value="2 viên/ngày" class="form-control" required>
-        </td> 
+            <input type="text" name="dosage[]" class="form-control" required>
+        </td>
         <td class="text-column" scope="row">
-            <input type="text" name="duration" value="Max 200 mg/day" class="form-control">
-        </td> 
+            <input type="text" name="duration[]" class="form-control">
+        </td>
         <td class="text-column" scope="row">
             <div class="text-column__action">
-                <a href="" class="btn-control btn-control-delete" onclick="removeRow(this)">
-                    <i class="fa-solid fa-trash-can btn-control-icon"></i>
-                    Delete
+                <a href="#" class="btn-control btn-control-delete" onclick="removeRow(this)">
+                    <i class="fa-solid fa-trash-can btn-control-icon"></i> Delete
                 </a>
             </div>
-        </td> 
+        </td>
     `;
 
     tbody.appendChild(newRow);
-    updateRowNumbers();
 }
+
 
 function removeRow(button) {
     const row = button.closest('tr');

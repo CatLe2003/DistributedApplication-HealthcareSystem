@@ -28,7 +28,8 @@
             <h2 class="paper-list-title">Book An Appointment</h2>
             <hr class="breakline">
 
-            <form action="{{ url('appointment/payment_confirm') }}" class="search-form">
+            <form action="{{ url('appointment/list_appts') }}" class="search-form" method="POST">
+                @csrf
                 <div class="search-row">
                     <label class="form-label" for="keyword">Service</label>
                     <select id="department" class="input-field" require>

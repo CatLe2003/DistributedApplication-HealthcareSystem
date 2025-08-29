@@ -226,6 +226,27 @@ class PatientController extends Controller
         return view('medical_record.detail_medrecord', compact('medicalVisit', 'prescriptions', 'orders', 'followups'));
     }
 
+    public function getMedicalVisitDetailStaff($id)
+    {
+        $visitResponse = Http::get("http://api_gateway/patient/get-medicalvisit/{$id}");
+        if (!$visitResponse->successful()) {
+            return redirect()->back()->withErrors(['message' => $visitResponse->body()]);
+        }
+
+        $medicalVisit = $visitResponse->json();
+
+        // Enrich visit with doctor and department names
+        $medicalVisit['doctor_name'] = $this->getDoctorName($medicalVisit['doctor_id'] ?? null);
+        $medicalVisit['department_name'] = $this->getDepartmentName($medicalVisit['department_id'] ?? null);
+
+        // // Get related data
+        // $prescriptions = $this->getPrescriptionsByVisit($id);
+        // $orders = $this->getOrdersByVisit($id);
+        // $followups = $this->getFollowupsByVisit($id);
+
+        return view('medical_record.detail_medvisit_staff', compact('medicalVisit'));
+    }
+
     public function getAll(Request $request)
     {
         $response = Http::get('http://api_gateway/patient/get-patients');
@@ -249,4 +270,73 @@ class PatientController extends Controller
 
         return redirect()->back()->withErrors(['message' => $response->body()]);
     }
+
+    public function getAllMedicalVisits(Request $request)
+    {
+        $response = Http::get("http://api_gateway/patient/get-medicalvisits");
+
+        if ($response->successful()) {
+            $medicalVisits = $response->json()['data']; // Access 'data' key
+            return view('medical_record.medvisit_staff', compact('medicalVisits'));
+        }
+
+        return redirect()->back()->withErrors(['message' => $response->body()]);
+    }
+
+    public function showAddForm($visit_id)
+    {
+        // Fetch medicines for dropdown
+        $response = Http::get("http://api_gateway/medical_catalog/medicines/");
+        $medicines = [];
+
+        if ($response->successful()) {
+            $medicines = $response->json()['data'] ?? [];
+        }
+
+        return view('patient.add_prescription', [
+            'visit_id' => $visit_id,
+            'medicines' => $medicines,
+        ]);
+    }
+
+    public function createPrescription(Request $request)
+    {
+        $payload = [
+            "visit_id" => $request->input('visit_id'),
+            "notes" => $request->input('notes'),
+            "status" => "NEW",
+            "date" => $request->input('date'),
+            "details" => [],
+        ];
+
+        // Collect prescription details (multiple rows)
+        $medicineIds = $request->input('medicine_id', []);
+        $dosages = $request->input('dosage', []);
+        $durations = $request->input('duration', []);
+
+        foreach ($medicineIds as $index => $medicineId) {
+            if (!empty($medicineId)) {
+                $payload['details'][] = [
+                    "medicine_id" => $medicineId,
+                    "dosage" => $dosages[$index] ?? "",
+                    "duration" => $durations[$index] ?? "",
+                ];
+            }
+        }
+        Log::info("Sending prescription payload", $payload);
+        // Send POST request to API Gateway
+        $response = Http::post("http://api_gateway/patient/create-prescription", $payload);
+        Log::info("Prescription API response", [
+            'status' => $response->status(),
+            'body' => $response->body()
+        ]);
+        if ($response->successful()) {
+            return redirect()->route('prescriptions', ['id' => $request->input('visit_id')])
+                ->with('success', 'Prescription created successfully!');
+        } else {
+            //return back()->with('error', 'Failed to create prescription.');
+            return back()->withErrors(['message' => $response->body()]);
+        }
+    }
 }
+

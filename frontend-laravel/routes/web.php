@@ -44,9 +44,7 @@ Route::get('/appointment/detail_appt', function () {
     return view('appointment.detail_appt');
 });
 
-Route::get('/appointment/list_appts', function () {
-    return view('appointment.list_appts');
-});
+Route::get('/appointment/list_appts', [AppointmentController::class, 'getAppointmentsByPatient'])->name('appointment.list_appts');
 
 // Route::get('/appointment/payment_confirm', function () {
 //     return view('appointment.payment_confirm');
@@ -80,6 +78,10 @@ Route::get('/schedule_management', function () {
 
 Route::get('/patient_management', [PatientController::class, 'getAll'])->name('patient_management');
 
+Route::get('/medvisit_staff', [PatientController::class, 'getAllMedicalVisits'])->name('medvisit_staff');
+
+Route::get('/medical_record/detail_medvisit_staff/{id}', [PatientController::class, 'getMedicalVisitDetailStaff'])->name('medical_record.detail_medvisit_staff');
+
 Route::get('/detail_patient', function () {
     return view('patient.update_patient');
 });
@@ -91,9 +93,10 @@ Route::get('/update_medicalrecord', function () {
 // STAFF'S UI
 Route::get('/prescriptions', [PatientController::class, 'getAllPrescriptions'])->name('prescriptions');
 
-Route::get('/add_prescription', function () {
-    return view('patient.add_prescription');
-});
+Route::get('/add_prescription/{visit_id}', [PatientController::class, 'showAddForm'])
+    ->name('add_prescription');
+
+Route::post('/add_prescription', [PatientController::class, 'createPrescription'])->name('prescription.createPrescription');
 
 Route::get('/update_prescription', function () {
     return view('patient.update_prescription');

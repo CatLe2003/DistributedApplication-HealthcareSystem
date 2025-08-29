@@ -16,7 +16,7 @@ class PrescriptionController extends Controller
             // 1. Validate the request
             $validated = $request->validate([
                 'visit_id' => 'required|exists:medicalvisit,id',
-                'status' => 'required|string|in:printed, not printed',
+                'status' => 'required|string',
                 'date' => 'required|date',
                 'notes' => 'nullable|string',
 
