@@ -10,11 +10,11 @@
             </p>
         </div>
         <div class="footer-col">
-            <p><strong>Monday - Saturday:</strong> 7:00 am - 9:00 pm</p>
+            <p><strong>Monday - Saturday:</strong> 9:00 am - 6:00 pm</p>
             <p><strong>Sunday:</strong> Close</p>
         </div>
         <div class="footer-col">
-            <p><strong>Address</strong><br>Nguyen Van Cu street, district 5, Ho Chi Minh city</p>
+            <p><strong>Address</strong><br>Nguyen Van Cu street, District 5, Ho Chi Minh city</p>
             <p><strong>Phone</strong><br>01112023</p>
         </div>
     </div>

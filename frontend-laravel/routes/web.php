@@ -39,12 +39,15 @@ Route::get('/home', function () {
 Route::get('/department/list_departments', [EmployeeController::class, 'listDepartments']);
 
 Route::get('/appointment/add_appt', [AppointmentController::class, 'showBookingForm']);
+Route::post('/appointment/add_appt', [AppointmentController::class, 'createAppointment'])->name('appointment.create');
 
 Route::get('/appointment/detail_appt', function () {
     return view('appointment.detail_appt');
 });
 
-Route::get('/appointment/list_appts', [AppointmentController::class, 'getAppointmentsByPatient'])->name('appointment.list_appts');
+Route::get('/appointment/list_appts', function () {
+    return view('appointment.list_appts');
+})->name('appointment.list');
 
 // Route::get('/appointment/payment_confirm', function () {
 //     return view('appointment.payment_confirm');
@@ -121,6 +124,4 @@ Route::post('/add_medicine', [MedicalCatalogController::class, 'addMedicine'])->
 
 Route::delete('/delete_medicine/{id}', [MedicalCatalogController::class, 'deleteMedicine'])->name('medicine.delete');
 
-Route::get('/statistical_report', function () {
-    return view('dashboard.statistical_report');
-});
+Route::get('/statistical_report', [PatientController::class, 'getStatisticalReport'])->name('statistical_report');
