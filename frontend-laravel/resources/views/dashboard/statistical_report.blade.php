@@ -27,19 +27,32 @@
                     <div class="container-recent-inner">
                         <div class="container-recent__heading heading__button">
                             <p class="recent__heading-title">Patient Statistics</p>
-                            <!-- <p class="recent__heading-title">Prescriptions</p> -->
-                            <form class="container__heading-search">
-                                <input type="month" class="heading-search__area form-control" name="month_year" id="month_year" max="{{ \Carbon\Carbon::now()->format('Y-m') }}">
-                                <select class="heading-search__area" name="doctor" id="doctor" class="form-cotrol" onchange="getStatus(this.value)">
-                                    <option value="Monday">Select Doctor</option>
-                                    <option value="12">All</option>
-                                    <option value="11">ABC</option>
-                                </select>
-                                <button class="btn-control btn-control-search" name="btn-add-schedule">
+                            <form class="container__heading-search" method="GET" action="">
+                                <input type="month" class="heading-search__area form-control" name="month_year" id="month_year" max="{{ \Carbon\Carbon::now()->format('Y-m') }}" value="{{ request('month_year') }}">
+                                <button class="btn-control btn-control-search" type="submit" name="btn-filter">
                                     <i class="fa-solid fa-filter btn-control-icon"></i>
                                     Filter
                                 </button>                        
                             </form>
+                        </div>
+
+                        @php
+                            $monthYear = request('month_year');
+                            if ($monthYear) {
+                                $filteredPatients = collect($patients)->filter(function($patient) use ($monthYear) {
+                                    if (empty($patient['date_of_birth'])) return false;
+                                    return \Illuminate\Support\Str::startsWith($patient['date_of_birth'], $monthYear);
+                                });
+                            } else {
+                                $filteredPatients = collect($patients);
+                            }
+                            $resultCount = $filteredPatients->count();
+                        @endphp
+
+                        <div style="margin: 10px 0;">
+                            <td class="text-center">
+                                {{ $resultCount }} result{{ $resultCount !== 1 ? 's' : '' }} found
+                            </td>
                         </div>
 
                         <div class="table-responsive">
@@ -56,7 +69,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-body">
-                                    @forelse($patients as $patient)
+                                    @forelse($filteredPatients as $patient)
                                         <tr>
                                             <th class="text-column-emphasis" scope="row">{{ $patient['id'] ?? 'N/A' }}</th>
                                             <th class="text-column" scope="row">{{ $patient['full_name'] ?? 'N/A' }}</th>
@@ -70,8 +83,7 @@
                                                         <i class="fa-solid fa-trash-can btn-control-icon"></i>
                                                         Delete
                                                     </a>
-                                                    <a href="{{-- url('detail_patient/' . $patient['id']) --}}"
-                                                        class="btn-control btn-control-edit">
+                                                    <a href="#" class="btn-control btn-control-edit">
                                                         <i class="fa-solid fa-user-pen btn-control-icon"></i>
                                                         View Detail
                                                     </a>
@@ -85,7 +97,6 @@
                                     @endforelse
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -95,15 +106,15 @@
                             <p class="recent__heading-title">Prescription Statistics</p>
                             <!-- <p class="recent__heading-title">Prescriptions</p> -->
                             <form class="container__heading-search">
-                                <select class="heading-search__area" name="month" id="month" class="form-cotrol" onchange="getStatus(this.value)">
-                                    <option value="Monday">Select Doctor</option>
-                                    <option value="1">All</option>
-                                    <option value="2">2025-09</option>
-                                </select>
-                                <select class="heading-search__area" name="doctor" id="doctor" class="form-cotrol" onchange="getStatus(this.value)">
-                                    <option value="Monday">Select Patient</option>
-                                    <option value="12">All</option>
-                                    <option value="11">ABC</option>
+                                <input type="month" class="heading-search__area form-control" name="month_year" id="month_year" max="{{ \Carbon\Carbon::now()->format('Y-m') }}">
+                                <select class="heading-search__area form-control" name="patient" id="patient">
+                                    <option value="">Select Patient</option>
+                                    <option value="all">All</option>
+                                    @forelse($patients as $patient)
+                                        <option value="{{ $patient['id'] ?? '' }}">{{ $patient['full_name'] ?? 'N/A' }}</option>
+                                    @empty
+                                        <option value="">No patients found</option>
+                                    @endforelse
                                 </select>
                                 <button class="btn-control btn-control-search" name="btn-add-schedule">
                                     <i class="fa-solid fa-filter btn-control-icon"></i>

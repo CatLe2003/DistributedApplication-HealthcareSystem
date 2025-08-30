@@ -275,19 +275,41 @@ class PatientController extends Controller
     {
         $patientsResponse = Http::get('http://api_gateway/patient/get-patients');
         $prescriptionsResponse = Http::get("http://api_gateway/patient/get-prescriptions");
+        $doctorsResponse = Http::get("http://api_gateway/employee/employees");
 
-        if ($patientsResponse->successful() && $prescriptionsResponse->successful()) {
+        if ($patientsResponse->successful() && $prescriptionsResponse->successful() && $doctorsResponse->successful()) {
             $patients = $patientsResponse->json()['data'] ?? [];
             $prescriptions = $prescriptionsResponse->json()['data'] ?? [];
-            return view('dashboard.statistical_report', compact('patients', 'prescriptions'));
+            $doctors = $doctorsResponse->json()['data'] ?? [];
+
+            // // Build doctor id => name map
+            // $doctorMap = [];
+            // foreach ($doctors as $doctor) {
+            //     if (isset($doctor['EmployeeID']) && isset($doctor['FullName'])) {
+            //         $doctorMap[$doctor['EmployeeID']] = $doctor['FullName'];
+            //     }
+            // }
+
+            // // Build patient id => name map
+            // $patientMap = [];
+            // foreach ($patients as $patient) {
+            //     if (isset($patient['PatientID']) && isset($patient['FullName'])) {
+            //         $patientMap[$patient['PatientID']] = $patient['FullName'];
+            //     }
+            // }
+
+            return view('dashboard.statistical_report', compact('patients', 'prescriptions', 'doctors'));
         }
-        // Bổ sung doctor, patient name
+
         $errorMsg = [];
         if (!$patientsResponse->successful()) {
             $errorMsg[] = $patientsResponse->body();
         }
         if (!$prescriptionsResponse->successful()) {
             $errorMsg[] = $prescriptionsResponse->body();
+        }
+        if (!$doctorsResponse->successful()) {
+            $errorMsg[] = $doctorsResponse->body();
         }
         return redirect()->back()->withErrors(['message' => implode(' ', $errorMsg)]);
     }

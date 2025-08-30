@@ -375,7 +375,7 @@
 .container__heading-search {
     display: flex;
     min-height: 42px;
-    width: 30%;
+    width: 40%;
 }
 .heading-search__area {
     border-radius: 5px;
