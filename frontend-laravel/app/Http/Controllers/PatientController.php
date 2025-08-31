@@ -119,8 +119,22 @@ class PatientController extends Controller
 
         $response = Http::get("http://api_gateway/patient/get-patient/{$patientId}");
 
+        $appointmentResponse = Http::get("http://api_gateway/appointment/appointments/patient/{$patientId}");
+
+        $appointments = [];
+        if ($appointmentResponse->successful()) {
+            $appointments = $appointmentResponse->json()['data'] ?? [];
+        }
+
+        // Enrich appointments with doctor and department names
+        foreach ($appointments as &$appointment) {
+            $appointment['DoctorName'] = $this->getDoctorName($appointment['DoctorID']);
+            $appointment['DepartmentName'] = $this->getDepartmentName($appointment['DepartmentID']);
+        }
+
+
         if ($response->successful()) {
-            return view('medical_record.profile', ['profile' => $response->json()]);
+            return view('medical_record.profile', ['profile' => $response->json(), 'appointments' => $appointments]);
         }
 
         return redirect()->back()->withErrors(['message' => $response->body()]);

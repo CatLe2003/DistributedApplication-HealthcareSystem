@@ -28,13 +28,9 @@ Route::post('/register_profile', [PatientController::class, 'registerProfile'])-
 Route::post('/update_profile', [PatientController::class, 'updateProfile'])->name('profile.update');
 
 // PATIENT'S UI
-Route::get('/', function () {
-    return view('dashboard.homepage');
-}) ->name('home');
+Route::get('/', [EmployeeController::class, 'listDepartmentsHome'])->name('home');
 
-Route::get('/home', function () {
-    return view('dashboard.homepage');
-})->name('home');
+Route::get('/home', [EmployeeController::class, 'listDepartmentsHome'])->name('home');
 
 Route::get('/department/list_departments', [EmployeeController::class, 'listDepartments']);
 

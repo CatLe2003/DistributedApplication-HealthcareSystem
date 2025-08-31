@@ -22,27 +22,27 @@
     <!-- Main -->
     <div class="main-container">
         <section class="profile-container">
-             @if(session('success'))
-                    <div class="alert alert-success" id="profile-alert">
-                        {{ session('success') }}
-                    </div>
-                @endif
+            @if(session('success'))
+                <div class="alert alert-success" id="profile-alert">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-                @if(session('error'))
-                    <div class="alert alert-danger" id="profile-alert">
-                        {{ session('error') }}
-                    </div>
-                @endif
+            @if(session('error'))
+                <div class="alert alert-danger" id="profile-alert">
+                    {{ session('error') }}
+                </div>
+            @endif
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="profile-header">
                 <img src="" alt="" class="profile-avatar">
                 <h2 class="profile-name">{{ $profile['full_name'] }}</h2>
@@ -79,19 +79,22 @@
                     </div>
 
                     <div class="record-grid">
-                        <a href="{{ url('appointment/detail_appt') }}" class="record-card">
-                            <div class="record-title">15/08/2025 (8:00 - 8:30)</div>
-                            <p class="paper-detail-description"><strong>Department:</strong> Tai Mũi Họng</p>
-                            <p class="paper-detail-description"><strong>Doctor:</strong> BS. Nguyễn Văn Chung</p>
-                            <p class="paper-detail-description"><strong>Status:</strong> New</p>
-                        </a>
-
-                        <a href="{{ url('appointment/detail_appt') }}" class="record-card">
-                            <div class="record-title">14/08/2025 (8:00 - 8:30)</div>
-                            <p class="paper-detail-description"><strong>Department:</strong> Tai Mũi Họng</p>
-                            <p class="paper-detail-description"><strong>Doctor:</strong> BS. Nguyễn Văn Chung</p>
-                            <p class="paper-detail-description"><strong>Status:</strong> New</p>
-                        </a>
+                        @forelse($appointments as $appt)
+                            <a href="{{ url('appointment/detail_appt/' . $appt['AppointmentID']) }}" class="record-card">
+                                <div class="record-title"> Meeting on
+                                    {{ \Carbon\Carbon::parse($appt['AppointmentDate'])->format('d/m/Y') }}
+                                    ({{ $appt['TimeSlotID'] ?? 'N/A' }}) <!--change to TimeSlot if possible-->
+                                </div>
+                                <p class="paper-detail-description"><strong>Department:</strong>
+                                    {{ $appt['DepartmentName'] ?? 'N/A' }}</p>
+                                <p class="paper-detail-description"><strong>Doctor:</strong>
+                                    {{ $appt['DoctorName'] ?? 'N/A' }}</p>
+                                <p class="paper-detail-description"><strong>Status:</strong> {{ ucfirst($appt['Status']) }}
+                                </p>
+                            </a>
+                        @empty
+                            <p>No appointments found.</p>
+                        @endforelse
                     </div>
                 </div>
             </div>
