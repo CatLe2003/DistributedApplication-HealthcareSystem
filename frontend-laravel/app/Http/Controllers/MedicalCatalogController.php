@@ -18,13 +18,36 @@ class MedicalCatalogController extends Controller
         }
 
         Log::error('Failed to fetch medicines', ['response' => $response->body()]);
-        return view('medicine.medicines', ['medicines' => []])
-               ->withErrors(['message' => 'Failed to fetch medicines.']);
+        return redirect()->back()->withErrors(['message' => 'Failed to fetch medicines.']);
     }
 
     public function showAddMedicineForm()
     {
-        return view('medicine.add_medicine', ['title' => 'Add Medicine - LifeCare']);
+        $manufacturers = Http::get("http://api_gateway/medical_catalog/manufacturers");
+
+        if ($manufacturers->successful()) {
+            $manufacturers = $manufacturers->json() ?? [];
+        }
+
+        $forms = Http::get("http://api_gateway/medical_catalog/forms");
+
+        if ($forms->successful()) {
+            $forms = $forms->json()?? [];
+        }
+
+
+        $units = Http::get("http://api_gateway/medical_catalog/units");
+
+        if ($units->successful()) {
+            $units = $units->json()['original'] ?? [];
+        }
+
+
+        return view('medicine.add_medicine', [
+            'manufacturers' => $manufacturers,
+            'forms' => $forms,
+            'units' => $units,
+        ]);
     }
 
     public function addMedicine(Request $request)

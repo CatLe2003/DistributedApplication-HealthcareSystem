@@ -30,9 +30,26 @@
             <h class="subtopic-header"></h>
         </div>
 
-        <div class="info-box">
-            <h3>Tai Mũi Họng</h3>
-            <p class="paper-detail-description"><strong>Description: </strong>Khám tai-mũi-họng</p>
-        </div>
+        <!-- Department -->
+            @if(isset($error))
+                <div class="alert alert-danger">
+                    {{ $error }}
+                </div>
+            @endif
+
+            @if(empty($departments))
+                <div class="info-box">
+                    <p>No departments found.</p>
+                </div>
+            @else
+                @foreach($departments as $department)
+                <div class="info-box">
+                    <h3>{{ $department['DepartmentName'] }}</h3>
+                    <p class="paper-detail-description">
+                        <strong>Description: </strong>{{ $department['Description'] ?? 'No description available' }}
+                    </p>
+                </div>
+                @endforeach
+            @endif
     </section>
 @endsection
