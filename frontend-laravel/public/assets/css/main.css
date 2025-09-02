@@ -375,7 +375,7 @@
 .container__heading-search {
     display: flex;
     min-height: 42px;
-    width: 40%;
+    width: 50%;
 }
 .heading-search__area {
     border-radius: 5px;
@@ -714,3 +714,9 @@ to {
     cursor: pointer;
 }
     
+.result-count {
+    margin: 0px 24px;
+    text-align: left;
+    font-size: 13px;
+    color: var(--title-text-color);
+}
