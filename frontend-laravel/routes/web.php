@@ -69,9 +69,7 @@ Route::get('/patients', function () {
     return view('employee.patients');
 })->name('patients');
 
-Route::get('/schedule_management', function () {
-    return view('employee.schedule_management');
-});
+Route::get('/schedule_management', [EmployeeController::class, 'getSchedulesByDoctor'])->name('employee.schedule_management');
 
 Route::get('/patient_management', [PatientController::class, 'getAll'])->name('patient_management');
 
@@ -85,6 +83,10 @@ Route::get('/detail_patient', function () {
 
 Route::get('/update_medicalrecord', function () {
     return view('patient.update_medrecord');
+});
+
+Route::get('/add_schedule', function () {
+    return view('employee.add_schedule');
 });
 
 // STAFF'S UI

@@ -142,7 +142,7 @@ class AppointmentController extends Controller
         $response = Http::post('http://api_gateway/appointment/appointments', $postData);
 
         if ($response->successful()) {
-            return redirect()->route('appointment.list')->with('success', 'Appointment booked successfully!');
+            return redirect()->route('appointment.list_appts')->with('success', 'Appointment booked successfully!');
         } else {
             return back()->withErrors(['error' => 'Failed to book appointment. Please try again.'])->withInput();
         }
