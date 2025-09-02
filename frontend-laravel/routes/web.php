@@ -12,6 +12,7 @@ Route::get('/login', function () {
 });
 
 Route::post('/login', [AuthenticationController::class, 'login'])->name('login');
+Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 Route::get('/register', function () {
     return view('auth.register');
@@ -28,7 +29,9 @@ Route::post('/register_profile', [PatientController::class, 'registerProfile'])-
 Route::post('/update_profile', [PatientController::class, 'updateProfile'])->name('profile.update');
 
 // PATIENT'S UI
-Route::get('/', [EmployeeController::class, 'listDepartmentsHome'])->name('home');
+Route::get('/',  function () {
+    return view('auth.login');
+});
 
 Route::get('/home', [EmployeeController::class, 'listDepartmentsHome'])->name('home');
 

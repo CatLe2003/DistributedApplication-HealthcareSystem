@@ -114,37 +114,61 @@ class AppointmentController extends Controller
 
     public function createAppointment(Request $request)
     {
-        $validatedData = $request->validate([
-            'department' => 'required|integer',
-            'doctor' => 'required|integer',
-            'date' => 'required|date',
-            'time-slot' => 'required|string',
-            'weekday_id' => 'required|integer'
-        ]);
+        try {
+            $validatedData = $request->validate([
+                    'department' => 'required|integer',
+                    'doctor' => 'required|integer',
+                    'date' => 'required|date',
+                    'time-slot' => 'required|string',
+                    'weekday_id' => 'required|integer'
+                ]);
 
-        $patient_id = session('patient_id');
-        $validatedData['patient'] = $patient_id; // Use patient_id from session
+                $dateString = $validatedData['date'];
 
-        $doctorId = $validatedData['doctor'];
-        $doctorInfo = Http::get("http://api_gateway/employee/doctors/{$doctorId}");
-        // Prepare data for the API request
-        $postData = [
-            'PatientID' => $validatedData['patient'],
-            'DepartmentID' => $validatedData['department'],
-            'DoctorID' => $doctorId,
-            'AppointmentDate' => $validatedData['date'],
-            'TimeSlotID' => $validatedData['time-slot'],
-            'WeekdayID' => $validatedData['weekday_id'],
-            'RoomID' => $doctorInfo['data']['RoomID']
-        ];
+                // Check if the date is in the past
+                $currentDate = date('Y-m-d');
+                if ($dateString < $currentDate) {
+                    return back()->withErrors(['error' => 'The selected date is in the past. Please choose a valid date.'])->withInput();
+                }
+                
+                // Check slot availability
+                $availabilityResponse = Http::get("http://api_gateway/appointment/appointments/is-slot-available?date={$dateString}&timeslot={$validatedData['time-slot']}&doctorId={$validatedData['doctor']}");
 
-        // Send POST request to Appointment Service
-        $response = Http::post('http://api_gateway/appointment/appointments', $postData);
+                if ($availabilityResponse->failed() || !$availabilityResponse->json('isAvailable')) {
+                    return back()->withErrors(['error' => 'The selected time slot is not available. Please choose another slot.'])->withInput();
+                }
 
-        if ($response->successful()) {
-            return redirect()->route('appointment.list_appts')->with('success', 'Appointment booked successfully!');
-        } else {
-            return back()->withErrors(['error' => 'Failed to book appointment. Please try again.'])->withInput();
+                // Get patient ID from session
+                $patient_id = session('patient_id');
+                $validatedData['patient'] = $patient_id; 
+
+                // Fetch doctor info to get RoomID
+                $doctorId = $validatedData['doctor'];
+                $doctorInfo = Http::get("http://api_gateway/employee/doctors/{$doctorId}");
+                // Prepare data for the API request
+                $postData = [
+                    'PatientID' => $validatedData['patient'],
+                    'DepartmentID' => $validatedData['department'],
+                    'DoctorID' => $doctorId,
+                    'AppointmentDate' => $dateString,
+                    'TimeSlotID' => $validatedData['time-slot'],
+                    'WeekdayID' => $validatedData['weekday_id'],
+                    'RoomID' => $doctorInfo['data']['RoomID']
+                ];
+
+                // Send POST request to Appointment Service
+                $response = Http::post('http://api_gateway/appointment/appointments', $postData);
+
+                if ($response->successful()) {
+                    return redirect()->route('appointment.list_appts')->with('success', 'Appointment booked successfully!');
+                } else {
+                    return back()->withErrors(['error' => 'Failed to book appointment. Please try again.'])->withInput();
+                }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'An unexpected error occurred. Please try again.'])->withInput();
         }
+  
     }
 }
