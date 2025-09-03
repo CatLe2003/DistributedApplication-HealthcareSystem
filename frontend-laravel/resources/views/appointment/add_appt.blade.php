@@ -27,12 +27,35 @@
         <section class="paper-list-container">
             <h2 class="paper-list-title">Book An Appointment</h2>
             <hr class="breakline">
+            @if(session('success'))
+                <div class="alert alert-success" id="profile-alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger" id="profile-alert">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <hr class="breakline">
 
             <form action="{{ route('appointment.create') }}" method="POST" class="search-form">
                 @csrf
                 <div class="search-row">
                     <label class="form-label" for="keyword">Service</label>
-                    <select id="department" name="department" class="input-field" require>
+                    <select id="department" name="department" class="input-field" required>
                         @foreach($departments as $department)
                             <option value="{{ $department['DepartmentID'] }}">{{ $department['DepartmentName'] }}</option>
                         @endforeach
@@ -41,7 +64,7 @@
 
                 <div class="search-row">
                     <label class="form-label" for="author">Doctor</label>
-                    <select id="doctor" name="doctor" class="input-field" require>
+                    <select id="doctor" name="doctor" class="input-field" required>
                         @foreach($doctors as $doctor)
                             <option value="{{ $doctor['EmployeeID'] }}">{{ $doctor['FullName'] ?? ''}}</option>
                         @endforeach
@@ -51,11 +74,11 @@
                 <div class="search-row date-row">
                     <div class="search-row">
                         <label class="form-label" for="Date">Date</label>
-                        <input type="date" id="date" name="date" class="input-field" require>
+                        <input type="date" id="date" name="date" class="input-field" required>
                     </div>
                     <div class="search-row">
                         <label class="form-label" for="time">Time slot</label>
-                        <select id="time-slot" name="time-slot" class="input-field" require>
+                        <select id="time-slot" name="time-slot" class="input-field" required>
                             <option value>-- Select a timeslot --</option>
                         </select>
                     </div>

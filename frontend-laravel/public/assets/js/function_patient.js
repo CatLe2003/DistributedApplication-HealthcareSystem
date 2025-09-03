@@ -2,32 +2,26 @@
 // Patient Homepage - Logout
 // =========================
 document.addEventListener("DOMContentLoaded", function () {
-    const logoutLink = document.getElementById("logout-btn"); // link logout
+    const logoutLink = document.getElementById("logout-btn");
     const popup = document.getElementById("logout-popup");
     const confirmBtn = document.getElementById("confirm-logout");
     const cancelBtn = document.getElementById("cancel-logout");
 
     if (logoutLink && popup) {
-        // Khi bấm Logout -> hiện popup
+        // Show popup when clicking Logout link
         logoutLink.addEventListener("click", function (e) {
             e.preventDefault();
             popup.style.display = "flex";
         });
 
-        // Xác nhận Logout
+        // Confirm Logout → submit hidden form
         if (confirmBtn) {
             confirmBtn.addEventListener("click", function () {
-                // Laravel logout form
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = "/logout"; // route('logout') trong Laravel
-                form.innerHTML = `@csrf`;
-                document.body.appendChild(form);
-                form.submit();
+                document.getElementById('logout-form').submit();
             });
         }
 
-        // Hủy -> đóng popup
+        // Cancel → hide popup
         if (cancelBtn) {
             cancelBtn.addEventListener("click", function () {
                 popup.style.display = "none";

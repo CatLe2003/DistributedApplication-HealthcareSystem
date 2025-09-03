@@ -28,7 +28,8 @@
                         <div class="container-recent__heading heading__button">
                             <p class="recent__heading-title">Patient Statistics</p>
                             <form class="container__heading-search" method="GET" action="">
-                                <input type="month" class="heading-search__area form-control" name="month_year" id="month_year" max="{{ \Carbon\Carbon::now()->format('Y-m') }}" value="{{ request('month_year') }}">
+                                <input type="month" class="heading-search__area form-control" name="from" id="from_month_year" max="{{ \Carbon\Carbon::now()->format('Y-m') }}" value="{{ request('from') }}">
+                                <input type="month" class="heading-search__area form-control" name="to" id="to_month_year" max="{{ \Carbon\Carbon::now()->format('Y-m') }}" value="{{ request('to') }}">
                                 <button class="btn-control btn-control-search" type="submit" name="btn-filter">
                                     <i class="fa-solid fa-filter btn-control-icon"></i>
                                     Filter
@@ -37,23 +38,32 @@
                         </div>
 
                         @php
-                            $monthYear = request('month_year');
-                            if ($monthYear) {
-                                $filteredPatients = collect($patients)->filter(function($patient) use ($monthYear) {
-                                    if (empty($patient['date_of_birth'])) return false;
-                                    return \Illuminate\Support\Str::startsWith($patient['date_of_birth'], $monthYear);
-                                });
-                            } else {
-                                $filteredPatients = collect($patients);
-                            }
+                            $from = request('from');
+                            $to = request('to');
+                            $filteredPatients = collect($patients)->filter(function($patient) use ($from, $to) {
+                                if (empty($patient['date_of_birth'])) return false;
+                                $dob = \Carbon\Carbon::parse($patient['date_of_birth']);
+                                if ($from) {
+                                    $fromDate = \Carbon\Carbon::parse($from . '-01');
+                                    if ($dob->lt($fromDate)) return false;
+                                }
+                                if ($to) {
+                                    // Get last day of the 'to' month
+                                    $toDate = \Carbon\Carbon::parse($to . '-01')->endOfMonth();
+                                    if ($dob->gt($toDate)) return false;
+                                }
+                                return true;
+                            });
                             $resultCount = $filteredPatients->count();
                         @endphp
 
-                        <div style="margin: 10px 0;">
-                            <td class="text-center">
+                        @if(request()->has('from') || request()->has('to'))
+                        <div class="result-count">
+                            <p class="">
                                 {{ $resultCount }} result{{ $resultCount !== 1 ? 's' : '' }} found
-                            </td>
+                            </p>
                         </div>
+                        @endif
 
                         <div class="table-responsive">
                             <table class="table">

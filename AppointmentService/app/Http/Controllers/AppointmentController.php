@@ -259,6 +259,7 @@ class AppointmentController extends Controller
         }
     }
 
+    // GEt /appointments/is-slot-available?date=YYYY-MM-DD&timeslot=1&doctorId=1
     public function isSlotAvailable(Request $request)
     {
         try {
