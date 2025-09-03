@@ -16,6 +16,26 @@
     <div class="nav-right">
         <a href="{{ url('appointment/add_appt') }}" class="btn-primary">Book an appointment</a>
 
+        <!-- Appointment Notifications -->
+        <div class="notification-dropdown">
+            <button id="notif-btn" class="btn-header">
+                <i class="fa-solid fa-bell"></i>
+                <span id="notif-count" class="notif-badge">3</span> <!-- ví dụ có 3 thông báo -->
+            </button>
+
+            <div id="notif-box" class="dropdown-notif" style="display:none">
+                <h4>Appointment Notifications</h4>
+                <ul>
+                    <li>📅 2025-09-05: Appointment with Dr. Smith at 10:00</li>
+                    <li>📅 2025-09-07: Appointment with Dr. Tanaka at 14:00</li>
+                    <li>📅 2025-09-10: Appointment with Dr. Nguyen at 09:30</li>
+                </ul>
+                <a href="{{ url('appointment/list') }}" class="btn-outline" style="margin-top:10px; display:block; text-align:center;">
+                    View All
+                </a>
+            </div>
+        </div>
+
         <div class="user-dropdown">
             <div class="user-info">
                 <div class="avatar-circle"></div>
@@ -78,6 +98,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const notifBtn = document.getElementById("notif-btn");
+    const notifBox = document.getElementById("notif-box");
+
+    if (notifBtn) {
+        notifBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            notifBox.style.display = (notifBox.style.display === "none" || notifBox.style.display === "") ? "block" : "none";
+        });
+    }
+
+    // click bên ngoài sẽ đóng dropdown
+    document.addEventListener("click", function(e) {
+        if (notifBox && notifBtn && !notifBox.contains(e.target) && !notifBtn.contains(e.target)) {
+            notifBox.style.display = "none";
+        }
+    });
+});
+
 </script>
 @endpush
 

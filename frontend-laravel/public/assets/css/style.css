@@ -1255,3 +1255,53 @@ function closePopup() {
     background-color: #f8d7da;
     color: #721c24;
 }
+
+.notification-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.notif-badge {
+    background: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+.dropdown-notif {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 300px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.dropdown-notif h4 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.dropdown-notif ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-notif ul li {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
