@@ -71,6 +71,12 @@ Route::get('/patients', function () {
 
 Route::get('/schedule_management', [EmployeeController::class, 'getSchedulesByDoctor'])->name('employee.schedule_management');
 
+Route::get('/employee/add_schedule', [EmployeeController::class, 'getAllShifts'])->name('employee.add_schedule');
+
+Route::post('/employee/add_schedule', [EmployeeController::class, 'addSchedule'])->name('employee.add_schedule.post');
+
+Route::delete('/delete_schedule/{id}', [EmployeeController::class, 'deleteSchedule'])->name('employee.delete_schedule');
+
 Route::get('/patient_management', [PatientController::class, 'getAll'])->name('patient_management');
 
 Route::get('/medvisit_staff', [PatientController::class, 'getAllMedicalVisits'])->name('medvisit_staff');

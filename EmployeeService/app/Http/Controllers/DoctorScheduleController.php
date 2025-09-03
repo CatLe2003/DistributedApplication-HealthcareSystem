@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use Carbon\Carbon; 
+use Carbon\Carbon;
 use App\Models\Shift;
 use App\Models\Doctor;
 use App\Models\Weekday;
@@ -66,10 +66,24 @@ class DoctorScheduleController extends Controller
     {
         try {
             $request->validate([
-                'DoctorID' => 'required|exists:doctors,DoctorID',
+                'DoctorID' => 'required|exists:doctors,EmployeeID',
                 'WeekdayID' => 'required|exists:weekdays,WeekdayID',
                 'ShiftID' => 'required|exists:shifts,ShiftID'
             ]);
+
+            // prevent duplicate schedules
+            $exists = DoctorSchedule::where('DoctorID', $request->DoctorID)
+                ->where('WeekdayID', $request->WeekdayID)
+                ->where('ShiftID', $request->ShiftID)
+                ->exists();
+
+            if ($exists) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Schedule already exists for this doctor, weekday and shift'
+                ], 409);
+            }
+
 
             $schedule = DoctorSchedule::create($request->all());
 
@@ -217,14 +231,14 @@ class DoctorScheduleController extends Controller
     public function getAvailableDoctors(Request $request)
     {
         try {
-            
+
             $request->validate([
                 'date' => 'required|date',
                 'shift' => 'required|integer'
             ]);
-            
+
             $date = $request->query('date');
-            $shiftId = $request->query('shift'); 
+            $shiftId = $request->query('shift');
 
             $weekdayName = date('l', strtotime($date));
             $weekday = Weekday::where('WeekdayName', $weekdayName)->first();
@@ -268,7 +282,7 @@ class DoctorScheduleController extends Controller
 
             $date = Carbon::parse($request->date);
             $weekdayName = $date->format('l'); // Monday, Tuesday,...
-            
+
             // Lấy weekdayId từ bảng weekdays
             $weekday = DB::table('weekdays')
                 ->where('WeekdayName', $weekdayName)

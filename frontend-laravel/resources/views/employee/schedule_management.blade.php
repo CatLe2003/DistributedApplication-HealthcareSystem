@@ -31,7 +31,7 @@
                     <div class="card shadow">
                         <div class="container-recent__heading">
                             <p class="recent__heading-title">Your Schedules</p>
-                            <a href="{{ url('add_schedule') }}" class="btn-control btn-control-add">
+                            <a href="{{ route('employee.add_schedule') }}" class="btn-control btn-control-add">
                                 <i class="fa-solid fa-calendar btn-control-icon"></i>
                                 Add schedule
                             </a>
@@ -45,7 +45,7 @@
                                         <th class="text-column" scope="col">Weekday</th>
                                         <th class="text-column" scope="col">Shift</th>
                                         <th class="text-column" scope="col">Time</th>
-                                        <th class="text-column" scope="col">Actions</th>  
+                                        <th class="text-column" scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-body">
@@ -61,11 +61,15 @@
                                             </td>
                                             <th class="text-column" scope="col">
                                                 <div class="text-column__action">
-                                                    <a href="{{-- url('update_prescription') --}}"
-                                                        class="btn-control btn-control-delete">
-                                                        <i class="fa-solid fa-square-check btn-control-icon"></i>
-                                                        Delete
-                                                    </a>
+                                                    <form
+                                                        action="{{ route('employee.delete_schedule', $schedule['ScheduleID']) }}"
+                                                        method="POST" onsubmit="return confirm('Delete this schedule?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn-control btn-control-delete">
+                                                            <i class="fa-solid fa-trash btn-control-icon"></i> Delete
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </th>
                                         </tr>
