@@ -30,10 +30,10 @@
                 <div class="container-recent">
                     <div class="container-recent-inner">
                         <div class="container-recent__heading heading__button">
-                            <!-- <a href="add_paitents.html" class="btn-control btn-control-add">
+                            {{-- <a href={{--"add_patients.html" class="btn-control btn-control-add">
                                 <i class="fa-solid fa-bed-pulse btn-control-icon"></i>
-                                Add new paitent
-                            </a> -->
+                                Add new patient
+                            </a> --}}
                             <p class="recent__heading-title">Patients</p>
                             <div class="container__heading-search">
                                 <input type="text" class="heading-search__area"
@@ -75,7 +75,7 @@
                                                         <i class="fa-solid fa-trash-can btn-control-icon"></i>
                                                         Delete
                                                     </a>
-                                                    <a href="{{-- url('detail_patient/' . $patient['id']) --}}"
+                                                    <a href="{{ url('patient/detail_patient/' . $patient['id']) }}" 
                                                         class="btn-control btn-control-edit">
                                                         <i class="fa-solid fa-user-pen btn-control-icon"></i>
                                                         View Detail

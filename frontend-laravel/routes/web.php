@@ -86,6 +86,12 @@ Route::get('/medvisit_staff', [PatientController::class, 'getAllMedicalVisits'])
 
 Route::get('/medical_record/detail_medvisit_staff/{id}', [PatientController::class, 'getMedicalVisitDetailStaff'])->name('medical_record.detail_medvisit_staff');
 
+Route::get('/add_medvisit', [PatientController::class, 'showAddMedVisitForm'])->name('add_medvisit');
+
+Route::post('/add_medvisit', [PatientController::class, 'createMedVisit'])->name('add_medvisit.post');
+
+Route::get('patient/detail_patient/{id}', [PatientController::class, 'getDetailPatient'])->name('detail_patient');
+
 Route::get('/detail_patient', function () {
     return view('patient.update_patient');
 });

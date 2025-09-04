@@ -26,12 +26,11 @@ class MedicalVisitController extends Controller
                 'patient_id' => 'required|exists:patient,id',
                 'doctor_id' => 'required',
                 'department_id' => 'required',
-                'visit_date' => 'required|date',
-                'diagnosis' => 'required|string|max:255',
-                'symptoms' => 'required|string|max:255',
+                'visit_date' => 'required|date_format:Y-m-d H:i:s',
+                'diagnosis' => 'nullable|string|max:255',
+                'symptoms' => 'nullable|string|max:255',
                 'notes' => 'nullable|string|max:255',
             ]);
-            $this->patientService->validateEntitiesMedicalVisit($incomingFields);
 
             // Database insert phase
             MedicalVisit::create($incomingFields);

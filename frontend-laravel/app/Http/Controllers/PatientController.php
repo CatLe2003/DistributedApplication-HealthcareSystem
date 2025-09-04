@@ -37,6 +37,18 @@ class PatientController extends Controller
         return 'N/A';
     }
 
+    private function getPatientNamePhone($patientId)
+    {
+        if (!$patientId)
+            return ['name' => 'N/A', 'phone' => 'N/A'];
+        $response = Http::get("http://api_gateway/patient/get-patient/{$patientId}");
+        if ($response->successful()) {
+            $data = $response->json();
+            return ['name' => $data['full_name'] ?? 'N/A', 'phone' => $data['phone_number'] ?? 'N/A',];
+        }
+        return ['name' => 'N/A', 'phone' => 'N/A'];
+    }
+
     private function getMedicineName($medicineId)
     {
         if (!$medicineId)
@@ -208,6 +220,7 @@ class PatientController extends Controller
                 $departmentName = $departmentData['data']['DepartmentName'] ?? 'N/A';
             }
             $visit['department_name'] = $departmentName;
+
             return $visit;
         })->toArray();
 
@@ -334,10 +347,9 @@ class PatientController extends Controller
         $response = Http::get("http://api_gateway/patient/get-medicalvisits");
 
         if ($response->successful()) {
-            $medicalVisits = $response->json()['data']; // Access 'data' key
+            $medicalVisits = $response->json()['data'] ?? [];
             return view('medical_record.medvisit_staff', compact('medicalVisits'));
         }
-
         return redirect()->back()->withErrors(['message' => $response->body()]);
     }
 
@@ -396,5 +408,96 @@ class PatientController extends Controller
             return back()->withErrors(['message' => $response->body()]);
         }
     }
-}
 
+    public function showAddMedVisitForm()
+    {
+        // Fetch patients for dropdown
+        $patients = [];
+        $response = Http::get("http://api_gateway/patient/get-patients");
+        if ($response->successful()) {
+            $patients = $response->json()['data'] ?? [];
+        }
+
+        // Get user_id from session
+        $userId = session('user_id');
+        $doctor = null;
+        $department = null;
+
+        if ($userId) {
+            // Fetch doctor by user_id
+            $doctorResponse = Http::get("http://api_gateway/employee/doctors/by-userid/{$userId}");
+            if ($doctorResponse->successful()) {
+                $doctorData = $doctorResponse->json()['data'] ?? null;
+
+                if ($doctorData) {
+                    $doctor = $doctorData;
+
+                    // Fetch department info
+                    $deptResponse = Http::get("http://api_gateway/employee/departments/{$doctorData['DepartmentID']}");
+                    if ($deptResponse->successful()) {
+                        $department = $deptResponse->json()['data'] ?? null;
+                    }
+                }
+            }
+        }
+
+        return view('medical_record.add_medvisit', [
+            'patients' => $patients,
+            'doctor' => $doctor,
+            'department' => $department,
+        ]);
+    }
+
+    public function createMedVisit(Request $request)
+    {
+        $formattedDate = null;
+        if ($request->filled('visit_date')) {
+            $formattedDate = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $request->visit_date)
+                ->format('Y-m-d H:i:s');
+        }
+        $payload = [
+            "patient_id" => $request->input('patient_id'),
+            "doctor_id" => $request->input('doctor_id'),
+            "department_id" => $request->input('department_id'),
+            "visit_date" => $formattedDate,
+            "diagnosis" => $request->input('diagnosis'),
+            "symptoms" => $request->input('symptoms'),
+            "notes" => $request->input('notes'),
+        ];
+
+        Log::info("Sending medical visit payload", $payload);
+
+        // Send POST request to API Gateway
+        $response = Http::post("http://api_gateway/patient/create-medicalvisit", $payload);
+        Log::info("Medical visit API response", [
+            'status' => $response->status(),
+            'body' => $response->body()
+        ]);
+        if ($response->successful()) {
+            return redirect()->route('medvisit_staff')
+                ->with('success', 'Medical visit created successfully!');
+        } else {
+            return back()->withErrors(['message' => $response->body()]);
+        }
+    }
+
+    public function getDetailPatient($patient_id)
+    {
+        $patientResponse = Http::get("http://api_gateway/patient/get-patient/{$patient_id}");
+        if (!$patientResponse->successful()) {
+            return redirect()->back()->withErrors(['message' => $patientResponse->body()]);
+        }
+
+        $patient = $patientResponse->json();
+
+        $medicalVisits = Http::get("http://api_gateway/patient/get-medicalvisit-patient/{$patient_id}");
+
+        if (!$medicalVisits->successful()) {
+            return redirect()->back()->withErrors(['message' => $medicalVisits->body()]);
+        }
+
+        $medicalVisits = $medicalVisits->json() ?? [];
+
+        return view('patient.detail_patient', ['patient' => $patient, 'medicalVisits' => $medicalVisits]);
+    }
+}

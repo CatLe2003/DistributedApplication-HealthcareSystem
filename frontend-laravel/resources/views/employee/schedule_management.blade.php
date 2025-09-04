@@ -7,6 +7,7 @@
     <title>Schedule - LifeCare</title>
     <link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link

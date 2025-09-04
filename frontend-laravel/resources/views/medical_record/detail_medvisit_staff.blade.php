@@ -39,7 +39,8 @@
                                     <div class="form-row__flex">
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Department Name</label>
-                                            <input type="text" name="department_name" class="form-control" value="{{ $medicalVisit['department_name'] ?? '' }}">
+                                            <input type="text" name="department_name" class="form-control"
+                                                value="{{ $medicalVisit['department_name'] ?? '' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -48,12 +49,14 @@
                                     <div class="form-row__flex">
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Doctor Name</label>
-                                            <input type="text" name="doctor_name" class="form-control" value="{{ $medicalVisit['doctor_name'] ?? '' }}">
+                                            <input type="text" name="doctor_name" class="form-control"
+                                                value="{{ $medicalVisit['doctor_name'] ?? '' }}">
                                         </div>
 
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Visit Date</label>
-                                            <input type="text" name="visit_date" class="form-control" value="{{ $medicalVisit['visit_date'] ?? '' }}">
+                                            <input type="text" name="visit_date" class="form-control"
+                                                value="{{ $medicalVisit['visit_date'] ?? '' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +65,8 @@
                                     <div class="form-row__flex">
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Symptoms</label>
-                                            <input type="text" name="symptoms" class="form-control" value="{{ $medicalVisit['symptoms'] ?? '' }}">
+                                            <input type="text" name="symptoms" class="form-control"
+                                                value="{{ $medicalVisit['symptoms'] ?? '' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +74,8 @@
                                     <div class="form-row__flex">
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Diagnosis</label>
-                                            <input type="text" name="diagnosis" class="form-control" value="{{ $medicalVisit['diagnosis'] ?? '' }}">
+                                            <input type="text" name="diagnosis" class="form-control"
+                                                value="{{ $medicalVisit['diagnosis'] ?? '' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -78,7 +83,8 @@
                                     <div class="form-row__flex">
                                         <div class="form-col">
                                             <label for="" class="form-col__label">Notes</label>
-                                            <input type="text" name="notes" class="form-control" value="{{ $medicalVisit['notes'] ?? '' }}">
+                                            <input type="text" name="notes" class="form-control"
+                                                value="{{ $medicalVisit['notes'] ?? '' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -86,13 +92,14 @@
 
                         <div class="form-row">
                             <div class="form-col margin-0">
-                                <a href="{{ route('add_prescription', ['visit_id' => $medicalVisit['id']]) }}" class="btn-control btn-control-add">
-                                <i class="fa-solid fa-pills btn-control-icon"></i>
-                                Add new prescription
+                                <a href="{{ route('add_prescription', ['visit_id' => $medicalVisit['id']]) }}"
+                                    class="btn-control btn-control-add">
+                                    <i class="fa-solid fa-pills btn-control-icon"></i>
+                                    Add new prescription
                                 </a>
                             </div>
                         </div>
-                        <br class=""> 
+                        <br class="">
 
                         </form>
                     </div>
