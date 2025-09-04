@@ -172,9 +172,9 @@ a {
 .nav-right a {
     /* margin-left: 8px; */
     text-decoration: none;
-    color: white;
+    /* color: white; */
     font-weight: 500;
-    font-size: 16px;
+    /* font-size: 16px; */
 }
 
 .user-dropdown {
@@ -731,7 +731,7 @@ footer {
     cursor: pointer;
     transition: all 0.3s ease;
     flex: 1;
-    display: flex;
+    /* display: flex; */
     align-items: center;   /* dọc */
     justify-content: center; /* ngang */
 }
@@ -1260,6 +1260,7 @@ function closePopup() {
     position: relative;
     display: inline-block;
     margin-right: 15px;
+    padding: 10px 0;
 }
 
 .notif-badge {
@@ -1276,19 +1277,21 @@ function closePopup() {
 .dropdown-notif {
     position: absolute;
     right: 0;
-    top: 40px;
+    top: 70%;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 300px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 1px solid var(--secondary-color);
+    border-radius: 12px;
+    width: 350px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     z-index: 1000;
+    margin-top: 16px;
 }
 
 .dropdown-notif h4 {
     margin: 0 0 10px 0;
-    font-size: 14px;
+    font-size: 16px;
+    color: var(--primary-color);
     border-bottom: 1px solid #eee;
     padding-bottom: 5px;
 }
@@ -1303,5 +1306,6 @@ function closePopup() {
 
 .dropdown-notif ul li {
     font-size: 13px;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    font-weight: 400;
 }
