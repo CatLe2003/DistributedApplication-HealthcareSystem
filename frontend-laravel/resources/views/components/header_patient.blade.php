@@ -3,7 +3,7 @@
         <img src="{{ asset('assets/images/smile-2_removebg.png') }}" alt="Smile.png" class="nav-header__logo">
         <h1 class="nav-header__name">LifeCare</h1>
     </div>
-`
+
     <div class="nav-items">
         <a class="nav-item" href="{{ url('/home') }}">Homepage</a>
         <a class="nav-item" href="{{ url('department/list_departments') }}">Services</a>
@@ -15,6 +15,24 @@
     <!-- If login -->
     <div class="nav-right">
         <a href="{{ url('appointment/add_appt') }}" class="btn-primary">Book an appointment</a>
+
+        <!-- Appointment Notifications -->
+        <div class="notification-dropdown">
+            <button id="notif-btn" class="btn-header">
+                <i class="fa-solid fa-bell"></i>
+                <span id="notif-count" class="notif-badge">3</span> <!-- ví dụ có 3 thông báo -->
+            </button>
+
+            <div id="notif-box" class="dropdown-notif" style="display:none">
+                <h4>Appointment Notifications</h4>
+                <ul>
+                    <li>📅 2025-09-05: Appointment with Dr. Smith at 10:00</li>
+                    <li>📅 2025-09-07: Appointment with Dr. Tanaka at 14:00</li>
+                    <li>📅 2025-09-10: Appointment with Dr. Nguyen at 09:30</li>
+                </ul>
+                <a href="{{ url('appointment/list_appts') }}" class="view-all">View All &gt;&gt;</a>
+            </div>
+        </div>
 
         <div class="user-dropdown">
             <div class="user-info">
@@ -54,30 +72,64 @@
 
 @push('scripts')
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const logoutLink = document.getElementById("logout-btn");
-    const popup = document.getElementById("logout-popup");
-    const confirmBtn = document.getElementById("confirm-logout");
-    const cancelBtn = document.getElementById("cancel-logout");
+    document.addEventListener("DOMContentLoaded", function () {
+        // ===== Logout popup =====
+        const logoutLink = document.getElementById("logout-btn");
+        const popup = document.getElementById("logout-popup");
+        const confirmBtn = document.getElementById("confirm-logout");
+        const cancelBtn = document.getElementById("cancel-logout");
+        const logoutForm = document.getElementById("logout-form");
 
-    if (logoutLink) {
-        logoutLink.addEventListener("click", function (e) {
-            e.preventDefault();
-            popup.style.display = "flex";
-        });
-    }
-    if (confirmBtn) {
-        confirmBtn.addEventListener("click", function () {
-            // đổi sang route logout của bạn (POST) nếu dùng Laravel Auth
-            window.location.href = "{{ url('login') }}";
-        });
-    }
-    if (cancelBtn) {
-        cancelBtn.addEventListener("click", function () {
-            popup.style.display = "none";
-        });
-    }
-});
+        if (logoutLink) {
+            logoutLink.addEventListener("click", function (e) {
+                e.preventDefault();
+                popup.style.display = "flex";
+            });
+        }
+        if (confirmBtn && logoutForm) {
+            confirmBtn.addEventListener("click", function () {
+                // GỌI ĐÚNG POST /logout
+                logoutForm.submit();
+            });
+        }
+        if (cancelBtn) {
+            cancelBtn.addEventListener("click", function () {
+                popup.style.display = "none";
+            });
+        }
+
+        // ===== Notifications dropdown =====
+        const notifBtn = document.getElementById("notif-btn");
+        const notifBox = document.getElementById("notif-box");
+
+        if (notifBtn && notifBox) {
+            notifBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                const isOpen = notifBox.style.display === "block";
+                notifBox.style.display = isOpen ? "none" : "block";
+                notifBtn.setAttribute("aria-expanded", (!isOpen).toString());
+            });
+
+            // click bên ngoài sẽ đóng dropdown
+            document.addEventListener("click", function(e) {
+                if (!notifBox.contains(e.target) && !notifBtn.contains(e.target)) {
+                    notifBox.style.display = "none";
+                    notifBtn.setAttribute("aria-expanded", "false");
+                }
+            });
+
+            // ESC để đóng
+            document.addEventListener("keydown", function(e) {
+                if (e.key === "Escape") {
+                    notifBox.style.display = "none";
+                    notifBtn.setAttribute("aria-expanded", "false");
+                }
+            });
+        }
+
+        // Debug nhanh nếu vẫn không chạy:
+        // console.log('notifBtn:', !!notifBtn, 'notifBox:', !!notifBox);
+    });
 </script>
 @endpush
 

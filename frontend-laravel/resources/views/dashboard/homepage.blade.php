@@ -43,12 +43,14 @@
                 </div>
             @else
                 @foreach($departments as $department)
-                <div class="info-box">
-                    <h3>{{ $department['DepartmentName'] }}</h3>
-                    <p class="paper-detail-description">
-                        <strong>Description: </strong>{{ $department['Description'] ?? 'No description available' }}
-                    </p>
-                </div>
+                    @if($loop->iteration <= 5)
+                        <div class="info-box">
+                            <h3>{{ $department['DepartmentName'] }}</h3>
+                            <p class="paper-detail-description">
+                                <strong>Description: </strong>{{ $department['Description'] ?? 'No description available' }}
+                            </p>
+                        </div>
+                    @endif                
                 @endforeach
             @endif
             
