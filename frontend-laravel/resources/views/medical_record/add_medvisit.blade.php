@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
 
-                                {{-- Doctor --}}
+                                {{-- Doctor
                                 <div class="form-row">
                                     <div class="form-row__flex">
                                         <div class="form-col">
@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
 
-                                {{-- Department --}}
+                                {{-- Department
                                 <div class="form-row">
                                     <div class="form-row__flex">
                                         <div class="form-col">
@@ -92,7 +92,87 @@
                                                 value="{{ $department['DepartmentName'] ?? 'N/A' }}" readonly>
                                         </div>
                                     </div>
+                                </div>--}}
+
+                                {{-- Doctor --}}
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="doctor_id" class="form-col__label">Doctor</label>
+
+                                            @if($userRole === 'STAFF')
+                                                {{-- Staff can select from dropdown --}}
+                                                <select name="doctor_id" id="doctor_id" class="form-control" required
+                                                    onchange="updateDepartment()">
+                                                    <option value="">-- Select Doctor --</option>
+                                                    @foreach($doctors as $doc)
+                                                        <option value="{{ $doc['EmployeeID'] ?? $doc['id'] }}">
+                                                            {{ $doc['EmployeeID'] ?? 'Unknown Doctor' }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            @else
+                                                {{-- Doctor role - readonly fields --}}
+                                                <input type="hidden" name="doctor_id"
+                                                    value="{{ $doctor['EmployeeID'] ?? '' }}">
+                                                <input type="text" class="form-control"
+                                                    value="{{ $doctor['FullName'] ?? 'N/A' }}" readonly>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
+
+                                {{-- Department --}}
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="department_id" class="form-col__label">Department</label>
+                                            <input type="hidden" name="department_id" id="department_id"
+                                                value="{{ $department['DepartmentID'] ?? '' }}">
+                                            <input type="text" id="department_name" class="form-control"
+                                                value="{{ $department['DepartmentName'] ?? 'N/A' }}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if($userRole === 'STAFF')
+                                    <script>
+                                        function updateDepartment() {
+                                            const doctorSelect = document.getElementById('doctor_id');
+                                            const departmentIdInput = document.getElementById('department_id');
+                                            const departmentNameInput = document.getElementById('department_name');
+
+                                            const doctorId = doctorSelect.value;
+
+                                            if (!doctorId) {
+                                                departmentIdInput.value = '';
+                                                departmentNameInput.value = 'N/A';
+                                                return;
+                                            }
+
+                                            // Show loading state
+                                            departmentNameInput.value = 'Loading...';
+
+                                            // Make AJAX request to get department
+                                            fetch(`/api/doctor/${doctorId}/department`)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success && data.department) {
+                                                        departmentIdInput.value = data.department.DepartmentID || '';
+                                                        departmentNameInput.value = data.department.DepartmentName || 'N/A';
+                                                    } else {
+                                                        departmentIdInput.value = '';
+                                                        departmentNameInput.value = 'Department not found';
+                                                    }
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error:', error);
+                                                    departmentIdInput.value = '';
+                                                    departmentNameInput.value = 'Error loading department';
+                                                });
+                                        }
+                                    </script>
+                                @endif
 
                                 {{-- Visit Date --}}
                                 <div class="form-row">

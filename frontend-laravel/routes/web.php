@@ -88,6 +88,8 @@ Route::get('/medical_record/detail_medvisit_staff/{id}', [PatientController::cla
 
 Route::get('/add_medvisit', [PatientController::class, 'showAddMedVisitForm'])->name('add_medvisit');
 
+Route::get('/api/doctor/{doctorId}/department', [PatientController::class, 'getDepartmentByDoctor']);
+
 Route::post('/add_medvisit', [PatientController::class, 'createMedVisit'])->name('add_medvisit.post');
 
 Route::get('patient/detail_patient/{id}', [PatientController::class, 'getDetailPatient'])->name('detail_patient');

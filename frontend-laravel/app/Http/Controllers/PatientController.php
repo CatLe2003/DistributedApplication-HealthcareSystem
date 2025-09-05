@@ -418,13 +418,21 @@ class PatientController extends Controller
             $patients = $response->json()['data'] ?? [];
         }
 
-        // Get user_id from session
+        // Get user role and ID from session
+        $userRole = session('user_role');
         $userId = session('user_id');
+        $doctors = [];
         $doctor = null;
         $department = null;
 
-        if ($userId) {
-            // Fetch doctor by user_id
+        if ($userRole === 'STAFF') {
+            // Staff can choose from all doctors
+            $doctorsResponse = Http::get("http://api_gateway/employee/doctors");
+            if ($doctorsResponse->successful()) {
+                $doctors = $doctorsResponse->json()['data'] ?? [];
+            }
+        } elseif ($userRole === 'DOCTOR' && $userId) {
+            // Doctor role - fetch current doctor's info (readonly)
             $doctorResponse = Http::get("http://api_gateway/employee/doctors/by-userid/{$userId}");
             if ($doctorResponse->successful()) {
                 $doctorData = $doctorResponse->json()['data'] ?? null;
@@ -432,7 +440,7 @@ class PatientController extends Controller
                 if ($doctorData) {
                     $doctor = $doctorData;
 
-                    // Fetch department info
+                    // Fetch department info for the doctor
                     $deptResponse = Http::get("http://api_gateway/employee/departments/{$doctorData['DepartmentID']}");
                     if ($deptResponse->successful()) {
                         $department = $deptResponse->json()['data'] ?? null;
@@ -443,9 +451,43 @@ class PatientController extends Controller
 
         return view('medical_record.add_medvisit', [
             'patients' => $patients,
+            'doctors' => $doctors,
             'doctor' => $doctor,
             'department' => $department,
+            'userRole' => $userRole,
         ]);
+    }
+
+    public function getDepartmentByDoctor($doctorId)
+    {
+        try {
+            // First get doctor info to get department ID
+            $doctorResponse = Http::get("http://api_gateway/employee/doctors/{$doctorId}");
+            if (!$doctorResponse->successful()) {
+                return response()->json(['error' => 'Doctor not found'], 404);
+            }
+
+            $doctorData = $doctorResponse->json()['data']['speciality'] ?? null;
+            if (!$doctorData || !isset($doctorData['DepartmentID'])) {
+                return response()->json(['error' => 'Department ID not found'], 404);
+            }
+
+            // Get department info
+            $deptResponse = Http::get("http://api_gateway/employee/departments/{$doctorData['DepartmentID']}");
+            if (!$deptResponse->successful()) {
+                return response()->json(['error' => 'Department not found'], 404);
+            }
+
+            $department = $deptResponse->json()['data'] ?? null;
+
+            return response()->json([
+                'success' => true,
+                'department' => $department
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error'], 500);
+        }
     }
 
     public function createMedVisit(Request $request)
