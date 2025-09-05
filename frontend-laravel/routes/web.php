@@ -122,7 +122,7 @@ Route::get('/update_prescription', function () {
 
 Route::get('/patient/detail_prescription/{id}', [PatientController::class, 'getPrescriptionDetail'])->name('detail_prescription');
 
-Route::get('/appointment_management', [AppointmentController::class, 'getAllAppointments'])->name('appointment_management.staff');
+Route::get('/appointment_management_staff', [AppointmentController::class, 'getAllAppointments'])->name('appointment_management.staff');
 
 Route::get('/add_appointment', function () {
     return view('appointment.add_appt_staff');

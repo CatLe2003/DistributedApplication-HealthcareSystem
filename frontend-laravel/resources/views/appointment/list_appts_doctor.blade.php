@@ -48,7 +48,6 @@
                                         <th class="text-column" scope="col">Timeslot</th>
                                         <th class="text-column" scope="col">Room</th>
                                         <th class="text-column" scope="col">Status</th>
-                                        <th class="text-column" scope="col">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-body">
@@ -65,9 +64,9 @@
                                                 {{ \Carbon\Carbon::parse($appt['AppointmentDate'])->format('d/m/Y') }}</th>
                                             <th class="text-column" scope="col">{{ $appt['TimeSlotID'] }}</th> {{-- Replace
                                             with timeslot label if needed --}}
-                                            <th class="text-column" scope="col">{{ $appt['RoomID'] }}</th> {{-- Replace with
-                                            room name if needed --}}
-                                            <th class="text-column" scope="row">
+                                            <th class="text-column" scope="col">{{ $appt['RoomID'] }}</th>
+                                            <th class="text-column" scope="col">{{ $appt['Status'] }}</th> 
+                                            {{-- <th class="text-column" scope="row">
                                                 @if($appt['Status'] === 'pending')
                                                     <span class="badge badge-success">Pending</span>
                                                 @elseif($appt['Status'] === 'completed')
@@ -89,7 +88,7 @@
                                                         </form>
                                                     @endif
                                                 </div>
-                                            </th>
+                                            </th> --}}
                                         </tr>
                                     @empty
                                         <tr>
