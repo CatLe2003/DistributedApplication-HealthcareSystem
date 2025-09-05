@@ -30,10 +30,11 @@
                 <div class="container-recent">
                     <div class="container-recent-inner">
                         <div class="container-recent__heading heading__button">
-                            <a href="{{ url('add_appointment') }}" class="btn-control btn-control-add">
+                            {{-- <a href="{{ url('add_appointment') }}" class="btn-control btn-control-add">
                                 <i class="fa-solid fa-calendar btn-control-icon"></i>
                                 Add new appointment
-                            </a>
+                            </a> --}}
+                            <p class="recent__heading-title">Appointments</p>
                         </div>
 
                         <div class="table-responsive">
