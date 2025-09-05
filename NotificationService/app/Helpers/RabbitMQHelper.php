@@ -4,6 +4,8 @@ namespace App\Helpers;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use Illuminate\Support\Facades\Log;
+use App\Models\Notification;
 
 class RabbitMQHelper
 {
@@ -32,6 +34,65 @@ class RabbitMQHelper
             $connection->close();
         } catch (\Exception $e) {
             \Log::error("RabbitMQ error: " . $e->getMessage());
+        }
+    }
+
+    public static function consume($queue)
+    {
+        try {
+            $connection = new AMQPStreamConnection(
+                env('RABBITMQ_HOST'),
+                env('RABBITMQ_PORT'),
+                env('RABBITMQ_USER'),
+                env('RABBITMQ_PASSWORD'),
+                env('RABBITMQ_VHOST')
+            );
+            $channel = $connection->channel();
+
+            $channel->queue_declare($queue, false, true, false, false);
+
+            Log::info(" [*] Waiting for messages in queue: {$queue}");
+
+            $callback = function ($msg) use ($channel) {
+                Log::info(" [x] Received: " . $msg->body);
+
+                $data = json_decode($msg->body, true);
+
+                if ($data) {
+                    // Tạo notification dựa trên message nhận được
+                    $notification = [
+                        'recipientId' => "PATIENT" . $data['patient_id'],
+                        'type'        => "AppointmentReminder",
+                        'title'       => "Appointment Reminder",
+                        'message'     => "You have appointment at " . $data['appointment_time'],
+                        'metadata'    => json_encode($data),
+                        'status'      => "pending",
+                        'sentAt'      => $data['notify_time'],
+                    ];
+
+                    // Lưu vào MongoDB
+                    Notification::create($notification);
+
+                    Log::info(" [✓] Notification created: " . json_encode($notification));
+                }
+
+                // \Mail::to('user@example.com')->send(new \App\Mail\AppointmentReminderMail($data));
+
+                // echo " [x] Processed message: ", $msg->body, "\n";
+                $channel->basic_ack($msg->delivery_info['delivery_tag']);
+            };
+
+            $channel->basic_consume($queue, '', false, false, false, false, $callback);
+
+            while (count($channel->callbacks)) {
+                $channel->wait();
+            }
+
+            $channel->close();
+            $connection->close();
+
+        } catch (\Exception $e) {
+            Log::error("RabbitMQ consume error: " . $e->getMessage());
         }
     }
 }
