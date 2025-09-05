@@ -78,7 +78,7 @@ class ScheduledReminder
         );
     }
 
-    public function publishDelayedNotification($patientId, $appointmentTime)
+    public function publishDelayedNotification($data, $appointmentTime)
     {
         // Test : Send message after 1 minute
         $delay = 1 * 60 * 1000; // ms
@@ -90,10 +90,14 @@ class ScheduledReminder
             $delay = 0;
         }
 
+        $patientId = $data['PatientID'];
+
         $messageData = [
             'patient_id'       => $patientId,
+            'doctor_id'       => $data['DoctorID'],
+            'room_id'        => $data['RoomID'],
             'appointment_time' => $appointmentTime,
-            'notify_time'      => date('Y-m-d H:i:s', $notifyTime)
+            'notify_time'      => date('Y-m-d H:i:s', (time() + $delay / 1000))
         ];
 
         $msg = new AMQPMessage(json_encode($messageData), [

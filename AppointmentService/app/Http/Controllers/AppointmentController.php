@@ -83,7 +83,7 @@ class AppointmentController extends Controller
 
             // Gọi Reminder Service
             $reminder = new ScheduledReminder();
-            $reminder->publishDelayedNotification($data['PatientID'], $appointmentTime);
+            $reminder->publishDelayedNotification($data, $appointmentTime);
 
 
             return response()->json([
