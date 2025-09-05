@@ -8,12 +8,36 @@ use Illuminate\Http\Request;
 use App\Services\AppointmentService;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Helpers\ScheduledReminder;
 
 class AppointmentController extends Controller
 {
 
     protected $appointmentService;
 
+    private function mapTimeSlot($timeSlotId)
+    {
+        $map = [
+            1 => '09:00:00',
+            2 => '09:30:00',
+            3 => '10:00:00',
+            4 => '10:30:00',
+            5 => '11:00:00',
+            6 => '13:00:00',
+            7 => '13:30:00',
+            8 => '14:00:00',
+            9 => '14:30:00',
+            10 => '15:00:00',
+            11 => '15:30:00',
+            12 => '16:00:00',
+            13 => '16:30:00',
+            14 => '17:00:00',
+            15 => '17:30:00',
+        ];
+
+        return $map[$timeSlotId] ?? '09:00:00';
+    }
+    
     public function __construct(AppointmentService $appointmentService)
     {
         $this->appointmentService = $appointmentService;
@@ -54,6 +78,13 @@ class AppointmentController extends Controller
             $this->appointmentService->validateEntities($data);
 
             $appointment = Appointment::create($data);
+
+            $appointmentTime = $data['AppointmentDate'] . ' ' . $this->mapTimeSlot($data['TimeSlotID']);
+
+            // Gọi Reminder Service
+            $reminder = new ScheduledReminder();
+            $reminder->publishDelayedNotification($data['PatientID'], $appointmentTime);
+
 
             return response()->json([
                 'message' => 'Appointment created successfully',
