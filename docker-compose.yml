@@ -143,6 +143,19 @@ services:
              php artisan migrate --force &&
              php artisan serve --host=0.0.0.0 --port=8000"
 
+# -------------------------
+  # Notification Service
+  # -------------------------
+  notification_service:
+    build: ./NotificationService
+    container_name: notification_service
+    ports:
+      - "8005:8000"
+    volumes:
+      - ./NotificationService:/var/www
+    command: >
+      sh -c "composer install --ignore-platform-reqs &&
+           php artisan serve --host=0.0.0.0 --port=8000"
 
   # -------------------------
   # Log Service

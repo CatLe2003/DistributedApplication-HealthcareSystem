@@ -55,9 +55,9 @@ class AuthenticationController extends Controller
             switch ($role) {
                 case 'DOCTOR':
                     Log::info('Doctor user logged in:', ['user' => $data['user']]);
-                    return redirect()->route('profile_employee')->with('success', 'Welcome back!');
+                    return redirect()->route('profile_doctor')->with('success', 'Welcome back!');
                     break;
-                case 'EMPLOYEE':
+                case 'STAFF':
                     Log::info('Employee user logged in:', ['user' => $data['user']]);
                     return redirect()->route('profile_employee')->with('success', 'Welcome back!');
                     break;

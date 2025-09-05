@@ -29,17 +29,19 @@
             @if(!empty($medical_visits) && count($medical_visits) > 0)
                 <div class="record-grid">
                     @foreach($medical_visits as $visit)
-                        <a href="{{ url('medical_record/detail_medrecord/' . $visit['id']) }}" class="record-card" tabindex="0">
+                        @if($loop->iteration <= 5)
+                            <a href="{{ url('medical_record/detail_medrecord/' . $visit['id']) }}" class="record-card" tabindex="0">
 
-                            <div class="record-title">Visit on
-                                {{ \Carbon\Carbon::parse($visit['visit_date'])->format('d/m/Y') }}</div>
-                            <p class="paper-detail-description"><strong>Department:</strong>
-                                {{ $visit['department_name'] ?? 'N/A' }}</p>
-                            <p class="paper-detail-description"><strong>Doctor:</strong> {{ $visit['doctor_name'] ?? 'N/A' }}
-                            </p>
-                            <p class="paper-detail-description"><strong>Visit Date:</strong>
-                                {{ \Carbon\Carbon::parse($visit['visit_date'])->format('d/m/Y (H:i)') }}</p>
-                        </a>
+                                <div class="record-title">Visit on
+                                    {{ \Carbon\Carbon::parse($visit['visit_date'])->format('d/m/Y') }}</div>
+                                <p class="paper-detail-description"><strong>Department:</strong>
+                                    {{ $visit['department_name'] ?? 'N/A' }}</p>
+                                <p class="paper-detail-description"><strong>Doctor:</strong> {{ $visit['doctor_name'] ?? 'N/A' }}
+                                </p>
+                                <p class="paper-detail-description"><strong>Visit Date:</strong>
+                                    {{ \Carbon\Carbon::parse($visit['visit_date'])->format('d/m/Y (H:i)') }}</p>
+                            </a>
+                        @endif                
                     @endforeach
                 </div>
             @endif

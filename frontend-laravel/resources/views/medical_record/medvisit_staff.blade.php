@@ -19,7 +19,7 @@
 
 <body>
     <!-- Sidebar -->
-    @include('components.sidebar_employee')
+    @include('components.sidebar_' . (session('user_role', 'admin')))
     <!-- Main content -->
     <div class="main-content">
         <div class="content">
@@ -30,10 +30,10 @@
                 <div class="container-recent">
                     <div class="container-recent-inner">
                         <div class="container-recent__heading heading__button">
-                            <!-- <a href="add_paitents.html" class="btn-control btn-control-add">
-                                <i class="fa-solid fa-bed-pulse btn-control-icon"></i>
-                                Add new paitent
-                            </a> -->
+                             <a href="{{ url('add_medvisit') }}" class="btn-control btn-control-add">
+                                <i class="fa-solid fa-calendar btn-control-icon"></i>
+                                Add new medical visit
+                            </a>
                             <p class="recent__heading-title">Medical Visits</p>
                             <div class="container__heading-search">
                                 <input type="text" class="heading-search__area"

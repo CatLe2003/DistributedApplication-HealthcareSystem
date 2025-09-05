@@ -19,7 +19,7 @@
 
 <body>
     <!-- Sidebar -->
-    @include('components.sidebar_employee')
+    @include('components.sidebar_' . (session('user_role', 'admin')))
     <!-- Main content -->
     <div class="main-content">
         <div class="content">
@@ -30,10 +30,10 @@
                 <div class="container-recent">
                     <div class="container-recent-inner">
                         <div class="container-recent__heading heading__button">
-                            <!-- <a href="add_paitents.html" class="btn-control btn-control-add">
+                            {{-- <a href={{--"add_patients.html" class="btn-control btn-control-add">
                                 <i class="fa-solid fa-bed-pulse btn-control-icon"></i>
-                                Add new paitent
-                            </a> -->
+                                Add new patient
+                            </a> --}}
                             <p class="recent__heading-title">Patients</p>
                             <div class="container__heading-search">
                                 <input type="text" class="heading-search__area"
@@ -71,11 +71,11 @@
                                             <th class="text-column" scope="row">{{ $patient['date_of_birth'] ?? 'N/A' }}</th>
                                             <th class="text-column" scope="row">
                                                 <div class="text-column__action">
-                                                    <a href="#" class="btn-control btn-control-delete">
+                                                    <!-- <a href="#" class="btn-control btn-control-delete">
                                                         <i class="fa-solid fa-trash-can btn-control-icon"></i>
                                                         Delete
-                                                    </a>
-                                                    <a href="{{-- url('detail_patient/' . $patient['id']) --}}"
+                                                    </a> -->
+                                                    <a href="{{ url('patient/detail_patient/' . $patient['id']) }}" 
                                                         class="btn-control btn-control-edit">
                                                         <i class="fa-solid fa-user-pen btn-control-icon"></i>
                                                         View Detail

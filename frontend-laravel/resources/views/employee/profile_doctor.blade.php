@@ -15,7 +15,7 @@
 
 <body>
     <!-- Sidebar -->
-    @include('components.sidebar_staff')    
+    @include('components.sidebar_doctor')    
     <!-- Main content -->
     <div class="main-content">
         <div class="content">
@@ -47,7 +47,7 @@
                                         <div class="form-small">
                                             <div class="form-col margin-0">
                                                 <label for="" class="form-col__label">Email Address</label>
-                                                <input type="text" name="customer_email" class="form-control" value="staff@mail.com">
+                                                <input type="text" name="customer_email" class="form-control" value="doctor@mail.com">
                                             </div>
 
                                             <br class="">
@@ -139,9 +139,9 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <p class="recent__heading-title margin-0">Staff</p>
+                                <p class="recent__heading-title margin-0">Doctor</p>
                                 <div class="text__profile-email">
-                                    staff@mail.com
+                                    doctor@mail.com
                                 </div>
                             </div>
                             

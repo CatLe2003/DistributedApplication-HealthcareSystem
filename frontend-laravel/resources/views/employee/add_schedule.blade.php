@@ -7,6 +7,7 @@
     <title>Profile - LifeCare</title>
     <link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -19,7 +20,7 @@
 
 <body>
     <!-- Sidebar -->
-    @include('components.sidebar_employee')
+    @include('components.sidebar_' . (session('user_role', 'admin')))
     <!-- Main content -->
     <div class="main-content">
         <div class="content">
@@ -39,8 +40,8 @@
                             <div class="alert alert-success">{{ session('success') }}</div>
                         @endif
                         @if ($errors->any())
-                            <div class="alert alert-danger" style="margin-bottom:12px">
-                                <ul style="margin:0; padding-left:18px">
+                            <div class="alert alert-danger">
+                                <ul>
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach

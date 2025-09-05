@@ -83,7 +83,7 @@ class AppointmentController extends Controller
             }
         }
 
-        return view('appointment.list_appts_staff', [
+        return view('appointment.list_appts_doctor', [
             'appointments' => $appointments,
             'title' => 'View Appointments - LifeCare'
         ]);
@@ -170,5 +170,21 @@ class AppointmentController extends Controller
             return back()->withErrors(['error' => 'An unexpected error occurred. Please try again.'])->withInput();
         }
   
+    }
+
+    public function getAllAppointments(Request $request)
+    {
+        $appointments = [];
+
+        $appointmentResponse = Http::get("http://api_gateway/appointment/appointments");
+
+                if ($appointmentResponse->successful()) {
+                    $appointments = $appointmentResponse->json()['data'] ?? [];
+                }
+
+        return view('appointment.list_appts_staff', [
+            'appointments' => $appointments,
+            'title' => 'View Appointments - LifeCare'
+        ]);
     }
 }
