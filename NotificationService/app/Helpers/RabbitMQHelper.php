@@ -59,26 +59,80 @@ class RabbitMQHelper
                 $data = json_decode($msg->body, true);
 
                 if ($data) {
-                    // Tạo notification dựa trên message nhận được
+                    
+                    //Get Doctor and Room names from Employee Service
+                    $doctorName = 'N/A';
+                    $roomName = 'N/A';
+                    if (!empty($data['doctor_id'])) {
+                        try {
+                            $response = \Illuminate\Support\Facades\Http::get("http://api_gateway/employee/employees/{$data['doctor_id']}");
+                            if ($response->successful()) {
+                                $doctorData = $response->json();
+                                $doctorName = $doctorData['data']['FullName'] ?? 'N/A';
+                            }
+                        } catch (\Exception $e) {
+                            Log::error("Failed to fetch doctor name: " . $e->getMessage());
+                        }
+                    }
+
+                    if (!empty($data['room_id'])) {
+                        try {
+                            $response = \Illuminate\Support\Facades\Http::get("http://api_gateway/employee/rooms/{$data['room_id']}");
+                            if ($response->successful()) {
+                                $roomData = $response->json();
+                                $roomName = $roomData['data']['RoomName'] ?? 'N/A';
+                            }
+                        } catch (\Exception $e) {
+                            Log::error("Failed to fetch room name: " . $e->getMessage());
+                        }
+                    }
+
+                    // Get Patient info from Patient 
+                    $patientName = 'N/A';
+                    $patientEmail = 'N/A';
+
+                    if (!empty($data['patient_id'])) {
+                        try {
+                            $response = \Illuminate\Support\Facades\Http::get("http://api_gateway/patient/get-patient/{$data['patient_id']}");
+                            if ($response->successful()) {
+                                $patientData = $response->json();
+                                $patientName = $patientData['data']['full_name'] ?? 'N/A';
+                                $patientEmail = $patientData['data']['email'] ?? 'N/A';
+                            }
+                        } catch (\Exception $e) {
+                            Log::error("Failed to fetch patient name: " . $e->getMessage());
+                        }
+                    }
+
+                    // Send email using Laravel Mail
+                    try {
+                        \Illuminate\Support\Facades\Mail::send([], [], function ($message) use ($patientEmail, $patientName, $doctorName, $roomName, $data) {
+                            $message->to($patientEmail, $patientName)
+                                ->subject('Appointment Reminder')
+                                ->setBody("Dear {$patientName},<br><br>This is a reminder for your upcoming appointment with Dr. {$doctorName} in room {$roomName}.<br><br>Time: {$data['appointment_time']}<br><br>Thank you,<br>LifeCare Team", 'text/html');
+                        });
+                        Log::info(" [✓] Email sent to {$patientEmail}");
+                    } catch (\Exception $e) {
+                        Log::error("Failed to send email: " . $e->getMessage());
+                    }
+
+                    // Create notification record in the database
                     $notification = [
                         'recipientId' => "PATIENT" . $data['patient_id'],
                         'type'        => "AppointmentReminder",
                         'title'       => "Appointment Reminder",
-                        'message'     => "You have appointment at " . $data['appointment_time'],
+                        'message'     => "You have an appointment with Dr. ".$doctorName. " in room " . $roomName,
+                        'time'     => "Time: " . $data['appointment_time'],
                         'metadata'    => json_encode($data),
-                        'status'      => "pending",
+                        'status'      => "Approved",
                         'sentAt'      => $data['notify_time'],
                     ];
 
-                    // Lưu vào MongoDB
                     Notification::create($notification);
 
                     Log::info(" [✓] Notification created: " . json_encode($notification));
                 }
 
-                // \Mail::to('user@example.com')->send(new \App\Mail\AppointmentReminderMail($data));
-
-                // echo " [x] Processed message: ", $msg->body, "\n";
                 $channel->basic_ack($msg->delivery_info['delivery_tag']);
             };
 
