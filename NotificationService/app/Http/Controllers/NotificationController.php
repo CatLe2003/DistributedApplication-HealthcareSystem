@@ -6,6 +6,15 @@ use App\Models\Notification;
 
 class NotificationController extends Controller
 {
+    public function index()
+    {
+        try {
+            $notifications = Notification::all();
+            return response()->json(['success' => true, 'data' => $notifications], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to retrieve notifications'], 500);
+        }
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -44,5 +53,35 @@ class NotificationController extends Controller
     }
 
     return response()->json($notification);
+    }
+
+    public function getNotificationsByPatientId(Request $request)
+    {
+        try {
+            $request->validate([
+                'id' => 'required|integer',
+            ]);
+
+            $patientId = $request->query('id');
+
+            $notifications = Notification::where('PatientId', $patientId)
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Notifications fetched successfully',
+                'data' => $notifications
+            ], 200);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'error' => $e->errors()
+            ], 422);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Failed to fetch appointments',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }       
