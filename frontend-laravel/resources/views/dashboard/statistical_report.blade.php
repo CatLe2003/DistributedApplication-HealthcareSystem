@@ -89,11 +89,11 @@
                                             <th class="text-column" scope="row">{{ $patient['date_of_birth'] ?? 'N/A' }}</th>
                                             <th class="text-column" scope="row">
                                                 <div class="text-column__action">
-                                                    <a href="#" class="btn-control btn-control-delete">
+                                                    <!-- <a href="#" class="btn-control btn-control-delete">
                                                         <i class="fa-solid fa-trash-can btn-control-icon"></i>
                                                         Delete
-                                                    </a>
-                                                    <a href="#" class="btn-control btn-control-edit">
+                                                    </a> -->
+                                                    <a href="{{ url('patient/detail_patient/' . $patient['id']) }}" class="btn-control btn-control-edit">
                                                         <i class="fa-solid fa-user-pen btn-control-icon"></i>
                                                         View Detail
                                                     </a>

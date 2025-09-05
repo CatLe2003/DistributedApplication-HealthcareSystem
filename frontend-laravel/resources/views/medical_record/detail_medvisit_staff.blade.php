@@ -88,27 +88,28 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <br class="">
+
+                                <div class="form-row">
+                                    <div class="form-col margin-0">
+                                        <div class="form-col-bottom">
+                                            <a href="{{ route('add_prescription', ['visit_id' => $medicalVisit['id']]) }}"
+                                                class="btn-control btn-control-add">
+                                                <i class="fa-solid fa-pills btn-control-icon"></i>
+                                                Add new prescription
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-col margin-0">
-                                <a href="{{ route('add_prescription', ['visit_id' => $medicalVisit['id']]) }}"
-                                    class="btn-control btn-control-add">
-                                    <i class="fa-solid fa-pills btn-control-icon"></i>
-                                    Add new prescription
-                                </a>
-                            </div>
-                        </div>
-                        <br class="">
-
-                        </form>
                     </div>
-
                 </div>
-            </div>
+            </div>  
+            @include('components.footer_employee')
         </div>
-        @include('components.footer_employee')
-    </div>
     </div>
     <!-- Argon Scripts -->
 

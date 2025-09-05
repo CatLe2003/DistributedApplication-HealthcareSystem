@@ -160,8 +160,8 @@
 
                 </div>
             </div>
-        </div>
-        @include('components.footer_employee')
+            @include('components.footer_employee')
+       </div>
     </div>
     <!-- Argon Scripts -->
 
