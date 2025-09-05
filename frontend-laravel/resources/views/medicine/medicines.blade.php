@@ -83,10 +83,10 @@
                                                 <td class="text-column">{{ $medicine['Status'] ?? '-' }}</td>
                                                 <td class="text-column">
                                                     <div class="text-column__action">
-                                                        <!-- <a href="{{ url('delete_medicine/'.$medicine['MedicineID']) }}" class="btn-control btn-control-delete" onclick="return confirm('Delete this medicine?')">
-                                                            <i class="fa-solid fa-trash btn-control-icon"></i>
-                                                            Delete
-                                                        </a> -->
+                                                        <a href="{{ url('update_medicine/'.$medicine['MedicineID']) }}" class="btn-control btn-control-edit">
+                                                        <i class="fa-solid fa-user-pen btn-control-icon"></i>
+                                                            Update
+                                                        </a> 
                                                     <form action="{{ route('medicine.delete', $medicine['MedicineID']) }}" method="POST" onsubmit="return confirm('Delete this medicine?')">
                                                         @csrf
                                                         @method('DELETE')
