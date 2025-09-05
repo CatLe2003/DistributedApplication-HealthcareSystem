@@ -137,6 +137,10 @@ Route::get('/add_medicine', [MedicalCatalogController::class, 'showAddMedicineFo
 
 Route::post('/add_medicine', [MedicalCatalogController::class, 'addMedicine'])->name('medicine.add');
 
+Route::get('/update_medicine/{id}', [MedicalCatalogController::class, 'getMedicineBeforeUpdate'])->name('get_medicine');
+
+Route::patch('/update_medicine/{id}', [MedicalCatalogController::class, 'updateMedicine'])->name('medicine.update');
+
 Route::delete('/delete_medicine/{id}', [MedicalCatalogController::class, 'deleteMedicine'])->name('medicine.delete');
 
 Route::get('/statistical_report', [PatientController::class, 'getStatisticalReport'])->name('statistical_report');
