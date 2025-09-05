@@ -23,7 +23,7 @@ class PublishRabbitMQLog
 
             RabbitMQHelper::publish('log_exchange', [
                 'event' => $request->method() . ' ' . $request->path(),
-                'service' => 'AuthenticationService',
+                'service' => 'AppointmentService',
                 'ipAddress' => $request->ip(),
                 'level' => $level,
                 'status' => $status,
