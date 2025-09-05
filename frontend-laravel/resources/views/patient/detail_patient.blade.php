@@ -19,7 +19,7 @@
 
 <body>
     <!-- Sidebar -->
-    @include('components.sidebar_employee')
+    @include('components.sidebar_' . (session('user_role', 'admin')))
     <!-- Main content -->
     <div class="main-content">
         <div class="content">
@@ -34,81 +34,90 @@
                         </div>
 
                         <div class="container-recent__body card__body-form">
-                            <!-- Patient Info -->
-                            <div class="form-row">
-                                <div class="form-row__flex">
-                                    <div class="form-col">
-                                        <label class="form-col__label">Full Name</label>
-                                        <input type="text" class="form-control"
-                                            value="{{ $patient['full_name'] ?? '' }}" readonly>
-                                    </div>
-                                    <div class="form-col">
-                                        <label class="form-col__label">Phone Number</label>
-                                        <input type="text" class="form-control"
-                                            value="{{ $patient['phone_number'] ?? '' }}" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-row__flex">
-                                    <div class="form-col">
-                                        <label class="form-col__label">Date of Birth</label>
-                                        <input type="text" class="form-control"
-                                            value="{{ $patient['date_of_birth'] ?? '' }}" readonly>
-                                    </div>
-                                    <div class="form-col">
-                                        <label class="form-col__label">Gender</label>
-                                        <input type="text" class="form-control" value="{{ $patient['gender'] ?? '' }}"
-                                            readonly>
+                            <form method="POST" action="{{ route('detail_patient.update', $patient['id']) }}" class="search-form">
+                                @csrf
+                                <!-- Patient Info -->
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label class="form-col__label">Full Name</label>
+                                            <input type="text" class="form-control"
+                                                value="{{ $patient['full_name'] ?? '' }}" readonly>
+                                        </div>
+                                        <div class="form-col">
+                                            <label class="form-col__label">Phone Number</label>
+                                            <input type="text" class="form-control"
+                                                value="{{ $patient['phone_number'] ?? '' }}" readonly>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-row__flex">
-                                    <div class="form-col">
-                                        <label for="" class="form-col__label">Address</label>
-                                        <input type="text" name="address" class="form-control"
-                                            value="{{ $patient['address'] ?? '' }}" readonly>
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label class="form-col__label">Date of Birth</label>
+                                            <input type="text" class="form-control"
+                                                value="{{ $patient['date_of_birth'] ?? '' }}" readonly>
+                                        </div>
+                                        <div class="form-col">
+                                            <label class="form-col__label">Gender</label>
+                                            <input type="text" class="form-control" value="{{ $patient['gender'] ?? '' }}"
+                                                readonly>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-row__flex">
-                                    <div class="form-col">
-                                        <label class="form-col__label">Occupation</label>
-                                        <input type="text" class="form-control"
-                                            value="{{ $patient['occupation'] ?? '' }}" readonly>
-                                    </div>
-                                    <div class="form-col">
-                                        <label class="form-col__label">Nationality</label>
-                                        <input type="text" class="form-control" value="{{ $patient['nationality'] ?? '' }}"
-                                            readonly>
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Address</label>
+                                            <input type="text" name="address" class="form-control"
+                                                value="{{ $patient['address'] ?? '' }}" readonly>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-row__flex">
-                                    <div class="form-col">
-                                        <label class="form-col__label">Email</label>
-                                        <input type="text" class="form-control"
-                                            value="{{ $patient['email'] ?? '' }}" readonly>
-                                    </div>
-                                    <div class="form-col">
-                                        <label class="form-col__label">Citizen ID</label>
-                                        <input type="text" class="form-control" value="{{ $patient['citizen_id'] ?? '' }}"
-                                            readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-row__flex">
-                                    <div class="form-col">
-                                        <label for="" class="form-col__label">Allergy</label>
-                                        <input type="text" name="allergy" class="form-control"
-                                            value="{{ $patient['allergy'] ?? '' }}" readonly>
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label class="form-col__label">Occupation</label>
+                                            <input type="text" class="form-control"
+                                                value="{{ $patient['occupation'] ?? '' }}" readonly>
+                                        </div>
+                                        <div class="form-col">
+                                            <label class="form-col__label">Nationality</label>
+                                            <input type="text" class="form-control" value="{{ $patient['nationality'] ?? '' }}"
+                                                readonly>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label class="form-col__label">Email</label>
+                                            <input type="text" class="form-control"
+                                                value="{{ $patient['email'] ?? '' }}" readonly>
+                                        </div>
+                                        <div class="form-col">
+                                            <label class="form-col__label">Citizen ID</label>
+                                            <input type="text" class="form-control" value="{{ $patient['citizen_id'] ?? '' }}"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-row__flex">
+                                        <div class="form-col">
+                                            <label for="" class="form-col__label">Allergy</label>
+                                            <div style="display: flex; gap: 10px;">
+                                                <input type="text" name="allergy" class="form-control"
+                                                    value="{{ $patient['allergy'] ?? '' }}" style="flex: 1;">
+                                                <button type="submit" class="btn-control btn-control-add">
+                                                    <i class="fa-solid fa-floppy-disk btn-control-icon"></i>
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <br class="clear">

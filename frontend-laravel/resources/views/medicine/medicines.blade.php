@@ -15,7 +15,8 @@
 
 <body>
     <!-- Sidebar -->
-    @include('components.sidebar_employee')    
+    @include('components.sidebar_' . (session('user_role', 'admin')))
+
     <!-- Main content -->
     <div class="main-content">
         <div class="content">

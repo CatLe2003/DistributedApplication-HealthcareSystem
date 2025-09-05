@@ -64,9 +64,9 @@ Route::get('/dashboard_doctor', function () {
     return view('layouts.doctor');
 })->name('dashboard_doctor');
 
-Route::get('/profile_employee', function () {
-    return view('employee.profile_employee');
-})->name('profile_employee');
+Route::get('/profile_doctor', function () {
+    return view('employee.profile_doctor');
+})->name('profile_doctor');
 
 Route::get('/patients', function () {
     return view('employee.patients');
@@ -92,9 +92,7 @@ Route::post('/add_medvisit', [PatientController::class, 'createMedVisit'])->name
 
 Route::get('patient/detail_patient/{id}', [PatientController::class, 'getDetailPatient'])->name('detail_patient');
 
-Route::get('/detail_patient', function () {
-    return view('patient.update_patient');
-});
+Route::post('patient/detail_patient/{id}', [PatientController::class, 'updateDetailPatient'])->name('detail_patient.update');
 
 Route::get('/update_medicalrecord', function () {
     return view('patient.update_medrecord');
@@ -104,7 +102,13 @@ Route::get('/add_schedule', function () {
     return view('employee.add_schedule');
 });
 
+Route::get('/appointment_management', [AppointmentController::class, 'getAppointmentsByDoctor'])->name('appointment_management');
+
 // STAFF'S UI
+Route::get('/profile_employee', function () {
+    return view('employee.profile_employee');
+})->name('profile_employee');
+
 Route::get('/prescriptions', [PatientController::class, 'getAllPrescriptions'])->name('prescriptions');
 
 Route::get('/add_prescription/{visit_id}', [PatientController::class, 'showAddForm'])
@@ -116,11 +120,9 @@ Route::get('/update_prescription', function () {
     return view('patient.update_prescription');
 });
 
-Route::get('/detail_prescription', function () {
-    return view('patient.detail_prescription');
-});
+Route::get('/patient/detail_prescription/{id}', [PatientController::class, 'getPrescriptionDetail'])->name('detail_prescription');
 
-Route::get('/appointment_management', [AppointmentController::class, 'getAppointmentsByDoctor'])->name('appointment_management');
+Route::get('/appointment_management', [AppointmentController::class, 'getAllAppointments'])->name('appointment_management.staff');
 
 Route::get('/add_appointment', function () {
     return view('appointment.add_appt_staff');

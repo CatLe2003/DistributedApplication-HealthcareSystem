@@ -30,12 +30,12 @@
                         <p class="nav-item__text">Medical Visits</p>
                     </a>
                 </li>
-                <li class="navbar-nav__item">
+                {{-- <li class="navbar-nav__item">
                     <a href="{{ url('schedule_management') }}" class="nav-item__link text-primary">
                         <i class="fa-solid fa-calendar-check nav-item__icon"></i>
                         <p class="nav-item__text">Schedule Management</p>
                     </a>
-                </li>
+                </li> --}}
                 <!-- Staff Only -->
                 <li class="navbar-nav__item">
                     <a href="{{ url('prescriptions') }}" class="nav-item__link text-primary">
@@ -44,12 +44,12 @@
                     </a>
                 </li>
                 <li class="navbar-nav__item">
-                    <a href="{{ url('appointment_management') }}" class="nav-item__link text-primary">
+                    <a href="{{ route('appointment_management.staff') }}" class="nav-item__link text-primary">
                         <i class="fa-solid fa-calendar-check nav-item__icon"></i>
                         <p class="nav-item__text">Appointments</p>
                     </a>
                 </li>
-                <!-- Admin Only -->
+                {{-- <!-- Admin Only -->
                 <li class="navbar-nav__item">
                     <a href="{{ url('medicine_management') }}" class="nav-item__link text-primary">
                         <i class="fa-solid fa-pills nav-item__icon"></i>
@@ -61,7 +61,7 @@
                         <i class="fa-solid fa-file-invoice nav-item__icon"></i>
                         <p class="nav-item__text">Statistical Report</p>
                     </a>
-                </li>
+                </li> --}}
             </ul>
 
             <hr class="navbar__divider">

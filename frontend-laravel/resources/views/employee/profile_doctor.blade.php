@@ -15,7 +15,7 @@
 
 <body>
     <!-- Sidebar -->
-    @include('components.sidebar_staff')    
+    @include('components.sidebar_doctor')    
     <!-- Main content -->
     <div class="main-content">
         <div class="content">

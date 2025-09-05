@@ -500,4 +500,86 @@ class PatientController extends Controller
 
         return view('patient.detail_patient', ['patient' => $patient, 'medicalVisits' => $medicalVisits]);
     }
+
+    public function getPrescriptionDetail($prescription_id)
+    {
+        try {
+            $prescriptionResponse = Http::get("http://api_gateway/patient/get-prescription/{$prescription_id}");
+
+            if (!$prescriptionResponse->successful()) {
+                return redirect()->back()->withErrors(['message' => 'Failed to fetch prescription details.']);
+            }
+
+            $prescriptionData = $prescriptionResponse->json();
+
+            // Create prescription object (main info)
+            $prescription = [
+                'prescription_id' => $prescriptionData['id'] ?? $prescription_id,
+                'visit_id' => $prescriptionData['visit_id'] ?? 'N/A',
+                'date' => $prescriptionData['date'] ?? 'N/A',
+                'notes' => $prescriptionData['notes'] ?? 'No notes',
+                'status' => $prescriptionData['status'] ?? 'N/A'
+            ];
+
+            // Process prescription details and fetch medicine names
+            $prescriptionDetails = [];
+            if (isset($prescriptionData['details']) && is_array($prescriptionData['details'])) {
+                foreach ($prescriptionData['details'] as $detail) {
+                    $medicineId = $detail['medicine_id'] ?? null;
+                    $medicineName = 'Unknown Medicine';
+
+                    // Fetch medicine name if medicine_id exists
+                    if ($medicineId) {
+                        try {
+                            $medicineResponse = Http::get("http://api_gateway/medical_catalog/medicines/{$medicineId}");
+
+                            if ($medicineResponse->successful()) {
+                                $medicineData = $medicineResponse->json();
+                                $medicineName = $medicineData['data']['MedicineName'];
+                            }
+                        } catch (\Exception $e) {
+                            // Log the error using Laravel's logging
+                            \Log::warning("Failed to fetch medicine name for ID {$medicineId}", [
+                                'error' => $e->getMessage(),
+                                'prescription_id' => $prescription_id
+                            ]);
+                        }
+                    }
+
+                    $prescriptionDetails[] = [
+                        'id' => $detail['id'] ?? null,
+                        'medicine_id' => $medicineId,
+                        'medicine_name' => $medicineName,
+                        'dosage' => $detail['dosage'] ?? 'N/A',
+                        'duration' => $detail['duration'] ?? 'N/A'
+                    ];
+                }
+            }
+
+            // Add details back to prescription array for the view
+            $prescription['details'] = $prescriptionDetails;
+
+            return view('patient.detail_prescription', compact('prescription', 'prescriptionDetails'));
+
+        } catch (\Exception $e) {
+            \Log::error("Error fetching prescription details", [
+                'prescription_id' => $prescription_id,
+                'error' => $e->getMessage()
+            ]);
+
+            return redirect()->back()->withErrors(['message' => 'An error occurred while loading prescription details.']);
+        }
+    }
+
+    public function updateDetailPatient(Request $request, $id)
+    {
+
+        $response = Http::put("http://api_gateway/patient/update-patient/{$id}", $request->all());
+
+        if ($response->successful()) {
+            return redirect()->back()->with('success', 'Profile updated successfully!');
+        }
+
+        return redirect()->back()->withErrors(['message' => $response->body()]);
+    }
 }

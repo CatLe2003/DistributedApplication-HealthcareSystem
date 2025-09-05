@@ -19,7 +19,7 @@
 
 <body>
     <!-- Sidebar -->
-    @include('components.sidebar_employee')
+    @include('components.sidebar_' . (session('user_role', 'admin')))
     <!-- Main content -->
     <div class="main-content">
         <div class="content">
@@ -30,11 +30,7 @@
                 <div class="container-recent">
                     <div class="container-recent-inner">
                         <div class="container-recent__heading heading__button">
-                            <a href="{{ url('add_prescription') }}" class="btn-control btn-control-add">
-                                <i class="fa-solid fa-pills btn-control-icon"></i>
-                                Add new prescription
-                            </a>
-                            <!-- <p class="recent__heading-title">Prescriptions</p> -->
+                            <p class="recent__heading-title">Prescriptions</p>
                             <form class="container__heading-search">
                                 <input type="text" class="heading-search__area" placeholder="Search by notes..." name>
                                 <button href="" class="btn-control btn-control-search">
@@ -53,8 +49,8 @@
                                         <th class="text-column-emphasis" scope="col">ID</th>
                                         <th class="text-column-emphasis" scope="col">VISIT ID</th>
                                         <th class="text-column" scope="col">Notes</th>
-                                        <th class="text-column" scope="col">Date</th>
                                         <th class="text-column" scope="col">Status</th>
+                                        <th class="text-column" scope="col">Date</th>
                                         <th class="text-column" scope="col">ACTION</th>
                                     </tr>
                                 </thead>
@@ -72,12 +68,12 @@
                                                 <th class="text-column" scope="row">{{ $prescription['date'] ?? 'N/A' }}</th>
                                                 <th class="text-column" scope="row">
                                                     <div class="text-column__action">
-                                                        <a href="{{ url('update_prescription') }}"
+                                                        {{-- <a href="{{ url('update_prescription') }}"
                                                             class="btn-control btn-control-delete">
                                                             <i class="fa-solid fa-square-check btn-control-icon"></i>
                                                             Update
-                                                        </a>
-                                                        <a href="{{ url('detail_prescription') }}"
+                                                        </a> --}}
+                                                        <a href="{{ url('patient/detail_prescription/' . $prescription['id']) }}"
                                                             class="btn-control btn-control-edit">
                                                             <i class="fa-solid fa-user-pen btn-control-icon"></i>
                                                             View Detail
