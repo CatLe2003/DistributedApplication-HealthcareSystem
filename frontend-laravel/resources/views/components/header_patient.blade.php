@@ -1,3 +1,4 @@
+
 <header class="nav-container">
     <div class="nav-left">
         <img src="{{ asset('assets/images/smile-2_removebg.png') }}" alt="Smile.png" class="nav-header__logo">
@@ -20,15 +21,13 @@
         <div class="notification-dropdown">
             <button id="notif-btn" class="btn-header">
                 <i class="fa-solid fa-bell"></i>
-                <span id="notif-count" class="notif-badge">3</span> <!-- ví dụ có 3 thông báo -->
+                <span id="notif-count" class="notif-badge">0</span>
             </button>
 
             <div id="notif-box" class="dropdown-notif" style="display:none">
                 <h4>Appointment Notifications</h4>
-                <ul>
-                    <li>📅 2025-09-05: Appointment with Dr. Smith at 10:00</li>
-                    <li>📅 2025-09-07: Appointment with Dr. Tanaka at 14:00</li>
-                    <li>📅 2025-09-10: Appointment with Dr. Nguyen at 09:30</li>
+                <ul id="notif-list" class="notif-list">
+
                 </ul>
                 <a href="{{ url('appointment/list_appts') }}" class="view-all">View All &gt;&gt;</a>
             </div>
@@ -130,6 +129,33 @@
         // Debug nhanh nếu vẫn không chạy:
         // console.log('notifBtn:', !!notifBtn, 'notifBox:', !!notifBox);
     });
+    document.addEventListener("DOMContentLoaded", function () {
+        const notifList = document.getElementById("notif-list");
+        const notifCount = document.getElementById("notif-count");
+
+        async function loadNotifications() {
+            try {
+                const res = await fetch("/notifications")
+                const { data: notifications } = await res.json();
+                console.log("Loaded notifications:", notifications);
+
+                notifList.innerHTML = "";
+                notifications.forEach(item => {
+                    const li = document.createElement("li");
+                    li.textContent = item.message;
+                    notifList.appendChild(li);
+                });
+
+                notifCount.textContent = notifications.length;
+                notifCount.style.display = notifications.length > 0 ? "inline-block" : "none";
+            } catch (err) {
+                console.error("Failed to load notifications", err);
+            }
+        }
+
+        loadNotifications();
+    });
+
 </script>
 @endpush
 

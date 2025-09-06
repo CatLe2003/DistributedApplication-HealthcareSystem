@@ -83,7 +83,7 @@ class ScheduledReminder
         // Test : Send message after 1 minute
         $delay = 1 * 60 * 1000; // ms
 
-        // $notifyTime = strtotime($appointmentTime) - (24 * 60 * 60); // 24 hours before appointment
+        // $notifyTime = strtotime($appointmentTime) - (24 * 60 * 60); 
         // $delay = ($notifyTime - time()) * 1000;
 
         if ($delay < 0) {

@@ -144,3 +144,16 @@ Route::patch('/update_medicine/{id}', [MedicalCatalogController::class, 'updateM
 Route::delete('/delete_medicine/{id}', [MedicalCatalogController::class, 'deleteMedicine'])->name('medicine.delete');
 
 Route::get('/statistical_report', [PatientController::class, 'getStatisticalReport'])->name('statistical_report');
+
+
+Route::get('/notifications', function () {
+    $patientId = session('patient_id');
+    $url = "http://api_gateway/notification/api/notifications/patient?id=$patientId";
+    $response = Http::get($url);
+    
+    if ($response->failed()) {
+        return response()->json([]);
+    }
+
+    return $response->json();
+});

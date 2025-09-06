@@ -39,22 +39,23 @@ class NotificationController extends Controller
             'updatedAt' => now(),
         ]);
 
-        // TODO: Trigger email sending here if needed
-
         return response()->json(['success' => true, 'notification' => $notification], 201);
     }
 
+    //GET /notifications/{id}
     public function show($id)
     {
-    $notification = \App\Models\Notification::find($id);
-
-    if (!$notification) {
-        return response()->json(['message' => 'Notification not found'], 404);
+        try {
+            $notification = Notification::findOrFail($id);
+            return response()->json(['success' => true, 'data' => $notification], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['error' => 'Notification not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to retrieve notification'], 500);
+        }
     }
 
-    return response()->json($notification);
-    }
-
+    //GET /notifications/patient?id={patientId}
     public function getNotificationsByPatientId(Request $request)
     {
         try {
@@ -62,10 +63,9 @@ class NotificationController extends Controller
                 'id' => 'required|integer',
             ]);
 
-            $patientId = $request->query('id');
+            $patientId = (int) $request->query('id');
 
-            $notifications = Notification::where('PatientId', $patientId)
-                ->get();
+            $notifications = Notification::where('recipientId', $patientId)->get();
 
             return response()->json([
                 'success' => true,
