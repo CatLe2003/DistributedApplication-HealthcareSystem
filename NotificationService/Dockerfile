@@ -16,9 +16,6 @@ RUN apt-get update && apt-get install -y \
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
-
 # Install MongoDB PHP extension
 RUN pecl install mongodb && docker-php-ext-enable mongodb
 
@@ -30,9 +27,6 @@ WORKDIR /var/www
 
 # Copy existing application directory
 COPY . .
-
-# Install dependencies
-# RUN composer install
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
