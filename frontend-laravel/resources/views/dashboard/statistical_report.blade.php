@@ -149,11 +149,11 @@
                                             <th class="text-column" scope="row">{{ $patient['date_of_birth'] ?? 'N/A' }}</th>
                                             <th class="text-column" scope="row">
                                                 <div class="text-column__action">
-                                                    <a href="#" class="btn-control btn-control-delete">
+                                                    <!-- <a href="#" class="btn-control btn-control-delete">
                                                         <i class="fa-solid fa-trash-can btn-control-icon"></i>
                                                         Delete
-                                                    </a>
-                                                    <a href="#" class="btn-control btn-control-edit">
+                                                    </a> -->
+                                                    <a href="{{ url('patient/detail_patient/' . $patient['id']) }}" class="btn-control btn-control-edit">
                                                         <i class="fa-solid fa-user-pen btn-control-icon"></i>
                                                         View Detail
                                                     </a>
@@ -192,6 +192,14 @@
                             </form>
                         </div>
 
+                        @if(request()->has('month_year') || request()->has('patient'))
+                        <div class="result-count">
+                            <p class="">
+                                {{ count($prescriptions) }} result{{ count($prescriptions) !== 1 ? 's' : '' }} found
+                            </p>
+                        </div>
+                        @endif
+
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="thead-light"> 
@@ -214,16 +222,16 @@
                                                     {{ $prescription['visit_id'] ?? 'N/A' }}
                                                 </th>
                                                 <th class="text-column" scope="row">{{ $prescription['notes'] ?? 'N/A' }}</th>
-                                                <th class="text-column" scope="row">{{ $prescription['status'] ?? 'N/A' }}</th>
                                                 <th class="text-column" scope="row">{{ $prescription['date'] ?? 'N/A' }}</th>
+                                                <th class="text-column" scope="row">{{ $prescription['status'] ?? 'N/A' }}</th>
                                                 <th class="text-column" scope="row">
                                                     <div class="text-column__action">
-                                                        <a href="{{ url('update_prescription') }}"
+                                                        <!-- <a href="{{ url('update_prescription') }}"
                                                             class="btn-control btn-control-delete">
                                                             <i class="fa-solid fa-square-check btn-control-icon"></i>
                                                             Update
-                                                        </a>
-                                                        <a href="{{ url('detail_prescription') }}"
+                                                        </a> -->
+                                                        <a href="{{ url('patient/detail_prescription/' . $prescription['id']) }}"
                                                             class="btn-control btn-control-edit">
                                                             <i class="fa-solid fa-user-pen btn-control-icon"></i>
                                                             View Detail
