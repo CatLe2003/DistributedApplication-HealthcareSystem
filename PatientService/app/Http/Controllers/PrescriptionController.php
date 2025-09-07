@@ -122,9 +122,11 @@ class PrescriptionController extends Controller
                 });
             }
 
-            // Apply date filter if provided
+            // Apply month-year filter if provided
             if ($request->has('date')) {
-                $query->whereDate('date', $request->date);
+                $date = \Carbon\Carbon::parse($request->date);
+                $query->whereMonth('date', $date->month)
+                      ->whereYear('date', $date->year);
             }
 
             $prescriptions = $query->get();
@@ -139,7 +141,10 @@ class PrescriptionController extends Controller
                 'errors' => $e->errors()
             ], 422);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to retrieve prescriptions'], 500);
+            return response()->json([
+                'message' => 'Failed to retrieve prescriptions',
+                'errors' => $e->errors()
+            ], 500);
         }
     }
 }

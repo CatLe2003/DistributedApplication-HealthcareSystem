@@ -21,6 +21,66 @@
         <div class="content">
             <!-- Top navbar -->
             @include('components.header_employee')            
+            <!-- Header Card -->
+            <div class="header">
+                <div class="container header__body">
+                    <div class="header-body__card">
+                        <div class="body__card">
+                            <div class="body__card-inner">
+                                <div class="card-inner__title">DOCTORS</div>
+                                @if(empty($doctors) || count($doctors) === 0)
+                                    <div class="card-inner__number">No doctors found.</div>
+                                @else
+                                    <div class="card-inner__number">{{ count($doctors) }}</div>
+                                @endif
+                            </div>
+                            <i class="fa-solid fa-user-doctor card__icon bg-green"></i>
+                        </div>
+                    </div>
+
+                    <div class="header-body__card">
+                        <div class="body__card">
+                            <div class="body__card-inner">
+                                <div class="card-inner__title">PATIENTS</div>
+                                @if(empty($patients) || count($patients) === 0)
+                                    <div class="card-inner__number">No patients found.</div>
+                                @else
+                                    <div class="card-inner__number">{{ count($patients) }}</div>
+                                @endif
+                            </div>
+                            <i class="fa-solid fa-users card__icon bg-danger"></i>
+                        </div>
+                    </div>
+
+                    <div class="header-body__card">
+                        <div class="body__card">
+                            <div class="body__card-inner">
+                                <div class="card-inner__title">MEDICINES</div>
+                                @if(empty($medicines) || count($medicines) === 0)
+                                    <div class="card-inner__number">No medicines found.</div>
+                                @else
+                                    <div class="card-inner__number">{{ count($medicines) }}</div>
+                                @endif
+                            </div>
+                            <i class="fa-solid fa-pills card__icon bg-update"></i>
+                        </div>
+                    </div>
+
+                    <div class="header-body__card">
+                        <div class="body__card">
+                            <div class="body__card-inner">
+                                <div class="card-inner__title">PRESCRIPTIONS</div>
+                                @if(empty($prescriptions) || count($prescriptions) === 0)
+                                    <div class="card-inner__number">No prescriptions found.</div>
+                                @else
+                                    <div class="card-inner__number">{{ count($prescriptions) }}</div>
+                                @endif
+                            </div>
+                            <i class="fa-solid fa-prescription-bottle card__icon bg-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Page content -->
             <div class="container">
                 <div class="container-recent">
@@ -89,11 +149,11 @@
                                             <th class="text-column" scope="row">{{ $patient['date_of_birth'] ?? 'N/A' }}</th>
                                             <th class="text-column" scope="row">
                                                 <div class="text-column__action">
-                                                    <!-- <a href="#" class="btn-control btn-control-delete">
+                                                    <a href="#" class="btn-control btn-control-delete">
                                                         <i class="fa-solid fa-trash-can btn-control-icon"></i>
                                                         Delete
-                                                    </a> -->
-                                                    <a href="{{ url('patient/detail_patient/' . $patient['id']) }}" class="btn-control btn-control-edit">
+                                                    </a>
+                                                    <a href="#" class="btn-control btn-control-edit">
                                                         <i class="fa-solid fa-user-pen btn-control-icon"></i>
                                                         View Detail
                                                     </a>
@@ -114,8 +174,7 @@
                     <div class="container-recent-inner">
                         <div class="container-recent__heading heading__button">
                             <p class="recent__heading-title">Prescription Statistics</p>
-                            <!-- <p class="recent__heading-title">Prescriptions</p> -->
-                            <form class="container__heading-search">
+                            <form class="container__heading-search" method="GET">
                                 <input type="month" class="heading-search__area form-control" name="month_year" id="month_year" max="{{ \Carbon\Carbon::now()->format('Y-m') }}">
                                 <select class="heading-search__area form-control" name="patient" id="patient">
                                     <option value="">Select Patient</option>
@@ -126,7 +185,7 @@
                                         <option value="">No patients found</option>
                                     @endforelse
                                 </select>
-                                <button class="btn-control btn-control-search" name="btn-add-schedule">
+                                <button class="btn-control btn-control-search" name="btn-add-prescfilter">
                                     <i class="fa-solid fa-filter btn-control-icon"></i>
                                     Filter
                                 </button>                        

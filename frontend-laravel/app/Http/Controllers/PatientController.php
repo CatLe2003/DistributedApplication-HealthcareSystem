@@ -300,45 +300,67 @@ class PatientController extends Controller
 
     public function getStatisticalReport(Request $request)
     {
+        // Validate filter input for prescriptions
+        $filterData = $request->validate([
+            'month_year' => 'nullable|date_format:Y-m',
+            'patient' => 'nullable',
+            'from' => 'nullable|date_format:Y-m',
+            'to' => 'nullable|date_format:Y-m',
+        ]);
+
+        // Get filter values
+        $monthYear = $filterData['month_year'] ?? null;
+        $patientId = $filterData['patient'] ?? null;
+        $from = $filterData['from'] ?? null;
+        $to = $filterData['to'] ?? null;
+
+        // Always fetch all patients and doctors for dropdowns
         $patientsResponse = Http::get('http://api_gateway/patient/get-patients');
-        $prescriptionsResponse = Http::get("http://api_gateway/patient/get-prescriptions");
         $doctorsResponse = Http::get("http://api_gateway/employee/employees");
 
-        if ($patientsResponse->successful() && $prescriptionsResponse->successful() && $doctorsResponse->successful()) {
+        // Fetch all prescriptions by default
+        $prescriptionsResponse = Http::get("http://api_gateway/patient/get-prescriptions");
+
+        $medicinesResponse = Http::get('http://api_gateway/medical_catalog/medicines');
+        // Filter prescriptions if filter button is pressed
+        $prescriptions = [];
+        if ($request->has('btn-add-prescfilter')) {
+            // Prepare filter params
+            $params = [];
+            if ($monthYear) {
+                $params['date'] = $monthYear;
+            }
+            if ($patientId && $patientId !== 'all') {
+                $params['patient_id'] = $patientId;
+            }
+            $prescriptionsFilter = Http::get("http://api_gateway/patient/get-prescriptions/filter", $params);
+            if ($prescriptionsFilter->successful()) {
+                $prescriptions = $prescriptionsFilter->json()['data'] ?? [];
+            }
+        } else {
+            if ($prescriptionsResponse->successful()) {
+                $prescriptions = $prescriptionsResponse->json()['data'] ?? [];
+            }
+        }
+
+        // Patients for patient statistics (filtered by from/to if provided)
+        $patients = [];
+        if ($patientsResponse->successful()) {
             $patients = $patientsResponse->json()['data'] ?? [];
-            $prescriptions = $prescriptionsResponse->json()['data'] ?? [];
+        }
+
+        // Doctors for dropdown
+        $doctors = [];
+        if ($doctorsResponse->successful()) {
             $doctors = $doctorsResponse->json()['data'] ?? [];
-
-            // // Build doctor id => name map
-            // $doctorMap = [];
-            // foreach ($doctors as $doctor) {
-            //     if (isset($doctor['EmployeeID']) && isset($doctor['FullName'])) {
-            //         $doctorMap[$doctor['EmployeeID']] = $doctor['FullName'];
-            //     }
-            // }
-
-            // // Build patient id => name map
-            // $patientMap = [];
-            // foreach ($patients as $patient) {
-            //     if (isset($patient['PatientID']) && isset($patient['FullName'])) {
-            //         $patientMap[$patient['PatientID']] = $patient['FullName'];
-            //     }
-            // }
-
-            return view('dashboard.statistical_report', compact('patients', 'prescriptions', 'doctors'));
         }
-
-        $errorMsg = [];
-        if (!$patientsResponse->successful()) {
-            $errorMsg[] = $patientsResponse->body();
+        // Medicines for medicine statistics
+        $medicines = [];
+        if ($medicinesResponse->successful()) {
+            $medicines = $medicinesResponse->json()['data'] ?? [];
         }
-        if (!$prescriptionsResponse->successful()) {
-            $errorMsg[] = $prescriptionsResponse->body();
-        }
-        if (!$doctorsResponse->successful()) {
-            $errorMsg[] = $doctorsResponse->body();
-        }
-        return redirect()->back()->withErrors(['message' => implode(' ', $errorMsg)]);
+        // Pass all data to view
+        return view('dashboard.statistical_report', compact('patients', 'prescriptions', 'doctors', 'medicines'));
     }
 
 
